@@ -9153,3 +9153,158 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-links a.active {
   .nav-burger { display: none !important; }
 }
 
+
+/* =============================================================
+   HERO V6 — On vire la duplication + navbar 100% transparente
+   ============================================================= */
+
+/* Cache le H1 visuellement (mais on le garde pour le SEO) */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important;
+}
+
+/* Navbar 100% transparente quand pas scrollée (sur la photo de la façade) */
+.navbar:not(.scrolled) {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+/* Le contenu du hero remonte vers le centre puisqu'il y a moins d'éléments */
+.hero-tesla-content {
+  justify-content: center !important;
+  padding: 120px 24px 60px !important;
+}
+
+/* Mise en avant : eyebrow plus visible, sous-titre plus gros */
+.hero-tesla-eyebrow {
+  font-size: 0.82rem !important;
+  letter-spacing: 0.32em !important;
+}
+.hero-tesla-sub {
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem) !important;
+  font-weight: 400 !important;
+  max-width: 640px;
+  margin: 28px auto 0 !important;
+}
+
+
+/* =============================================================
+   HERO V7 — Contenu poussé en bas pour ne pas chevaucher le logo peint
+   ============================================================= */
+
+.hero-tesla-content {
+  justify-content: flex-end !important;
+  padding: 100px 24px 80px !important;
+  gap: 26px !important;
+}
+
+/* Texte plus serré, plus tassé en bas */
+.hero-tesla-text { padding-top: 0 !important; }
+
+/* Le filet doré décoratif : on l'aligne au-dessus de l'eyebrow */
+.hero-tesla::before {
+  top: auto !important;
+  margin-top: 0 !important;
+  bottom: 290px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 760px) {
+  .hero-tesla::before { bottom: 270px; }
+}
+
+
+/* =============================================================
+   HERO V8 — Photo très sombre (logo peint devient texture discrète)
+   ============================================================= */
+
+.hero-tesla {
+  background:
+    linear-gradient(180deg, rgba(20,20,20,0.78) 0%, rgba(10,10,10,0.88) 100%),
+    url('../images/branding/facade-vide.png') center/cover no-repeat,
+    #1A1A1A !important;
+}
+
+.hero-tesla-content {
+  justify-content: center !important;
+  padding: 130px 24px 100px !important;
+}
+
+/* Le filet doré décoratif au-dessus de l'eyebrow */
+.hero-tesla::before {
+  bottom: auto !important;
+  top: 38% !important;
+  margin-top: 0 !important;
+}
+
+
+/* =============================================================
+   HERO V9 — FINAL : fond charbon pur, sans photo qui pose problème
+   ============================================================= */
+
+.hero-tesla {
+  background: #0E0E10 !important;
+  min-height: 92vh !important;
+}
+
+.hero-tesla::before {
+  display: none !important;
+}
+
+.hero-tesla::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(50% 60% at 50% 30%, rgba(212,175,55,0.08), transparent 70%),
+    radial-gradient(60% 50% at 50% 110%, rgba(212,175,55,0.05), transparent 70%);
+  pointer-events: none;
+}
+
+.hero-tesla-content {
+  justify-content: center !important;
+  padding: 140px 24px 80px !important;
+  gap: 36px !important;
+}
+
+.hero-tesla-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.32em !important;
+  color: var(--accent) !important;
+  text-shadow: none !important;
+}
+.hero-tesla-eyebrow::before {
+  content: "";
+  width: 30px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.hero-tesla-sub {
+  color: rgba(255,255,255,0.75) !important;
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem) !important;
+  text-shadow: none !important;
+}
+
+.hero-tesla-btn-primary {
+  box-shadow: none !important;
+}
+.hero-tesla-btn-ghost {
+  background: transparent !important;
+  border-color: rgba(255,255,255,0.32) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
