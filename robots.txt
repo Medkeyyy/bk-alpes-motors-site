@@ -1,0 +1,10 @@
+# robots.txt pour BK Alpes Motors
+# https://bkalpesmotors.fr
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /reservation-confirmee
+
+# Sitemap
+Sitemap: https://bkalpesmotors.fr/sitemap.xml

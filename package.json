@@ -1,0 +1,11 @@
+{
+  "name": "bk-alpes-motors-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "BK Alpes Motors - L'Excellence Automobile à Annecy (detailing, vente, achat, location)",
+  "dependencies": {
+    "googleapis": "^144.0.0",
+    "resend": "^4.0.1",
+    "stripe": "^17.4.0"
+  }
+}
