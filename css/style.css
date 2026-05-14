@@ -8997,3 +8997,71 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-links a.active {
 .tesla-section-title { font-weight: 600 !important; font-size: clamp(1.8rem, 3.5vw, 2.8rem) !important; }
 .tesla-section.dark .tesla-section-sub { color: rgba(255,255,255,0.7); }
 
+
+/* =============================================================
+   HERO V5 — Façade vide BK + fond gris doux
+   ============================================================= */
+
+/* Réactiver le média (photo background) avec la façade vide */
+.hero-tesla {
+  background:
+    linear-gradient(180deg, rgba(245,245,245,0.65) 0%, rgba(220,220,220,0.30) 35%, rgba(20,20,20,0.30) 70%, rgba(10,10,10,0.85) 100%),
+    url('../images/branding/facade-vide.png') center/cover no-repeat,
+    #B5B5B0 !important;
+  min-height: 100vh !important;
+}
+.hero-tesla-media { display: block !important; }
+.hero-tesla-media img { display: none !important; }
+.hero-tesla-overlay {
+  background: linear-gradient(180deg, rgba(220,220,220,0.0) 0%, rgba(20,20,20,0.55) 100%) !important;
+}
+
+/* Le filet doré décoratif au-dessus du titre — on garde */
+.hero-tesla::before {
+  background: var(--accent) !important;
+}
+
+/* Contenu : le texte reste en bas car le logo BK ALPES MOTORS est déjà visible sur la façade en haut */
+.hero-tesla-content {
+  padding: 140px 24px 60px !important;
+  justify-content: flex-end !important;
+  gap: 30px !important;
+}
+
+.hero-tesla-eyebrow {
+  color: var(--accent-light) !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+.hero-tesla-title {
+  color: #FFFFFF !important;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.6);
+}
+.hero-tesla-sub {
+  color: rgba(255,255,255,0.92) !important;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
+
+/* Boutons : primary or, ghost transparent blanc */
+.hero-tesla-btn-primary {
+  background: var(--accent) !important;
+  color: #0A0A0A !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3) !important;
+}
+.hero-tesla-btn-ghost {
+  background: rgba(255,255,255,0.12) !important;
+  color: #FFFFFF !important;
+  border-color: rgba(255,255,255,0.55) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+.hero-tesla-btn-ghost:hover {
+  background: rgba(255,255,255,0.25) !important;
+  border-color: #FFFFFF !important;
+}
+
+.hero-tesla-scroll {
+  color: rgba(255,255,255,0.7) !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
