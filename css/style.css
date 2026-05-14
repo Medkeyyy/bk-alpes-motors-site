@@ -9065,3 +9065,91 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-links a.active {
   text-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
+
+/* =============================================================
+   NAVBAR V2 — Style Tesla rectangulaire (pas de pill arrondi)
+   ============================================================= */
+
+/* Liens du menu : rectangle arrondi subtil avec fond au hover/active */
+.nav-links a {
+  padding: 8px 14px !important;
+  border-radius: 6px !important;
+  font-size: 0.84rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: #FFFFFF !important;
+  transition: background 0.2s ease, color 0.2s ease !important;
+  position: relative;
+}
+/* on retire le souligné qui passait sous le texte */
+.nav-links a::after { display: none !important; }
+.nav-links a:hover {
+  background: rgba(255,255,255,0.10) !important;
+  color: #FFFFFF !important;
+}
+.nav-links a.active {
+  background: rgba(255,255,255,0.15) !important;
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+}
+
+/* CTA "Nous contacter" : rectangle arrondi (pas pill) */
+.nav-cta {
+  background: #FFFFFF !important;
+  color: #0A0A0A !important;
+  border: 1px solid #FFFFFF !important;
+  border-radius: 6px !important;
+  padding: 9px 18px !important;
+  font-size: 0.84rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+.nav-cta:hover {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #0A0A0A !important;
+}
+
+/* Logo + texte alignement */
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px !important;
+}
+.nav-logo-text {
+  font-size: 0.92rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  color: #FFFFFF !important;
+}
+
+/* Quand la nav est scrollée, le fond se rend visible */
+.navbar.scrolled {
+  background: rgba(10,10,10,0.85) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Sur fond clair (page contact si fond clair par exemple) on garde le contraste blanc/noir */
+/* (le hero en plein écran reste sombre, on bascule juste les liens en blanc) */
+
+/* Mobile : burger */
+@media (max-width: 980px) {
+  .nav-links { display: none !important; }
+  .nav-burger {
+    display: flex !important;
+    background: transparent !important;
+    border: 1px solid rgba(255,255,255,0.3) !important;
+    border-radius: 6px !important;
+  }
+  .nav-burger span { background: #FFFFFF !important; }
+  .nav-cta { display: none !important; }
+}
+@media (min-width: 981px) {
+  .nav-burger { display: none !important; }
+}
+
