@@ -11377,3 +11377,19 @@ html .tesla-quad-card:last-child {
 html .tesla-quad-arrow-left { left: 22px !important; }
 html .tesla-quad-arrow-right { right: 22px !important; }
 
+
+/* =============================================================
+   FIX FINAL — scroll-padding pour respecter les marges
+   (sans ça, scroll-snap colle la 1ère card au bord)
+   ============================================================= */
+.tesla-quad {
+  scroll-padding-left: 64px !important;
+  scroll-padding-right: 64px !important;
+}
+@media (max-width: 880px) {
+  .tesla-quad {
+    scroll-padding-left: 24px !important;
+    scroll-padding-right: 24px !important;
+  }
+}
+
