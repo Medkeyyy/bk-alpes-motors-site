@@ -12463,3 +12463,410 @@ html .nav-burger {
   margin-bottom: 18px !important;
 }
 
+
+/* =============================================================
+   VENTE V4 — Layout Auto.Hunt : sidebar filtres + grille
+   ============================================================= */
+
+/* On désactive les anciens filtres horizontaux */
+.vente-filters-advanced { display: none !important; }
+.vente-results-bar { display: none !important; }
+
+/* Container principal en 2 colonnes (sidebar + grille) */
+.vente-layout {
+  max-width: 1340px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 32px;
+  padding: 0 24px;
+}
+@media (max-width: 980px) {
+  .vente-layout { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* === Barre de recherche / actions au-dessus de la grille === */
+.vente-topbar {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.vente-search {
+  flex: 1;
+  min-width: 240px;
+  position: relative;
+}
+.vente-search input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  color: #14141A;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.vente-search input:focus {
+  border-color: #14141A;
+  box-shadow: 0 0 0 3px rgba(20,20,26,0.06);
+}
+.vente-search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: #7A7670;
+  pointer-events: none;
+}
+.vente-topbar-sort {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* === Sidebar des filtres === */
+.vente-sidebar {
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 12px;
+  padding: 24px 22px;
+  align-self: start;
+  position: sticky;
+  top: 80px;
+}
+@media (max-width: 980px) {
+  .vente-sidebar { position: relative; top: 0; }
+}
+
+.vente-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.vente-sidebar-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #14141A;
+  margin: 0;
+}
+.vente-sidebar-reset {
+  background: none;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: #14141A;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.vente-sidebar-reset:hover { color: #7A7670; }
+
+.vente-filter-block {
+  margin-bottom: 24px;
+}
+.vente-filter-block:last-child { margin-bottom: 0; }
+.vente-filter-block h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #14141A;
+  margin: 0 0 12px;
+}
+
+/* Pills Type (New/Used) */
+.vente-filter-pills {
+  display: flex;
+  gap: 8px;
+}
+.vente-filter-pill {
+  flex: 1;
+  padding: 9px 12px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #14141A;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+.vente-filter-pill:hover { background: #F4F4F5; }
+.vente-filter-pill.active {
+  background: #14141A;
+  color: #FFFFFF;
+  border-color: #14141A;
+}
+
+/* Checkboxes marques */
+.vente-filter-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.vente-filter-checklist label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: #14141A;
+  cursor: pointer;
+  padding: 4px 0;
+}
+.vente-filter-checklist input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(0,0,0,0.25);
+  border-radius: 4px;
+  background: #FFFFFF;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+.vente-filter-checklist input:checked {
+  background: #14141A;
+  border-color: #14141A;
+}
+.vente-filter-checklist input:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid #FFFFFF;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.vente-filter-show-more {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: #14141A;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Price range slider visuel */
+.vente-filter-price-bar {
+  height: 4px;
+  background: #E5E5E5;
+  border-radius: 2px;
+  margin: 12px 0;
+  position: relative;
+}
+.vente-filter-price-bar::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  left: 10%;
+  right: 18%;
+  background: #14141A;
+  border-radius: 2px;
+}
+.vente-filter-price-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+.vente-filter-price-inputs input {
+  padding: 9px 10px;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.84rem;
+  color: #14141A;
+  width: 100%;
+  outline: none;
+}
+.vente-filter-price-inputs input:focus { border-color: #14141A; }
+
+/* === Grille principale === */
+.vente-main {
+  min-width: 0;
+}
+.vente-main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.vente-main-count {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #14141A;
+}
+.vente-main-count span { font-weight: 500; color: #7A7670; }
+.vente-active-filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.vente-active-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: #F4F4F5;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: #14141A;
+}
+.vente-active-chip button {
+  background: none;
+  border: none;
+  color: #7A7670;
+  cursor: pointer;
+  font-size: 0.86rem;
+  padding: 0;
+  line-height: 1;
+}
+
+/* Nouvelle grille Auto.Hunt — 2 colonnes par défaut, 3 sur grand écran */
+.vente-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 18px !important;
+}
+@media (max-width: 1280px) { .vente-grid { grid-template-columns: repeat(2, 1fr) !important; } }
+@media (max-width: 640px)  { .vente-grid { grid-template-columns: 1fr !important; } }
+
+/* Card style Auto.Hunt : nom en haut, photo au centre, badge+prix en bas */
+.vente-car {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(0,0,0,0.06) !important;
+  border-radius: 10px !important;
+  padding: 16px 16px 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  overflow: visible !important;
+}
+.vente-car-body {
+  padding: 0 !important;
+  display: contents !important;  /* on remet les enfants au même niveau */
+}
+
+/* Order : brand & name d'abord, puis photo, puis specs hidden, puis footer */
+.vente-car-brand {
+  order: 1;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.7rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: none !important;
+  color: #7A7670 !important;
+  margin-bottom: 2px;
+}
+.vente-car-name {
+  order: 2;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  color: #14141A !important;
+  margin-bottom: 12px !important;
+}
+.vente-car-photo {
+  order: 3;
+  background: #F4F4F5 !important;
+  border-radius: 8px !important;
+  aspect-ratio: 16/10 !important;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.vente-car-photo img {
+  padding: 16px !important;
+}
+.vente-car-tag { display: none !important; } /* on cache l'ancien tag dans la photo */
+
+.vente-car-specs {
+  display: none !important;  /* on cache les specs detail dans la card pour rester compact */
+}
+
+.vente-car-footer {
+  order: 4;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding-top: 0 !important;
+  border-top: none !important;
+  gap: 10px;
+}
+
+/* Badge (à gauche) */
+.vente-car-badge {
+  order: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: #F4F4F5;
+  color: #14141A;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+.vente-car-badge.green {
+  background: #E8F5E8;
+  color: #2D8E47;
+}
+.vente-car-badge.blue {
+  background: #E8F1FB;
+  color: #2A5BAB;
+}
+.vente-car-badge.red {
+  background: #FCEAEA;
+  color: #B43838;
+}
+
+.vente-car-price {
+  order: 2;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1.15rem !important;
+  color: #14141A !important;
+}
+.vente-car-cta { display: none !important; }
+
+.vente-car:hover {
+  border-color: rgba(0,0,0,0.18) !important;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.06) !important;
+  transform: translateY(-2px) !important;
+}
+
