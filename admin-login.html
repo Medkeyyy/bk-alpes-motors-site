@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connexion · Admin BK Alpes Motors</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=1778857420" />
+</head>
+<body class="admin-login">
+  <div class="admin-login-card">
+    <div class="admin-login-brand">
+      <div class="admin-login-brand-title">BK Alpes Motors</div>
+      <div class="admin-login-brand-sub">Espace administration</div>
+    </div>
+
+    <h1>Connexion</h1>
+    <p class="admin-login-lead">Réservé à l'équipe BK Alpes Motors.</p>
+
+    <form class="admin-login-form" id="loginForm">
+      <input id="loginPwd" type="password" placeholder="Mot de passe administrateur" required autofocus />
+      <div class="admin-login-error" id="loginError">Mot de passe incorrect.</div>
+      <button type="submit">Se connecter</button>
+    </form>
+
+    <div class="admin-login-help">
+      Pas encore d'accès ? <a href="contact.html">Contactez l'administrateur</a>
+    </div>
+  </div>
+
+  <script>
+    // Mot de passe ADMIN — à changer dans une vraie prod
+    // (Plus tard on remplacera par une vraie authentification côté serveur)
+    const ADMIN_PASSWORD = 'BKAlpes2026';
+
+    const form = document.getElementById('loginForm');
+    const pwdInput = document.getElementById('loginPwd');
+    const errorBox = document.getElementById('loginError');
+
+    // Si déjà connecté, redirect direct
+    if (sessionStorage.getItem('bk_admin_auth') === '1') {
+      window.location.replace('admin.html');
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pwd = pwdInput.value.trim();
+      if (pwd === ADMIN_PASSWORD) {
+        sessionStorage.setItem('bk_admin_auth', '1');
+        window.location.replace('admin.html');
+      } else {
+        errorBox.classList.add('show');
+        pwdInput.value = '';
+        pwdInput.focus();
+        setTimeout(() => errorBox.classList.remove('show'), 3000);
+      }
+    });
+  </script>
+</body>
+</html>
