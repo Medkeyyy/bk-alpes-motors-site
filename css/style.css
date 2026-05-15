@@ -11331,3 +11331,23 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-cta {
   .tesla-quad-card:first-child { margin-left: 20px !important; }
 }
 
+
+/* =============================================================
+   FIX FINAL V2 — margin sur première ET dernière card
+   ============================================================= */
+
+.tesla-quad {
+  padding: 0 !important;
+}
+.tesla-quad-card:first-child {
+  margin-left: 40px !important;
+}
+.tesla-quad-card:last-child {
+  margin-right: 40px !important;
+}
+
+@media (max-width: 880px) {
+  .tesla-quad-card:first-child { margin-left: 20px !important; }
+  .tesla-quad-card:last-child { margin-right: 20px !important; }
+}
+
