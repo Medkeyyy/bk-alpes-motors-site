@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778857420" />
+  <link rel="stylesheet" href="css/style.css?v=1778859345" />
 </head>
 <body class="admin-body">
 
@@ -72,6 +72,7 @@
                 <option value="">— Choisir —</option>
                 <option>Porsche</option>
                 <option>Audi</option>
+                <option>Mercedes-Benz</option>
                 <option>Mercedes-AMG</option>
                 <option>BMW</option>
                 <option>Ferrari</option>
@@ -79,35 +80,56 @@
                 <option>Aston Martin</option>
                 <option>Bentley</option>
                 <option>Range Rover</option>
+                <option>Land Rover</option>
+                <option>Jaguar</option>
                 <option>Tesla</option>
                 <option>McLaren</option>
                 <option>Maserati</option>
                 <option>Rolls-Royce</option>
+                <option>Volkswagen</option>
+                <option>Renault</option>
+                <option>Peugeot</option>
+                <option>Citroën</option>
+                <option>Fiat</option>
+                <option>MINI</option>
+                <option>Alpine</option>
                 <option>Autre</option>
               </select>
             </div>
             <div class="admin-form-field">
               <label>Modèle <span class="req">*</span></label>
-              <input name="model" type="text" placeholder="Ex: 911 Turbo S" required />
+              <input name="model" type="text" placeholder="Ex: A 200 d AMG Line" required />
             </div>
             <div class="admin-form-field">
-              <label>Année <span class="req">*</span></label>
-              <input name="year" type="number" min="1980" max="2099" placeholder="Ex: 2023" required />
+              <label>Référence interne</label>
+              <input name="reference" type="text" placeholder="Ex: 373153" />
+              <span class="admin-form-field-help">Numéro de stock interne BK</span>
             </div>
             <div class="admin-form-field">
-              <label>Type de carrosserie <span class="req">*</span></label>
+              <label>Type de véhicule <span class="req">*</span></label>
               <select name="type" required>
                 <option value="">— Choisir —</option>
-                <option value="sport">Sport</option>
+                <option value="compact">Compact</option>
                 <option value="berline">Berline</option>
+                <option value="sport">Sport</option>
                 <option value="suv">SUV</option>
                 <option value="gt">Grand Tourisme</option>
                 <option value="cabriolet">Cabriolet</option>
+                <option value="break">Break</option>
+                <option value="utilitaire">Utilitaire</option>
               </select>
             </div>
             <div class="admin-form-field">
+              <label>1ère mise en circulation</label>
+              <input name="firstRegistration" type="date" />
+            </div>
+            <div class="admin-form-field">
+              <label>Année du modèle</label>
+              <input name="year" type="number" min="1980" max="2099" placeholder="Ex: 2026" />
+            </div>
+            <div class="admin-form-field">
               <label>Kilométrage (km) <span class="req">*</span></label>
-              <input name="km" type="number" min="0" placeholder="Ex: 18500" required />
+              <input name="km" type="number" min="0" placeholder="Ex: 8500" required />
             </div>
             <div class="admin-form-field">
               <label>Prix (€) <span class="req">*</span></label>
@@ -121,15 +143,15 @@
           <h3>Caractéristiques techniques</h3>
           <div class="admin-form-grid">
             <div class="admin-form-field">
-              <label>Puissance</label>
-              <input name="puissance" type="text" placeholder="Ex: 650 ch" />
+              <label>Puissance moteur</label>
+              <input name="puissance" type="text" placeholder="Ex: 110 kW (150 CH)" />
             </div>
             <div class="admin-form-field">
-              <label>Boîte de vitesses</label>
-              <input name="boite" type="text" placeholder="Ex: PDK 8 rapports" />
+              <label>Volume moteur (ccm)</label>
+              <input name="cylindree" type="text" placeholder="Ex: 1 950 ccm" />
             </div>
             <div class="admin-form-field">
-              <label>Carburant</label>
+              <label>Énergie / Carburant</label>
               <select name="carburant">
                 <option value="">— Choisir —</option>
                 <option>Essence</option>
@@ -138,19 +160,51 @@
                 <option>Hybride diesel</option>
                 <option>Hybride rechargeable</option>
                 <option>Électrique</option>
+                <option>GPL</option>
               </select>
             </div>
             <div class="admin-form-field">
-              <label>Couleur</label>
-              <input name="couleur" type="text" placeholder="Ex: Noir Métallisé" />
+              <label>Boîte de vitesses</label>
+              <select name="boite">
+                <option value="">— Choisir —</option>
+                <option>Boîte automatique</option>
+                <option>Boîte manuelle</option>
+                <option>Boîte robotisée (DCT)</option>
+                <option>Boîte PDK</option>
+                <option>Variation continue (CVT)</option>
+              </select>
             </div>
             <div class="admin-form-field">
-              <label>Places</label>
-              <input name="places" type="text" placeholder="Ex: 2+2 places" />
+              <label>Accélération 0 à 100 km/h</label>
+              <input name="acceleration" type="text" placeholder="Ex: 8,3 Secondes" />
             </div>
             <div class="admin-form-field">
-              <label>Consommation</label>
-              <input name="conso" type="text" placeholder="Ex: 11,2 L/100km" />
+              <label>Consommation moyenne</label>
+              <input name="conso" type="text" placeholder="Ex: 5,2 L/100km" />
+            </div>
+            <div class="admin-form-field">
+              <label>Couleur extérieure</label>
+              <input name="couleur" type="text" placeholder="Ex: Noir cosmos" />
+            </div>
+            <div class="admin-form-field">
+              <label>Couleur intérieure</label>
+              <input name="couleurInt" type="text" placeholder="Ex: Noir" />
+            </div>
+            <div class="admin-form-field">
+              <label>Sellerie</label>
+              <input name="sellerie" type="text" placeholder="Ex: ARTICO / microfibre MICROCUT noir" />
+            </div>
+            <div class="admin-form-field">
+              <label>Nombre de places</label>
+              <input name="places" type="text" placeholder="Ex: 5 places" />
+            </div>
+            <div class="admin-form-field">
+              <label>Garantie</label>
+              <input name="garantie" type="text" placeholder="Ex: Mercedes-Benz Certified — 12 mois" />
+            </div>
+            <div class="admin-form-field">
+              <label>Localisation</label>
+              <input name="localisation" type="text" placeholder="Ex: Annecy" value="Annecy" />
             </div>
           </div>
         </div>
@@ -321,16 +375,24 @@
       vehicleIdInput.value = v.id;
       form.brand.value = v.brand || '';
       form.model.value = v.model || '';
+      form.reference.value = v.reference || '';
       form.year.value = v.year || '';
+      form.firstRegistration.value = v.firstRegistration || '';
       form.type.value = v.type || '';
       form.km.value = v.km || '';
       form.price.value = v.price || '';
       form.puissance.value = v.puissance || '';
+      form.cylindree.value = v.cylindree || '';
       form.boite.value = v.boite || '';
       form.carburant.value = v.carburant || '';
-      form.couleur.value = v.couleur || '';
-      form.places.value = v.places || '';
+      form.acceleration.value = v.acceleration || '';
       form.conso.value = v.conso || '';
+      form.couleur.value = v.couleur || '';
+      form.couleurInt.value = v.couleurInt || '';
+      form.sellerie.value = v.sellerie || '';
+      form.places.value = v.places || '';
+      form.garantie.value = v.garantie || '';
+      form.localisation.value = v.localisation || 'Annecy';
       form.description.value = v.description || '';
       form.features.value = (v.features || []).join('\n');
       form.badge.value = v.badge || 'Disponible';
@@ -365,16 +427,24 @@
         id,
         brand: fd.get('brand'),
         model: fd.get('model'),
-        year: parseInt(fd.get('year'), 10),
+        reference: fd.get('reference') || '',
+        year: parseInt(fd.get('year'), 10) || null,
+        firstRegistration: fd.get('firstRegistration') || '',
         type: fd.get('type'),
         km: parseInt(fd.get('km'), 10),
         price: parseInt(fd.get('price'), 10),
         puissance: fd.get('puissance') || '',
+        cylindree: fd.get('cylindree') || '',
         boite: fd.get('boite') || '',
         carburant: fd.get('carburant') || '',
-        couleur: fd.get('couleur') || '',
-        places: fd.get('places') || '',
+        acceleration: fd.get('acceleration') || '',
         conso: fd.get('conso') || '',
+        couleur: fd.get('couleur') || '',
+        couleurInt: fd.get('couleurInt') || '',
+        sellerie: fd.get('sellerie') || '',
+        places: fd.get('places') || '',
+        garantie: fd.get('garantie') || '',
+        localisation: fd.get('localisation') || 'Annecy',
         description: fd.get('description'),
         features,
         badge: fd.get('badge') || 'Disponible',
