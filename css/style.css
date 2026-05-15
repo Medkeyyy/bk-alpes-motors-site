@@ -12965,3 +12965,416 @@ html .nav-burger {
 @media (max-width: 980px) { .vehicle-similar-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .vehicle-similar-grid { grid-template-columns: 1fr; } }
 
+
+/* =============================================================
+   PAGE VÉHICULE V2 — Layout inspiré du dashboard auto
+   ============================================================= */
+
+/* On annule les anciens styles vehicle-hero / specs / desc / cta */
+.vehicle-hero,
+.vehicle-specs,
+.vehicle-desc,
+.vehicle-cta { display: none !important; }
+
+.v2-wrap {
+  background: #FFFFFF;
+  padding-top: 56px;
+  padding-bottom: 0;
+}
+.v2-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 32px;
+}
+@media (max-width: 760px) { .v2-container { padding: 18px 18px; } }
+
+/* Bouton retour */
+.v2-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: #F4F4F5;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 22px;
+  text-decoration: none;
+  color: #14141A;
+  transition: background 0.2s ease;
+}
+.v2-back:hover { background: #E9E9EA; }
+
+/* === GALERIE PHOTOS === */
+.v2-gallery {
+  display: grid;
+  grid-template-columns: 1.85fr 1fr;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+@media (max-width: 880px) { .v2-gallery { grid-template-columns: 1fr; } }
+
+.v2-gallery-main {
+  position: relative;
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, #F4F4F5 0%, #E9E9EA 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.v2-gallery-main svg {
+  width: 70%;
+  height: auto;
+  fill: rgba(20,20,26,0.18);
+}
+.v2-gallery-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.v2-gallery-thumbs {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1.4fr 1fr 1fr;
+  gap: 12px;
+}
+@media (min-width: 881px) {
+  .v2-gallery-thumbs { grid-template-rows: repeat(3, 1fr); }
+}
+.v2-gallery-thumb {
+  background: linear-gradient(135deg, #F4F4F5 0%, #E9E9EA 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.v2-gallery-thumb svg {
+  width: 60%;
+  height: auto;
+  fill: rgba(20,20,26,0.18);
+}
+.v2-gallery-thumb-more {
+  background: #14141A;
+  color: rgba(255,255,255,0.85);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.94rem;
+  font-weight: 500;
+}
+
+/* === Info row : titre + prix === */
+.v2-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  margin-bottom: 28px;
+}
+.v2-head-left { flex: 1; min-width: 280px; }
+.v2-head-loc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: #7A7670;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.v2-head-loc svg { width: 14px; height: 14px; }
+.v2-head-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  letter-spacing: -0.02em;
+  color: #14141A;
+  margin: 0;
+}
+.v2-head-right { text-align: right; }
+.v2-head-price {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 2.6vw, 2rem);
+  color: #14141A;
+  line-height: 1;
+}
+.v2-head-price-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.74rem;
+  color: #7A7670;
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+
+/* === Specs row (4 cases) === */
+.v2-specs-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 40px;
+}
+@media (max-width: 760px) { .v2-specs-row { grid-template-columns: repeat(2, 1fr); } }
+.v2-spec-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #F8F8F9;
+  border-radius: 10px;
+}
+.v2-spec-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  background: #FFFFFF;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #14141A;
+}
+.v2-spec-icon svg { width: 18px; height: 18px; }
+.v2-spec-value {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.94rem;
+  color: #14141A;
+  margin: 0 0 2px;
+}
+.v2-spec-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.74rem;
+  color: #7A7670;
+}
+
+/* === Detail row : description + seller card === */
+.v2-detail {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+@media (max-width: 880px) { .v2-detail { grid-template-columns: 1fr; } }
+
+.v2-detail-text h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #14141A;
+  margin: 0 0 14px;
+}
+.v2-detail-text p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #4A4640;
+  margin: 0 0 14px;
+}
+
+/* Seller card (à droite) */
+.v2-seller {
+  background: #F8F8F9;
+  border-radius: 12px;
+  padding: 20px;
+  align-self: start;
+}
+.v2-seller-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.74rem;
+  color: #7A7670;
+  margin-bottom: 12px;
+}
+.v2-seller-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.v2-seller-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #14141A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+.v2-seller-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #14141A;
+  margin: 0;
+}
+.v2-seller-loc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: #7A7670;
+}
+.v2-seller-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.86rem;
+  color: #4A4640;
+  line-height: 1.5;
+  margin: 0 0 14px;
+}
+.v2-seller-map {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background:
+    linear-gradient(135deg, #E9E9EA 0%, #DCDCDC 100%),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150"><g fill="none" stroke="%23CCC" stroke-width="0.5"><path d="M0 30 L200 50 M0 80 L200 60 M0 120 L200 100 M40 0 L60 150 M120 0 L140 150"/></g></svg>');
+  background-blend-mode: multiply;
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.v2-seller-map-pin {
+  width: 36px;
+  height: 36px;
+  background: #14141A;
+  border-radius: 50%;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+}
+.v2-seller-map-pin svg { width: 16px; height: 16px; }
+
+/* === Features list === */
+.v2-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 30px;
+  margin-bottom: 32px;
+}
+@media (max-width: 600px) { .v2-features { grid-template-columns: 1fr; } }
+.v2-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  color: #14141A;
+}
+.v2-feature-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #F4F4F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #14141A;
+}
+.v2-feature-icon svg { width: 12px; height: 12px; }
+
+/* === Warranty + Contact form === */
+.v2-warranty-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  margin-bottom: 40px;
+}
+@media (max-width: 880px) { .v2-warranty-row { grid-template-columns: 1fr; } }
+
+.v2-warranty h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #14141A;
+  margin: 0 0 4px;
+}
+.v2-warranty-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.84rem;
+  color: #7A7670;
+  margin: 0 0 22px;
+}
+.v2-warranty-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 30px;
+}
+.v2-warranty-item h4 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #14141A;
+  margin: 0 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.v2-warranty-item h4 svg { width: 14px; height: 14px; }
+.v2-warranty-item p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.84rem;
+  color: #7A7670;
+  margin: 0;
+}
+
+/* Contact form */
+.v2-contact-form {
+  background: #F8F8F9;
+  padding: 22px;
+  border-radius: 12px;
+  align-self: start;
+}
+.v2-contact-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: #7A7670;
+  margin: 0 0 16px;
+}
+.v2-contact-form input,
+.v2-contact-form textarea {
+  width: 100%;
+  padding: 13px 14px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #14141A;
+  margin-bottom: 10px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.v2-contact-form input:focus,
+.v2-contact-form textarea:focus { border-color: #14141A; }
+.v2-contact-form button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 6px;
+  background: #14141A;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.v2-contact-form button:hover { background: #2A2A32; }
+
