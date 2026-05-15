@@ -12781,16 +12781,32 @@ html .nav-burger {
   display: contents !important;  /* on remet les enfants au même niveau */
 }
 
-/* Order : brand & name d'abord, puis photo, puis specs hidden, puis footer */
-.vente-car-brand {
+/* Header row : eyebrow type (Sport/Berline...) à gauche + année à droite */
+.vente-car-header {
   order: 1;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+
+/* Order : header (brand+year), puis name, puis photo, puis specs hidden, puis footer */
+.vente-car-brand {
   font-family: 'Inter', sans-serif !important;
   font-size: 0.7rem !important;
   font-weight: 500 !important;
   letter-spacing: 0.04em !important;
   text-transform: none !important;
   color: #7A7670 !important;
-  margin-bottom: 2px;
+}
+.vente-car-year {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.7rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: none !important;
+  color: #7A7670 !important;
 }
 .vente-car-name {
   order: 2;
@@ -12828,31 +12844,18 @@ html .nav-burger {
   gap: 10px;
 }
 
-/* Badge (à gauche) */
-.vente-car-badge {
+/* Ancien badge — caché (remplacé par km) */
+.vente-car-badge { display: none !important; }
+
+/* Kilometrage (en bas à gauche) — même typo que l'eyebrow "Sport" */
+.vente-car-km {
   order: 1;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 5px 10px;
-  background: #F4F4F5;
-  color: #14141A;
-  border-radius: 6px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 500;
-}
-.vente-car-badge.green {
-  background: #E8F5E8;
-  color: #2D8E47;
-}
-.vente-car-badge.blue {
-  background: #E8F1FB;
-  color: #2A5BAB;
-}
-.vente-car-badge.red {
-  background: #FCEAEA;
-  color: #B43838;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.7rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: none !important;
+  color: #7A7670 !important;
 }
 
 .vente-car-price {
@@ -13920,11 +13923,30 @@ html .nav-burger {
   background: #F4F4F5;
   border-radius: 6px;
   overflow: hidden;
+  cursor: grab;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+  user-select: none;
+  -webkit-user-drag: element;
+}
+.admin-photo-tile:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+.admin-photo-tile:active {
+  cursor: grabbing;
+}
+.admin-photo-tile.is-dragging {
+  opacity: 0.4;
+  transform: scale(0.95);
+}
+.admin-photo-tile.is-drop-target {
+  box-shadow: inset 0 0 0 2px #14141A, 0 6px 16px rgba(0,0,0,0.10);
 }
 .admin-photo-tile img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  pointer-events: none; /* évite que l'image intercepte le dragstart */
 }
 .admin-photo-tile button {
   position: absolute;
@@ -13942,6 +13964,41 @@ html .nav-burger {
   justify-content: center;
   font-size: 0.86rem;
   line-height: 1;
+  z-index: 2;
+}
+/* Badge numéro d'ordre (1 = photo principale) */
+.admin-photo-tile-order {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  background: rgba(20,20,26,0.85);
+  color: #FFFFFF;
+  border-radius: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  z-index: 2;
+}
+.admin-photo-tile-order.is-main {
+  background: #14141A;
+  padding: 0 8px;
+}
+.admin-photo-tile-order.is-main::after {
+  content: ' · principale';
+  font-weight: 500;
+}
+.admin-photo-hint {
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: #7A7670;
+  font-family: 'Inter', sans-serif;
 }
 
 .admin-form-footer {

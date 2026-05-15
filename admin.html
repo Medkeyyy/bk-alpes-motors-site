@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778859345" />
+  <link rel="stylesheet" href="css/style.css?v=1778860703" />
 </head>
 <body class="admin-body">
 
@@ -256,6 +256,7 @@
             <input type="file" id="photoInput" accept="image/*" multiple />
           </label>
           <div class="admin-photo-preview" id="photoPreview"></div>
+          <div class="admin-photo-hint" id="photoHint" hidden>Glissez les photos pour les réorganiser. La 1<sup>re</sup> sera la photo principale.</div>
         </div>
 
         <!-- Footer -->
@@ -487,16 +488,72 @@
       photoInput.value = '';
     });
 
+    const photoHint = document.getElementById('photoHint');
+
     function renderPhotos() {
       photoPreview.innerHTML = currentPhotos.map((src, i) => `
-        <div class="admin-photo-tile">
-          <img src="${src}" alt="Photo ${i+1}" />
+        <div class="admin-photo-tile" draggable="true" data-pos="${i}">
+          <span class="admin-photo-tile-order${i === 0 ? ' is-main' : ''}">${i + 1}</span>
+          <img src="${src}" alt="Photo ${i+1}" draggable="false" />
           <button type="button" data-idx="${i}" aria-label="Supprimer">×</button>
         </div>
       `).join('');
+      photoHint.hidden = currentPhotos.length < 2;
+
+      // Bouton supprimer
       photoPreview.querySelectorAll('button[data-idx]').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
           currentPhotos.splice(parseInt(btn.dataset.idx, 10), 1);
+          renderPhotos();
+        });
+      });
+
+      // Drag & drop pour réordonner
+      let dragFromIdx = null;
+      const tiles = photoPreview.querySelectorAll('.admin-photo-tile');
+
+      tiles.forEach(tile => {
+        tile.addEventListener('dragstart', (e) => {
+          dragFromIdx = parseInt(tile.dataset.pos, 10);
+          tile.classList.add('is-dragging');
+          // Firefox a besoin de setData pour démarrer le drag
+          try { e.dataTransfer.setData('text/plain', String(dragFromIdx)); } catch (_) {}
+          e.dataTransfer.effectAllowed = 'move';
+        });
+
+        tile.addEventListener('dragend', () => {
+          tile.classList.remove('is-dragging');
+          photoPreview.querySelectorAll('.is-drop-target').forEach(t => t.classList.remove('is-drop-target'));
+          dragFromIdx = null;
+        });
+
+        tile.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+        });
+
+        tile.addEventListener('dragenter', (e) => {
+          e.preventDefault();
+          if (dragFromIdx === null) return;
+          const toIdx = parseInt(tile.dataset.pos, 10);
+          if (toIdx === dragFromIdx) return;
+          photoPreview.querySelectorAll('.is-drop-target').forEach(t => t.classList.remove('is-drop-target'));
+          tile.classList.add('is-drop-target');
+        });
+
+        tile.addEventListener('dragleave', () => {
+          tile.classList.remove('is-drop-target');
+        });
+
+        tile.addEventListener('drop', (e) => {
+          e.preventDefault();
+          if (dragFromIdx === null) return;
+          const toIdx = parseInt(tile.dataset.pos, 10);
+          if (toIdx === dragFromIdx) return;
+          const [moved] = currentPhotos.splice(dragFromIdx, 1);
+          currentPhotos.splice(toIdx, 0, moved);
+          dragFromIdx = null;
           renderPhotos();
         });
       });
