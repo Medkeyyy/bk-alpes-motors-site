@@ -11288,3 +11288,27 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-cta {
   border-radius: 3px !important;
 }
 
+
+/* =============================================================
+   TESLA QUAD V4 — Marges propres haut/gauche/droite (style Tesla)
+   ============================================================= */
+
+.tesla-quad-wrap {
+  padding: 32px 0 32px !important;
+  background: #FFFFFF !important;
+}
+
+.tesla-quad {
+  padding: 0 40px !important;
+  gap: 20px !important;
+}
+
+@media (max-width: 880px) {
+  .tesla-quad-wrap { padding: 20px 0 20px !important; }
+  .tesla-quad { padding: 0 20px !important; gap: 14px !important; }
+}
+
+/* Flèches alignées sur la marge (pas collées au bord) */
+.tesla-quad-arrow-left { left: 28px !important; }
+.tesla-quad-arrow-right { right: 28px !important; }
+
