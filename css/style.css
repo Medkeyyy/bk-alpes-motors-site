@@ -13747,6 +13747,53 @@ html .nav-burger {
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
 }
+
+/* Sections par statut (Publié / Brouillon / Archivé) */
+.admin-section {
+  margin-top: 28px;
+}
+.admin-section:first-of-type {
+  margin-top: 14px;
+}
+.admin-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.admin-section-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #14141A;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.admin-section-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #14141A;
+}
+.admin-section[data-status="published"] .admin-section-dot { background: #2D8E47; }
+.admin-section[data-status="draft"] .admin-section-dot { background: #C99B2A; }
+.admin-section[data-status="archived"] .admin-section-dot { background: #B43838; }
+.admin-section-count {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: #7A7670;
+  font-weight: 500;
+}
+.admin-section-empty {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.86rem;
+  color: #7A7670;
+  font-style: italic;
+  padding: 14px 0;
+}
 .admin-car {
   background: #FFFFFF;
   border: 1px solid rgba(0,0,0,0.08);
@@ -13968,31 +14015,34 @@ html .nav-burger {
 }
 /* Badge numéro d'ordre (1 = photo principale) */
 .admin-photo-tile-order {
-  position: absolute;
-  top: 4px;
-  left: 4px;
+  position: absolute !important;
+  top: 6px !important;
+  left: 6px !important;
   min-width: 22px;
   height: 22px;
-  padding: 0 6px;
-  background: rgba(20,20,26,0.85);
-  color: #FFFFFF;
-  border-radius: 11px;
-  display: inline-flex;
+  padding: 0 7px !important;
+  background: rgba(20,20,26,0.88) !important;
+  color: #FFFFFF !important;
+  border-radius: 11px !important;
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
   letter-spacing: 0.02em;
-  z-index: 2;
+  z-index: 3 !important;
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
 }
 .admin-photo-tile-order.is-main {
-  background: #14141A;
-  padding: 0 8px;
+  background: #14141A !important;
+  padding: 0 9px !important;
 }
 .admin-photo-tile-order.is-main::after {
   content: ' · principale';
   font-weight: 500;
+  margin-left: 2px;
 }
 .admin-photo-hint {
   margin-top: 6px;
@@ -14197,6 +14247,8 @@ html .nav-burger {
 }
 
 /* Status badge couleur sur card admin */
-.admin-car-status.draft { background: rgba(120,113,108,0.92); }
-.admin-car-status.sold { background: rgba(185,28,28,0.92); }
+.admin-car-status.published { background: rgba(45,142,71,0.92); }
+.admin-car-status.draft     { background: rgba(201,155,42,0.92); }
+.admin-car-status.archived  { background: rgba(180,56,56,0.92); }
+.admin-car-status.sold      { background: rgba(180,56,56,0.92); } /* compat ancien */
 
