@@ -11351,3 +11351,29 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-cta {
   .tesla-quad-card:last-child { margin-right: 20px !important; }
 }
 
+
+/* =============================================================
+   FIX FINAL V3 — Marges 64px bien visibles, cards 56% pour respirer
+   ============================================================= */
+
+html .tesla-quad {
+  padding: 0 !important;
+  gap: 22px !important;
+}
+html .tesla-quad-card {
+  flex: 0 0 calc(56% - 22px) !important;
+}
+html .tesla-quad-card:first-child {
+  margin-left: 64px !important;
+}
+html .tesla-quad-card:last-child {
+  margin-right: 64px !important;
+}
+@media (max-width: 880px) {
+  html .tesla-quad-card { flex: 0 0 calc(86% - 22px) !important; }
+  html .tesla-quad-card:first-child { margin-left: 24px !important; }
+  html .tesla-quad-card:last-child { margin-right: 24px !important; }
+}
+html .tesla-quad-arrow-left { left: 22px !important; }
+html .tesla-quad-arrow-right { right: 22px !important; }
+
