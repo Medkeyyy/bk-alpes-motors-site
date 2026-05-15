@@ -11678,3 +11678,87 @@ html .nav-burger {
   transform: scale(1.1);
 }
 
+
+/* =============================================================
+   SECTION REPRISE — Style Tesla split avec photo
+   ============================================================= */
+.reprise-section {
+  background: #FFFFFF;
+  padding: 32px 64px 64px;
+}
+@media (max-width: 880px) {
+  .reprise-section { padding: 20px 24px 40px; }
+}
+
+.reprise-card {
+  background: #EBECEC;
+  border-radius: 6px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 360px;
+  max-height: 460px;
+}
+@media (max-width: 760px) {
+  .reprise-card { grid-template-columns: 1fr; max-height: none; }
+}
+
+.reprise-card-text {
+  padding: 60px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+}
+@media (max-width: 880px) {
+  .reprise-card-text { padding: 40px 30px; gap: 14px; }
+}
+
+.reprise-card-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(2rem, 3.4vw, 2.8rem);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: #171A20;
+  margin: 0;
+}
+.reprise-card-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  color: #171A20;
+  margin: 0;
+  max-width: 420px;
+  line-height: 1.4;
+}
+.reprise-card-btn {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: 14px;
+  padding: 12px 40px;
+  background: #FFFFFF;
+  color: #171A20;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.22s ease, transform 0.22s ease;
+}
+.reprise-card-btn:hover {
+  background: #F5F5F5;
+  transform: translateY(-1px);
+}
+
+.reprise-card-media {
+  position: relative;
+  overflow: hidden;
+  background: #0A0A0A;
+}
+.reprise-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
