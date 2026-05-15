@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778861381" />
+  <link rel="stylesheet" href="css/style.css?v=1778868097" />
 </head>
 <body>
 <nav id="navbar" class="navbar">
@@ -70,6 +70,49 @@
   <!-- CATALOGUE GRID -->
   <section style="background: var(--bg); padding: 80px 24px 120px;">
     <div style="max-width: 1340px; margin: 0 auto;">
+
+      <!-- SLIDER DURÉE → REMISE -->
+      <div class="loc-duration">
+        <div class="loc-duration-head">
+          <div class="loc-duration-title">
+            <span class="loc-duration-eyebrow">Tarification dégressive</span>
+            <h2>Plus vous louez longtemps, plus le tarif baisse.</h2>
+          </div>
+          <div class="loc-duration-readout">
+            <span class="loc-duration-readout-days"><strong id="locDurationValue">1</strong> jour</span>
+            <span class="loc-duration-readout-discount" id="locDurationDiscount">Tarif standard</span>
+          </div>
+        </div>
+
+        <div class="loc-duration-slider-wrap">
+          <input id="locDurationSlider" type="range" min="1" max="30" value="1" step="1" class="loc-duration-slider" />
+          <div class="loc-duration-track-fill" id="locDurationFill"></div>
+        </div>
+
+        <div class="loc-duration-marks">
+          <div class="loc-duration-mark" data-d="1">
+            <span class="loc-duration-mark-day">1j</span>
+            <span class="loc-duration-mark-pct">0%</span>
+          </div>
+          <div class="loc-duration-mark" data-d="3">
+            <span class="loc-duration-mark-day">3j</span>
+            <span class="loc-duration-mark-pct">-10%</span>
+          </div>
+          <div class="loc-duration-mark" data-d="7">
+            <span class="loc-duration-mark-day">7j</span>
+            <span class="loc-duration-mark-pct">-18%</span>
+          </div>
+          <div class="loc-duration-mark" data-d="14">
+            <span class="loc-duration-mark-day">14j</span>
+            <span class="loc-duration-mark-pct">-25%</span>
+          </div>
+          <div class="loc-duration-mark" data-d="30">
+            <span class="loc-duration-mark-day">30j</span>
+            <span class="loc-duration-mark-pct">-35%</span>
+          </div>
+        </div>
+      </div>
+
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; flex-wrap: wrap; gap: 14px;">
         <div style="font-size: 0.95rem; color: var(--text);">
           <strong style="font-weight: 700;">10</strong> véhicules disponibles
@@ -472,5 +515,96 @@
         burger.classList.remove('open');
         navMobile.classList.remove('open');
       }));
+    }
+
+    // ============ TARIFICATION DÉGRESSIVE ============
+    // Paliers : 1j=0% / 3j=10% / 7j=18% / 14j=25% / 30j=35%
+    // Pour les jours intermédiaires : interpolation linéaire entre les paliers.
+    const DURATION_TIERS = [
+      { d: 1,  pct: 0,    label: 'Tarif standard' },
+      { d: 3,  pct: 0.10, label: '-10% / jour' },
+      { d: 7,  pct: 0.18, label: '-18% / jour' },
+      { d: 14, pct: 0.25, label: '-25% / jour' },
+      { d: 30, pct: 0.35, label: '-35% / jour' },
+    ];
+
+    function getDiscountFor(days) {
+      if (days <= 1) return { pct: 0, label: 'Tarif standard' };
+      // Trouver les 2 paliers qui encadrent days
+      for (let i = 0; i < DURATION_TIERS.length - 1; i++) {
+        const a = DURATION_TIERS[i], b = DURATION_TIERS[i + 1];
+        if (days >= a.d && days <= b.d) {
+          const t = (days - a.d) / (b.d - a.d);
+          const pct = a.pct + (b.pct - a.pct) * t;
+          // Label : on prend le palier le plus proche
+          const closer = (days - a.d) <= (b.d - days) ? a : b;
+          return { pct, label: pct > 0 ? `-${Math.round(pct * 100)}% / jour` : 'Tarif standard' };
+        }
+      }
+      const last = DURATION_TIERS[DURATION_TIERS.length - 1];
+      return { pct: last.pct, label: last.label };
+    }
+
+    function fmtPrice(n) {
+      return Math.round(n).toLocaleString('fr-FR').replace(/,/g, ' ');
+    }
+
+    const durSlider   = document.getElementById('locDurationSlider');
+    const durValue    = document.getElementById('locDurationValue');
+    const durDiscount = document.getElementById('locDurationDiscount');
+    const durFill     = document.getElementById('locDurationFill');
+    const durMarks    = document.querySelectorAll('.loc-duration-mark');
+
+    // 1. Snapshot des prix de base depuis le DOM (au chargement)
+    const priceEls = Array.from(document.querySelectorAll('.catalog-card-price'));
+    priceEls.forEach(el => {
+      const txt = el.textContent.trim();
+      const n = parseInt(txt.replace(/[^\d]/g, ''), 10);
+      if (!isNaN(n)) {
+        el.dataset.basePrice = n;
+      }
+    });
+
+    function updateDuration() {
+      const days = parseInt(durSlider.value, 10);
+      const { pct, label } = getDiscountFor(days);
+      durValue.textContent = days;
+      // Pluriel
+      durValue.nextSibling && (durValue.nextSibling.textContent = ' jour' + (days > 1 ? 's' : ''));
+      durDiscount.textContent = label;
+      durDiscount.classList.toggle('is-discount', pct > 0);
+
+      // Fill bar
+      const ratio = (days - 1) / (30 - 1);
+      durFill.style.width = (ratio * 100) + '%';
+
+      // Marks actifs : celui le plus proche du curseur OU passé
+      durMarks.forEach(m => {
+        const md = parseInt(m.dataset.d, 10);
+        m.classList.toggle('is-active', md <= days);
+        m.classList.toggle('is-current', md === days);
+      });
+
+      // Met à jour les prix
+      priceEls.forEach(el => {
+        const base = parseInt(el.dataset.basePrice, 10);
+        if (isNaN(base)) return;
+        const final = base * (1 - pct);
+        if (pct > 0) {
+          el.innerHTML = `<span class="loc-price-old">${fmtPrice(base)} €</span> <strong>${fmtPrice(final)} €</strong><span class="loc-price-unit">/jour</span>`;
+        } else {
+          el.innerHTML = `${fmtPrice(base)} €/jour`;
+        }
+      });
+    }
+
+    if (durSlider) {
+      durSlider.addEventListener('input', updateDuration);
+      // Click sur un mark = saute à cette durée
+      durMarks.forEach(m => m.addEventListener('click', () => {
+        durSlider.value = m.dataset.d;
+        updateDuration();
+      }));
+      updateDuration();
     }
   </script></body></html>

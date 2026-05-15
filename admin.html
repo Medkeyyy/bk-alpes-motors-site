@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778861381" />
+  <link rel="stylesheet" href="css/style.css?v=1778868097" />
 </head>
 <body class="admin-body">
 
@@ -105,8 +105,8 @@
             </div>
             <div class="admin-form-field">
               <label>Référence interne</label>
-              <input name="reference" type="text" placeholder="Ex: 373153" />
-              <span class="admin-form-field-help">Numéro de stock interne BK</span>
+              <input name="reference" type="text" placeholder="Auto-générée (ex: BK-0004)" readonly style="background: #F8F8F9; color: #14141A; font-family: 'Inter', monospace; letter-spacing: 0.04em;" />
+              <span class="admin-form-field-help">Auto-incrémentée à chaque nouveau véhicule (BK-0001, BK-0002, ...)</span>
             </div>
             <div class="admin-form-field">
               <label>Type de véhicule <span class="req">*</span></label>
@@ -217,8 +217,15 @@
           <h3>Description &amp; statut</h3>
           <div class="admin-form-grid">
             <div class="admin-form-field full">
-              <label>Description <span class="req">*</span></label>
-              <textarea name="description" placeholder="Décrivez le véhicule, son historique, ses options remarquables..." required></textarea>
+              <label style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                <span>Description <span class="req">*</span></span>
+                <button type="button" id="generateDescBtn" class="admin-generate-btn" title="Génère une description automatique à partir des champs remplis">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l2.5 6L22 12l-6.5 3-2.5 6-2.5-6L4 12l6.5-3z"/></svg>
+                  Générer auto
+                </button>
+              </label>
+              <textarea name="description" placeholder="Décrivez le véhicule, son historique, ses options remarquables... ou cliquez sur « Générer auto » pour partir d'une base." required></textarea>
+              <span class="admin-form-field-help" id="generateDescHelp">Remplissez d'abord les caractéristiques techniques, puis cliquez sur <strong>Générer auto</strong> pour obtenir une description prête à éditer.</span>
             </div>
             <div class="admin-form-field full">
               <label>Équipements remarquables (un par ligne)</label>
@@ -420,11 +427,30 @@
     const vehicleIdInput = document.getElementById('vehicleId');
     let currentPhotos = [];
 
+    // -- Référence interne auto : BK-0001, BK-0002...
+    // On compte le PLUS GRAND numéro déjà utilisé (et non len(vehicles)) pour
+    // que la séquence reste continue même si on supprime un véhicule.
+    function nextReference() {
+      const vehicles = loadVehicles();
+      let maxN = 0;
+      vehicles.forEach(v => {
+        const m = (v.reference || '').match(/^BK-(\d{1,6})$/);
+        if (m) {
+          const n = parseInt(m[1], 10);
+          if (n > maxN) maxN = n;
+        }
+      });
+      const next = maxN + 1;
+      return 'BK-' + String(next).padStart(4, '0');
+    }
+
     function resetForm() {
       form.reset();
       vehicleIdInput.value = '';
       currentPhotos = [];
       renderPhotos();
+      // Auto-attribue la prochaine référence pour un nouveau véhicule
+      form.reference.value = nextReference();
     }
 
     function fillForm(v) {
@@ -636,6 +662,143 @@
         };
         reader.readAsDataURL(file);
       });
+    });
+
+    // ============ GÉNÉRATEUR DE DESCRIPTION ============
+    // Compose une description fluide à partir des champs remplis.
+    // Stratégie : "intro" + "moteur/perf" + "design/intérieur" + "équipements" + "closer"
+    // → 4-5 phrases polies, variées, prêtes à éditer.
+    function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+    function generateDescription(fd) {
+      const get = (k) => (fd.get(k) || '').toString().trim();
+      const brand = get('brand');
+      const model = get('model');
+      const year  = get('year');
+      const type  = get('type'); // sport / berline / suv / gt / compact / cabriolet / break / utilitaire
+      const km    = get('km');
+      const puissance = get('puissance');
+      const cylindree = get('cylindree');
+      const carburant = get('carburant');
+      const boite     = get('boite');
+      const acceleration = get('acceleration');
+      const couleur     = get('couleur');
+      const couleurInt  = get('couleurInt');
+      const sellerie    = get('sellerie');
+      const places      = get('places');
+      const garantie    = get('garantie');
+      const localisation = get('localisation') || 'Annecy';
+      const featuresRaw = (fd.get('features') || '').toString();
+      const features = featuresRaw.split('\n').map(s => s.trim()).filter(Boolean);
+
+      const fullName = [brand, model].filter(Boolean).join(' ') || 'Ce véhicule';
+      const kmFmt = km ? Number(km).toLocaleString('fr-FR').replace(/,/g, ' ') + ' km' : '';
+
+      const typeNoun = {
+        sport: 'sportive', berline: 'berline', suv: 'SUV', gt: 'Grand Tourisme',
+        compact: 'compacte', cabriolet: 'cabriolet', break: 'break', utilitaire: 'utilitaire'
+      }[type] || 'véhicule';
+
+      // --- Intro (varie selon type)
+      const introsSport = [
+        `${fullName}${year ? ` de ${year}` : ''} : une sportive qui ne laisse personne indifférent.`,
+        `Disponible chez BK Alpes Motors, cette ${fullName}${year ? ` ${year}` : ''} incarne la quintessence du plaisir de conduire.`,
+        `${fullName}${year ? ' (' + year + ')' : ''} — une pièce d'exception sélectionnée pour les amateurs de sensations.`,
+      ];
+      const introsBerline = [
+        `${fullName}${year ? ` de ${year}` : ''}, l'équilibre parfait entre élégance, confort et performance.`,
+        `Cette ${fullName}${year ? ` ${year}` : ''} affiche une présence statutaire et un raffinement haut de gamme.`,
+        `${fullName}${year ? ' (' + year + ')' : ''} — la berline qui ne fait aucun compromis.`,
+      ];
+      const introsSuv = [
+        `${fullName}${year ? ` de ${year}` : ''}, le SUV qui combine prestance, polyvalence et puissance.`,
+        `Avec cette ${fullName}${year ? ` ${year}` : ''}, profitez d'un SUV à la hauteur de toutes vos envies.`,
+        `${fullName}${year ? ' (' + year + ')' : ''} — un SUV premium pensé pour tous vos trajets, de la ville aux Alpes.`,
+      ];
+      const introsGen = [
+        `Découvrez ${fullName}${year ? ` (${year})` : ''}, soigneusement sélectionnée pour rejoindre notre catalogue.`,
+        `${fullName}${year ? ` de ${year}` : ''} : un ${typeNoun} d'exception, prêt à prendre la route.`,
+        `Disponible à la vente, cette ${fullName}${year ? ` ${year}` : ''} a tout pour séduire les connaisseurs.`,
+      ];
+      const intros =
+        type === 'sport' ? introsSport :
+        (type === 'berline' || type === 'gt') ? introsBerline :
+        type === 'suv' ? introsSuv :
+        introsGen;
+
+      // --- Moteur / perf
+      const motorBits = [];
+      if (puissance) motorBits.push(`une puissance de ${puissance}`);
+      if (cylindree) motorBits.push(`un bloc de ${cylindree}`);
+      if (acceleration) motorBits.push(`un 0 à 100 km/h en ${acceleration}`);
+      let motorSentence = '';
+      if (motorBits.length) {
+        motorSentence = `Sous le capot, ${motorBits.join(', ')}` +
+          ((boite || carburant) ? `, associée à une ${boite || 'transmission moderne'}${carburant ? ' ' + carburant.toLowerCase() : ''}.` : '.');
+      } else if (boite || carburant) {
+        motorSentence = `Motorisation ${carburant ? carburant.toLowerCase() + ' ' : ''}avec ${boite || 'transmission moderne'}.`;
+      }
+
+      // --- Esthétique
+      const designBits = [];
+      if (couleur) designBits.push(`une carrosserie ${couleur.toLowerCase()}`);
+      if (couleurInt && sellerie) designBits.push(`un habitacle ${couleurInt.toLowerCase()} en ${sellerie.toLowerCase()}`);
+      else if (couleurInt) designBits.push(`un intérieur ${couleurInt.toLowerCase()}`);
+      else if (sellerie) designBits.push(`une sellerie en ${sellerie.toLowerCase()}`);
+      if (places) designBits.push(`${places} places`);
+      let designSentence = '';
+      if (designBits.length) {
+        const starter = pick(['Côté esthétique, elle arbore', 'Le véhicule se distingue par', 'On retrouve', 'Visuellement, elle affiche']);
+        designSentence = `${starter} ${designBits.join(', ')}.`;
+      }
+
+      // --- Équipements
+      let featuresSentence = '';
+      if (features.length === 1) {
+        featuresSentence = `Parmi les équipements remarquables : ${features[0].toLowerCase()}.`;
+      } else if (features.length >= 2) {
+        const list = features.slice(0, 5).map(f => f.charAt(0).toLowerCase() + f.slice(1));
+        const last = list.pop();
+        featuresSentence = `Équipée notamment de ${list.join(', ')} et ${last}, elle offre un niveau de confort et de technologie haut de gamme.`;
+      }
+
+      // --- Closer (km + garantie + dispo)
+      const closerBits = [];
+      if (kmFmt) closerBits.push(`${kmFmt} au compteur`);
+      if (garantie) closerBits.push(`garantie ${garantie.toLowerCase()}`);
+      let closerSentence = '';
+      if (closerBits.length) {
+        closerSentence = `${closerBits.join(', ')[0].toUpperCase() + closerBits.join(', ').slice(1)} — véhicule visible à ${localisation}.`;
+      } else {
+        closerSentence = `Véhicule visible à ${localisation}, contactez-nous pour organiser un essai.`;
+      }
+
+      const parts = [pick(intros), motorSentence, designSentence, featuresSentence, closerSentence].filter(Boolean);
+      return parts.join(' ');
+    }
+
+    const generateDescBtn = document.getElementById('generateDescBtn');
+    generateDescBtn.addEventListener('click', () => {
+      const fd = new FormData(form);
+      if (!fd.get('brand') && !fd.get('model')) {
+        alert('Renseignez au moins la marque et le modèle avant de générer la description.');
+        return;
+      }
+      generateDescBtn.classList.add('is-busy');
+      generateDescBtn.disabled = true;
+      // Petit délai pour l'effet "ça réfléchit" + laisser le browser update l'UI
+      setTimeout(() => {
+        form.description.value = generateDescription(fd);
+        generateDescBtn.classList.remove('is-busy');
+        generateDescBtn.classList.add('is-success');
+        generateDescBtn.disabled = false;
+        const original = generateDescBtn.innerHTML;
+        generateDescBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Généré';
+        setTimeout(() => {
+          generateDescBtn.classList.remove('is-success');
+          generateDescBtn.innerHTML = original;
+        }, 1500);
+      }, 350);
     });
 
     // ============ EXPORT ============

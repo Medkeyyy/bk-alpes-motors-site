@@ -14246,6 +14246,218 @@ html .nav-burger {
   cursor: zoom-in;
 }
 
+/* =============================================================
+   LOCATION — Slider tarification dégressive
+   ============================================================= */
+.loc-duration {
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 14px;
+  padding: 28px 32px 22px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+.loc-duration-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 26px;
+  flex-wrap: wrap;
+}
+.loc-duration-eyebrow {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7A7670;
+  margin-bottom: 6px;
+}
+.loc-duration-title h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #14141A;
+  margin: 0;
+  line-height: 1.3;
+}
+.loc-duration-readout {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 180px;
+}
+.loc-duration-readout-days {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: #14141A;
+}
+.loc-duration-readout-days strong {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-right: 4px;
+  line-height: 1;
+}
+.loc-duration-readout-discount {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #7A7670;
+}
+.loc-duration-readout-discount.is-discount {
+  color: #2D8E47;
+}
+
+/* Slider */
+.loc-duration-slider-wrap {
+  position: relative;
+  height: 32px;
+  padding-top: 12px;
+}
+.loc-duration-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  position: absolute;
+  inset: 12px 0 0 0;
+  width: 100%;
+  height: 8px;
+  background: transparent;
+  cursor: pointer;
+  z-index: 2;
+  margin: 0;
+}
+.loc-duration-slider::-webkit-slider-runnable-track {
+  height: 8px;
+  background: #EDEDED;
+  border-radius: 4px;
+}
+.loc-duration-slider::-moz-range-track {
+  height: 8px;
+  background: #EDEDED;
+  border-radius: 4px;
+  border: none;
+}
+.loc-duration-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #14141A;
+  border: 3px solid #FFFFFF;
+  margin-top: -8px;
+  cursor: grab;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  transition: transform 0.18s ease;
+}
+.loc-duration-slider::-webkit-slider-thumb:hover { transform: scale(1.08); }
+.loc-duration-slider::-webkit-slider-thumb:active { cursor: grabbing; transform: scale(1.12); }
+.loc-duration-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #14141A;
+  border: 3px solid #FFFFFF;
+  cursor: grab;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+}
+.loc-duration-track-fill {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  height: 8px;
+  background: linear-gradient(90deg, #14141A 0%, #2D8E47 100%);
+  border-radius: 4px;
+  pointer-events: none;
+  transition: width 0.18s ease;
+  z-index: 1;
+}
+
+/* Marks */
+.loc-duration-marks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding: 0 2px;
+}
+.loc-duration-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.18s ease;
+}
+.loc-duration-mark:hover { background: #F4F4F5; }
+.loc-duration-mark-day {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #14141A;
+}
+.loc-duration-mark-pct {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #7A7670;
+}
+.loc-duration-mark.is-active .loc-duration-mark-pct { color: #2D8E47; font-weight: 600; }
+.loc-duration-mark.is-current {
+  background: #14141A;
+}
+.loc-duration-mark.is-current .loc-duration-mark-day,
+.loc-duration-mark.is-current .loc-duration-mark-pct { color: #FFFFFF; }
+
+/* Prix avec ancien prix barré (quand remise) */
+.loc-price-old {
+  text-decoration: line-through;
+  color: #C4C4C4;
+  font-weight: 500;
+  font-size: 0.92em;
+  margin-right: 6px;
+}
+.loc-price-unit {
+  font-weight: 500;
+  color: #7A7670;
+  font-size: 0.88em;
+  margin-left: 2px;
+}
+
+@media (max-width: 720px) {
+  .loc-duration { padding: 22px 20px 18px; }
+  .loc-duration-title h2 { font-size: 1.15rem; }
+  .loc-duration-readout { min-width: 140px; }
+  .loc-duration-readout-days strong { font-size: 1.6rem; }
+  .loc-duration-mark-pct { display: none; } /* trop serré */
+}
+
+/* Bouton "Générer auto" la description */
+.admin-generate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #14141A;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 11px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.admin-generate-btn:hover { background: #2A2A33; transform: translateY(-1px); }
+.admin-generate-btn:active { transform: translateY(0); }
+.admin-generate-btn.is-busy { opacity: 0.6; cursor: wait; }
+.admin-generate-btn.is-success { background: #2D8E47; }
+
 /* Status badge couleur sur card admin */
 .admin-car-status.published { background: rgba(45,142,71,0.92); }
 .admin-car-status.draft     { background: rgba(201,155,42,0.92); }
