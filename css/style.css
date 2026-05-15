@@ -10856,3 +10856,25 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-cta {
   width: auto !important;
   justify-content: center !important;
 }
+
+/* =============================================================
+   TESLA STRICT V3 — Hero plus court (on voit la section suivante)
+   ============================================================= */
+
+/* Le hero ne prend plus 100vh mais ~78vh pour qu'on voie déjà la section "Hits" en dessous */
+.home-slider {
+  height: 78vh !important;
+  min-height: 540px !important;
+  max-height: 820px !important;
+}
+.home-slide {
+  padding: 70px 24px 80px !important;
+}
+
+/* Navbar : pas de bord fort, plus discrète */
+.navbar,
+.navbar.scrolled {
+  border-bottom: none !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04) !important;
+}
+
