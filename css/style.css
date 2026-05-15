@@ -12870,3 +12870,98 @@ html .nav-burger {
   transform: translateY(-2px) !important;
 }
 
+
+/* =============================================================
+   VENTE V5 — Logos marques + km input + similar vehicles
+   ============================================================= */
+
+/* Sidebar marques : logos à gauche du nom */
+.vente-filter-checklist label {
+  display: grid !important;
+  grid-template-columns: 16px 24px 1fr auto !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 6px 6px 6px 0 !important;
+  border-radius: 6px;
+  transition: background 0.18s ease;
+}
+.vente-filter-checklist label:hover {
+  background: rgba(0,0,0,0.03);
+}
+.vente-brand-logo {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.vente-brand-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: grayscale(0.4);
+}
+.vente-brand-logo-placeholder {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E5E5E5 0%, #CCCCCC 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #14141A;
+}
+.vente-brand-count {
+  font-size: 0.78rem;
+  color: #9A958A;
+  font-weight: 500;
+}
+
+/* Km en double input min/max (comme prix) */
+.vente-filter-km-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.vente-filter-km-inputs input {
+  padding: 9px 10px;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.84rem;
+  color: #14141A;
+  width: 100%;
+  outline: none;
+}
+.vente-filter-km-inputs input:focus { border-color: #14141A; }
+
+/* =============================================================
+   SECTION "VOUS AIMERIEZ AUSSI" sur pages véhicule
+   ============================================================= */
+.vehicle-similar {
+  background: #F4F4F5;
+  padding: 70px 24px 90px;
+}
+.vehicle-similar-inner {
+  max-width: 1340px;
+  margin: 0 auto;
+}
+.vehicle-similar-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  color: #14141A;
+  margin: 0 0 28px;
+}
+.vehicle-similar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+@media (max-width: 980px) { .vehicle-similar-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .vehicle-similar-grid { grid-template-columns: 1fr; } }
+

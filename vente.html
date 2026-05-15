@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778850599" />
+  <link rel="stylesheet" href="css/style.css?v=1778852233" />
 </head>
 <body>
 <nav id="navbar" class="navbar">
@@ -108,15 +108,15 @@
         <div class="vente-filter-block">
           <h4>Marque</h4>
           <div class="vente-filter-checklist" id="brandList">
-            <label><input type="checkbox" name="brand" value="porsche"><span>Porsche</span></label>
-            <label><input type="checkbox" name="brand" value="audi"><span>Audi</span></label>
-            <label><input type="checkbox" name="brand" value="mercedes-amg"><span>Mercedes-AMG</span></label>
-            <label><input type="checkbox" name="brand" value="bmw"><span>BMW</span></label>
-            <label><input type="checkbox" name="brand" value="ferrari"><span>Ferrari</span></label>
-            <label><input type="checkbox" name="brand" value="lamborghini"><span>Lamborghini</span></label>
-            <label class="brand-more" hidden><input type="checkbox" name="brand" value="aston martin"><span>Aston Martin</span></label>
-            <label class="brand-more" hidden><input type="checkbox" name="brand" value="bentley"><span>Bentley</span></label>
-            <label class="brand-more" hidden><input type="checkbox" name="brand" value="range rover"><span>Range Rover</span></label>
+            <label><input type="checkbox" name="brand" value="porsche"><div class="vente-brand-logo-placeholder">P</div><span>Porsche</span><span class="vente-brand-count">2</span></label>
+            <label><input type="checkbox" name="brand" value="audi"><div class="vente-brand-logo-placeholder">A</div><span>Audi</span><span class="vente-brand-count">1</span></label>
+            <label><input type="checkbox" name="brand" value="mercedes-amg"><div class="vente-brand-logo"><img src="images/logos/Mercedes-Logo.svg.png" alt="" /></div><span>Mercedes-AMG</span><span class="vente-brand-count">1</span></label>
+            <label><input type="checkbox" name="brand" value="bmw"><div class="vente-brand-logo"><img src="images/logos/BMW.svg.webp" alt="" /></div><span>BMW</span><span class="vente-brand-count">1</span></label>
+            <label><input type="checkbox" name="brand" value="ferrari"><div class="vente-brand-logo-placeholder">F</div><span>Ferrari</span><span class="vente-brand-count">1</span></label>
+            <label><input type="checkbox" name="brand" value="lamborghini"><div class="vente-brand-logo"><img src="images/logos/Lamborghini-Logo.svg.png" alt="" /></div><span>Lamborghini</span><span class="vente-brand-count">1</span></label>
+            <label class="brand-more" hidden><input type="checkbox" name="brand" value="aston martin"><div class="vente-brand-logo-placeholder">AM</div><span>Aston Martin</span><span class="vente-brand-count">1</span></label>
+            <label class="brand-more" hidden><input type="checkbox" name="brand" value="bentley"><div class="vente-brand-logo-placeholder">B</div><span>Bentley</span><span class="vente-brand-count">1</span></label>
+            <label class="brand-more" hidden><input type="checkbox" name="brand" value="range rover"><div class="vente-brand-logo-placeholder">RR</div><span>Range Rover</span><span class="vente-brand-count">1</span></label>
             <button type="button" class="vente-filter-show-more" id="brandMoreBtn">Plus de marques</button>
           </div>
         </div>
@@ -133,14 +133,11 @@
 
         <!-- Kilométrage -->
         <div class="vente-filter-block">
-          <h4>Kilométrage max.</h4>
-          <select id="f-km" style="width:100%;padding:10px 12px;background:#FFF;border:1px solid rgba(0,0,0,0.12);border-radius:6px;font-family:'Inter',sans-serif;font-size:0.88rem;color:#14141A;outline:none;cursor:pointer;">
-            <option value="999999">Tous</option>
-            <option value="10000">10 000 km</option>
-            <option value="20000">20 000 km</option>
-            <option value="30000">30 000 km</option>
-            <option value="50000">50 000 km</option>
-          </select>
+          <h4>Kilométrage (km)</h4>
+          <div class="vente-filter-km-inputs">
+            <input id="f-km-min" type="number" placeholder="Min" min="0" />
+            <input id="f-km-max" type="number" placeholder="Max" min="0" />
+          </div>
         </div>
 
         <!-- Prix -->
@@ -292,7 +289,8 @@
     const typePills = document.querySelectorAll('#typePills .vente-filter-pill, .vente-filter-pill[data-type]');
     const yearPills = document.querySelectorAll('.vente-filter-pill[data-year]');
     const brandChecks = document.querySelectorAll('#brandList input[name="brand"]');
-    const fKm = document.getElementById('f-km');
+    const fKmMin = document.getElementById('f-km-min');
+    const fKmMax = document.getElementById('f-km-max');
     const fPriceMin = document.getElementById('f-price-min');
     const fPriceMax = document.getElementById('f-price-max');
     const fSort = document.getElementById('f-sort');
@@ -327,7 +325,7 @@
     });
 
     brandChecks.forEach(cb => cb.addEventListener('change', applyFilters));
-    [fKm, fPriceMin, fPriceMax].forEach(el => {
+    [fKmMin, fKmMax, fPriceMin, fPriceMax].forEach(el => {
       el.addEventListener('change', applyFilters);
       el.addEventListener('input', applyFilters);
     });
@@ -336,7 +334,8 @@
 
     function applyFilters() {
       const checkedBrands = Array.from(brandChecks).filter(c => c.checked).map(c => c.value);
-      const kmMax = parseInt(fKm.value || '999999', 10);
+      const kmMin = parseInt(fKmMin.value || '0', 10);
+      const kmMax = parseInt(fKmMax.value || '999999', 10);
       const pMin = parseInt(fPriceMin.value || '0', 10);
       const pMax = parseInt(fPriceMax.value || '99999999', 10);
       const q = searchInput.value.trim().toLowerCase();
@@ -353,7 +352,7 @@
         const ok = (!activeType || cType === activeType)
                 && (checkedBrands.length === 0 || checkedBrands.includes(cBrand))
                 && (cYear >= activeYear)
-                && (cKm <= kmMax)
+                && (cKm >= kmMin) && (cKm <= kmMax)
                 && (cPrice >= pMin)
                 && (cPrice <= pMax)
                 && (!q || txt.includes(q));
@@ -390,7 +389,7 @@
       yearPills.forEach(b => b.classList.remove('active'));
       yearPills[0].classList.add('active');
       brandChecks.forEach(c => c.checked = false);
-      fKm.value = '999999';
+      fKmMin.value = ''; fKmMax.value = '';
       fPriceMin.value = ''; fPriceMax.value = '';
       fSort.value = 'recommended';
       searchInput.value = '';
