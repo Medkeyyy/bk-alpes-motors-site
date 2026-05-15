@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778871821" />
+  <link rel="stylesheet" href="css/style.css?v=1778873530" />
 </head>
 <body class="admin-body">
 
@@ -39,6 +39,7 @@
       <button class="admin-tab" data-tab="rental-list">Véhicules location</button>
       <button class="admin-tab" data-tab="rental-form">+ Nouveau véhicule (location)</button>
       <button class="admin-tab" data-tab="reservations">Réservations <span class="admin-tab-badge" id="reservationsBadge" hidden>0</span></button>
+      <button class="admin-tab" data-tab="tradeins">Demandes de reprise <span class="admin-tab-badge" id="tradeinsBadge" hidden>0</span></button>
     </div>
 
     <!-- ===== TAB : Liste ===== -->
@@ -496,6 +497,23 @@
       <div id="resList"></div>
     </section>
 
+    <!-- ===== TAB : Demandes de reprise ===== -->
+    <section class="admin-tab-pane" id="tab-tradeins">
+      <div class="admin-list-header">
+        <div class="admin-list-count"><strong id="tradeinCountLabel">0</strong> demande(s) de reprise</div>
+        <div style="display:flex;gap:8px;">
+          <button class="admin-btn-ghost" id="exportTradeinBtn">Exporter en JSON</button>
+        </div>
+      </div>
+
+      <div id="tradeinEmptyState" class="admin-empty" style="display:none;">
+        <strong>Aucune demande de reprise pour l'instant</strong>
+        <p>Les demandes envoyées via la page Reprise apparaîtront ici.</p>
+      </div>
+
+      <div id="tradeinList"></div>
+    </section>
+
   </main>
 
   <!-- ============ MODAL DÉTAIL RÉSERVATION ============ -->
@@ -504,6 +522,15 @@
     <div class="admin-res-modal-dialog" role="dialog">
       <button type="button" class="loc-modal-close" data-close-res aria-label="Fermer">×</button>
       <div id="resDetailContent"></div>
+    </div>
+  </div>
+
+  <!-- ============ MODAL DÉTAIL REPRISE ============ -->
+  <div class="admin-res-modal" id="tradeinDetailModal" aria-hidden="true">
+    <div class="admin-res-modal-backdrop" data-close-tradein></div>
+    <div class="admin-res-modal-dialog" role="dialog">
+      <button type="button" class="loc-modal-close" data-close-tradein aria-label="Fermer">×</button>
+      <div id="tradeinDetailContent"></div>
     </div>
   </div>
 
@@ -1744,10 +1771,392 @@ L'équipe BK Alpes Motors`
       }, 350);
     });
 
+    // ============================================================
+    // ============ DEMANDES DE REPRISE =============================
+    // ============================================================
+    const TRADEIN_STATUS_LABELS = {
+      pending:   'En attente',
+      contacted: 'Contacté',
+      quoted:    'Offre envoyée',
+      accepted:  'Acceptée',
+      refused:   'Refusée',
+      completed: 'Conclue',
+    };
+    const TRADEIN_GROUPS = [
+      { key: 'pending',   title: 'En attente de traitement', sub: 'À chiffrer sous 24h' },
+      { key: 'contacted', title: 'Clients contactés',         sub: 'En cours d\'évaluation' },
+      { key: 'quoted',    title: 'Offre envoyée',             sub: 'En attente de réponse client' },
+      { key: 'accepted',  title: 'Acceptées',                 sub: 'À finaliser' },
+      { key: 'completed', title: 'Conclues',                  sub: 'Achat / reprise effectué' },
+      { key: 'refused',   title: 'Refusées',                  sub: 'Archivées' },
+    ];
+
+    function loadTradeins() {
+      try { return JSON.parse(localStorage.getItem('bk_tradein_requests') || '[]'); }
+      catch { return []; }
+    }
+    function saveTradeins(arr) {
+      localStorage.setItem('bk_tradein_requests', JSON.stringify(arr));
+    }
+
+    const CONDITION_LABELS = {
+      excellent: 'Excellent',
+      bon:       'Bon',
+      moyen:     'Moyen',
+      reparer:   'À réparer',
+    };
+    const BUDGET_LABELS = {
+      '0-30':   'Moins de 30 000 €',
+      '30-60':  '30 000 — 60 000 €',
+      '60-100': '60 000 — 100 000 €',
+      '100-150':'100 000 — 150 000 €',
+      '150-250':'150 000 — 250 000 €',
+      '250+':   'Plus de 250 000 €',
+    };
+    const TIMELINE_LABELS = {
+      immediate: 'Dans les 2 semaines',
+      month:     'Dans le mois',
+      '3months': 'Dans les 3 mois',
+      flexible:  'Flexible',
+    };
+
+    const tradeinCountLabel = document.getElementById('tradeinCountLabel');
+    const tradeinEmptyState = document.getElementById('tradeinEmptyState');
+    const tradeinList       = document.getElementById('tradeinList');
+    const tradeinBadge      = document.getElementById('tradeinsBadge');
+
+    function tradeinCardHTML(t) {
+      const v = t.vehicle || {};
+      const c = t.contact || {};
+      const hasProject = t.project && (t.project.type || t.project.budget || (t.project.brands && t.project.brands.length));
+      return `
+        <article class="admin-res" data-id="${t.id}">
+          <div class="admin-res-head">
+            <div>
+              <div class="admin-res-ref">${t.ref || t.id}</div>
+              <div class="admin-res-date">Reçue le ${fmtDateTimeFr(t.createdAt)}</div>
+            </div>
+            <span class="admin-res-status ${t.status}">${TRADEIN_STATUS_LABELS[t.status] || t.status}</span>
+          </div>
+          <div class="admin-res-body">
+            <div class="admin-res-row">
+              <div class="admin-res-cell">
+                <span class="admin-res-cell-label">Client</span>
+                <span class="admin-res-cell-value">${c.civility || ''} ${c.firstName || ''} ${c.lastName || ''}</span>
+                <span class="admin-res-cell-sub">${c.email || ''} · ${c.phone || ''}</span>
+              </div>
+              <div class="admin-res-cell">
+                <span class="admin-res-cell-label">Véhicule à reprendre</span>
+                <span class="admin-res-cell-value">${v.brand || ''} ${v.model || ''}</span>
+                <span class="admin-res-cell-sub">${v.year || ''} · ${v.km ? (Number(v.km).toLocaleString('fr-FR').replace(/,/g, ' ') + ' km') : ''}</span>
+              </div>
+              <div class="admin-res-cell">
+                <span class="admin-res-cell-label">État</span>
+                <span class="admin-res-cell-value">${CONDITION_LABELS[v.condition] || '—'}</span>
+                <span class="admin-res-cell-sub">${v.wishPrice ? fmtPrice(v.wishPrice) + ' souhaité' : 'À estimer'}</span>
+              </div>
+              <div class="admin-res-cell">
+                <span class="admin-res-cell-label">Projet</span>
+                <span class="admin-res-cell-value">${hasProject ? '✓ Échange' : 'Vente simple'}</span>
+                <span class="admin-res-cell-sub">${t.photos ? t.photos.length + ' photo' + (t.photos.length > 1 ? 's' : '') : '0 photo'}</span>
+              </div>
+            </div>
+            <div class="admin-res-actions">
+              <button class="admin-btn-ghost" data-tradein-action="view"      data-id="${t.id}">Voir le détail</button>
+              ${t.status === 'pending' ? `
+                <button class="admin-btn-primary"                data-tradein-action="contact" data-id="${t.id}">Contacter le client</button>
+                <button class="admin-btn-danger"                 data-tradein-action="refuse"  data-id="${t.id}">Refuser</button>
+              ` : ''}
+              ${t.status === 'contacted' ? `
+                <button class="admin-btn-primary admin-btn-success" data-tradein-action="quote"  data-id="${t.id}">Envoyer une offre</button>
+                <button class="admin-btn-danger"                    data-tradein-action="refuse" data-id="${t.id}">Refuser</button>
+              ` : ''}
+              ${t.status === 'quoted' ? `
+                <button class="admin-btn-primary admin-btn-success" data-tradein-action="accept" data-id="${t.id}">Marquer acceptée</button>
+                <button class="admin-btn-danger"                    data-tradein-action="refuse" data-id="${t.id}">Marquer refusée</button>
+              ` : ''}
+              ${t.status === 'accepted' ? `
+                <button class="admin-btn-primary admin-btn-success" data-tradein-action="complete" data-id="${t.id}">Marquer conclue</button>
+              ` : ''}
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderTradeins() {
+      const all = loadTradeins();
+      tradeinCountLabel.textContent = all.length;
+      const pending = all.filter(r => r.status === 'pending').length;
+      if (pending > 0) { tradeinBadge.hidden = false; tradeinBadge.textContent = pending; }
+      else { tradeinBadge.hidden = true; }
+
+      if (all.length === 0) {
+        tradeinEmptyState.style.display = '';
+        tradeinList.innerHTML = '';
+        return;
+      }
+      tradeinEmptyState.style.display = 'none';
+
+      const groups = { pending: [], contacted: [], quoted: [], accepted: [], completed: [], refused: [] };
+      all.forEach(r => { (groups[r.status] || groups.pending).push(r); });
+
+      tradeinList.innerHTML = TRADEIN_GROUPS.map(g => {
+        const list = groups[g.key];
+        if (list.length === 0) return '';
+        return `
+          <section class="admin-section" data-status="tradein-${g.key}">
+            <div class="admin-section-header">
+              <div class="admin-section-title">
+                <span class="admin-section-dot admin-section-dot-${g.key === 'completed' ? 'paid' : g.key === 'accepted' ? 'paid' : g.key === 'quoted' ? 'accepted' : g.key}"></span>${g.title}
+              </div>
+              <div class="admin-section-count">${list.length} demande${list.length > 1 ? 's' : ''}</div>
+            </div>
+            <div class="admin-res-list">${list.map(tradeinCardHTML).join('')}</div>
+          </section>
+        `;
+      }).join('');
+
+      tradeinList.querySelectorAll('button[data-tradein-action]').forEach(btn => {
+        btn.addEventListener('click', () => onTradeinAction(btn.dataset.tradeinAction, btn.dataset.id));
+      });
+    }
+
+    function onTradeinAction(action, id) {
+      const all = loadTradeins();
+      const idx = all.findIndex(r => r.id === id);
+      if (idx === -1) return;
+      const r = all[idx];
+
+      if (action === 'view') return openTradeinDetail(r);
+
+      const c = r.contact;
+      const v = r.vehicle;
+
+      if (action === 'contact') {
+        all[idx].status = 'contacted';
+        all[idx].contactedAt = new Date().toISOString();
+        saveTradeins(all);
+        const subject = encodeURIComponent(`BK Alpes Motors — Votre demande de reprise ${r.ref}`);
+        const body = encodeURIComponent(
+`Bonjour ${c.firstName} ${c.lastName},
+
+Nous avons bien reçu votre demande de reprise pour votre ${v.brand} ${v.model} (${v.year}, ${v.km} km).
+
+Notre équipe étudie actuellement votre dossier et vous reviendra rapidement avec une offre chiffrée.
+
+Si nous avons besoin d'informations complémentaires (photos additionnelles, historique d'entretien...), nous vous contacterons sous 24h.
+
+Bien cordialement,
+L'équipe BK Alpes Motors
+07 56 85 90 26`
+        );
+        window.location.href = `mailto:${c.email}?subject=${subject}&body=${body}`;
+        renderTradeins();
+        showToast('Email d\'accusé de réception pré-rempli');
+        return;
+      }
+
+      if (action === 'quote') {
+        const amount = prompt(`Offre de reprise pour ${r.ref}\n${v.brand} ${v.model} (${v.year})\n\nMontant proposé (€) :`, v.wishPrice || '');
+        if (amount === null) return;
+        const cleanAmount = parseInt(String(amount).replace(/[^\d]/g, ''), 10);
+        if (isNaN(cleanAmount) || cleanAmount <= 0) {
+          alert('Montant invalide');
+          return;
+        }
+        all[idx].status = 'quoted';
+        all[idx].quote = { amount: cleanAmount, at: new Date().toISOString() };
+        saveTradeins(all);
+        const subject = encodeURIComponent(`BK Alpes Motors — Offre de reprise ${r.ref}`);
+        const body = encodeURIComponent(
+`Bonjour ${c.firstName} ${c.lastName},
+
+Suite à votre demande de reprise (réf. ${r.ref}), nous avons le plaisir de vous proposer l'offre suivante pour votre ${v.brand} ${v.model} :
+
+>>> ${fmtPrice(cleanAmount)} <<<
+
+Cette offre est ferme et valable 7 jours. Elle inclut toutes les démarches administratives (carte grise, contrôle technique si nécessaire).
+
+${r.project && r.project.type ? 'Bonus reprise : si vous achetez un véhicule chez nous, nous pouvons bonifier cette offre. Parlons-en.\n\n' : ''}Si l'offre vous convient, répondez à cet email ou contactez-nous au 07 56 85 90 26 pour planifier l'expertise physique du véhicule. Paiement sous 48h après accord.
+
+Bien cordialement,
+L'équipe BK Alpes Motors`
+        );
+        window.location.href = `mailto:${c.email}?subject=${subject}&body=${body}`;
+        renderTradeins();
+        showToast('Offre enregistrée — email pré-rempli ouvert');
+        return;
+      }
+
+      if (action === 'refuse') {
+        const reason = prompt('Motif du refus (envoyé au client) :', '');
+        if (reason === null) return;
+        all[idx].status = 'refused';
+        all[idx].refusedAt = new Date().toISOString();
+        all[idx].refusalReason = reason.trim();
+        saveTradeins(all);
+        const subject = encodeURIComponent(`BK Alpes Motors — Demande ${r.ref}`);
+        const body = encodeURIComponent(
+`Bonjour ${c.firstName} ${c.lastName},
+
+Nous avons bien étudié votre demande de reprise pour votre ${v.brand} ${v.model} (réf. ${r.ref}).
+
+Malheureusement, nous ne pouvons donner suite à votre demande.
+
+${reason ? 'Motif : ' + reason + '\n\n' : ''}N'hésitez pas à reprendre contact pour d'autres véhicules à l'avenir.
+
+Cordialement,
+L'équipe BK Alpes Motors`
+        );
+        window.location.href = `mailto:${c.email}?subject=${subject}&body=${body}`;
+        renderTradeins();
+        showToast('Demande refusée');
+        return;
+      }
+
+      if (action === 'accept') {
+        if (!confirm(`Confirmer que ${c.firstName} ${c.lastName} a accepté l'offre pour ${r.ref} ?`)) return;
+        all[idx].status = 'accepted';
+        all[idx].acceptedAt = new Date().toISOString();
+        saveTradeins(all);
+        renderTradeins();
+        showToast('Reprise marquée acceptée');
+        return;
+      }
+
+      if (action === 'complete') {
+        if (!confirm(`Confirmer la conclusion de la reprise ${r.ref} (véhicule récupéré + payé) ?`)) return;
+        all[idx].status = 'completed';
+        all[idx].completedAt = new Date().toISOString();
+        saveTradeins(all);
+        renderTradeins();
+        showToast('Reprise conclue');
+        return;
+      }
+    }
+
+    // ============ MODAL DÉTAIL TRADEIN ============
+    const tradeinDetailModal   = document.getElementById('tradeinDetailModal');
+    const tradeinDetailContent = document.getElementById('tradeinDetailContent');
+
+    function openTradeinDetail(t) {
+      const v = t.vehicle || {};
+      const c = t.contact || {};
+      const p = t.project || {};
+
+      const photosHTML = (t.photos && t.photos.length)
+        ? `<div class="reprise-photo-preview" style="margin-top:10px;">${t.photos.map((src, i) => `
+            <div class="reprise-photo-tile" style="cursor:pointer;" onclick="window.open('${src}', '_blank')">
+              <img src="${src}" alt="Photo ${i+1}" />
+            </div>`).join('')}</div>`
+        : '<p>Aucune photo fournie.</p>';
+
+      const projectHTML = (p.type || p.budget || (p.brands && p.brands.length) || p.timeline)
+        ? `
+          <div class="admin-res-detail-section full">
+            <h3>Projet d'achat (échange)</h3>
+            ${p.type ? `<p><strong>Type recherché :</strong> ${p.type}</p>` : ''}
+            ${p.budget ? `<p><strong>Budget :</strong> ${BUDGET_LABELS[p.budget] || p.budget}</p>` : ''}
+            ${p.fuel ? `<p><strong>Motorisation :</strong> ${p.fuel}</p>` : ''}
+            ${p.timeline ? `<p><strong>Délai :</strong> ${TIMELINE_LABELS[p.timeline] || p.timeline}</p>` : ''}
+            ${p.brands && p.brands.length ? `<p><strong>Marques :</strong> ${p.brands.join(', ')}</p>` : ''}
+            ${p.notes ? `<p style="white-space:pre-wrap;">${p.notes}</p>` : ''}
+          </div>`
+        : `<div class="admin-res-detail-section full"><h3>Projet d'achat</h3><p>Le client souhaite uniquement nous vendre son véhicule (pas d'échange).</p></div>`;
+
+      const quoteHTML = t.quote
+        ? `<div class="admin-res-detail-section full">
+             <h3>Offre envoyée</h3>
+             <p><strong style="font-size:1.3rem; color:#2D8E47;">${fmtMoney(t.quote.amount)}</strong></p>
+             <p class="sub">Envoyée le ${fmtDateTimeFr(t.quote.at)}</p>
+           </div>`
+        : '';
+
+      tradeinDetailContent.innerHTML = `
+        <div class="admin-res-detail">
+          <div class="admin-res-detail-head">
+            <span class="admin-res-detail-eyebrow">Demande de reprise</span>
+            <h2>${t.ref || t.id}</h2>
+            <span class="admin-res-status ${t.status}">${TRADEIN_STATUS_LABELS[t.status]}</span>
+          </div>
+
+          <div class="admin-res-detail-grid">
+            <div class="admin-res-detail-section">
+              <h3>Client</h3>
+              <p><strong>${c.civility || ''} ${c.firstName || ''} ${c.lastName || ''}</strong></p>
+              <p>${c.email || ''}</p>
+              <p>${c.phone || ''}</p>
+              <p>Ville : ${c.city || '—'}</p>
+              <p>Contact préféré : <strong>${c.preferred || 'email'}</strong></p>
+            </div>
+
+            <div class="admin-res-detail-section">
+              <h3>Véhicule à reprendre</h3>
+              <p><strong>${v.brand} ${v.model}</strong></p>
+              <p>Année : ${v.year || '—'} · ${v.km ? Number(v.km).toLocaleString('fr-FR').replace(/,/g, ' ') + ' km' : '—'}</p>
+              <p>${v.fuel || '—'} · ${v.gearbox || '—'}${v.power ? ' · ' + v.power + ' CV' : ''}</p>
+              <p>Couleur : ${v.color || '—'}</p>
+              <p>État : <strong>${CONDITION_LABELS[v.condition] || '—'}</strong></p>
+              ${v.wishPrice ? `<p>Prix souhaité : <strong>${fmtPrice(v.wishPrice)}</strong></p>` : ''}
+            </div>
+
+            ${v.description ? `
+              <div class="admin-res-detail-section full">
+                <h3>Historique &amp; équipements</h3>
+                <p style="white-space:pre-wrap;">${v.description}</p>
+              </div>` : ''}
+
+            ${projectHTML}
+
+            ${quoteHTML}
+
+            <div class="admin-res-detail-section full">
+              <h3>Photos du véhicule</h3>
+              ${photosHTML}
+            </div>
+
+            ${t.refusalReason ? `
+              <div class="admin-res-detail-section full">
+                <h3>Motif du refus</h3>
+                <p>${t.refusalReason}</p>
+              </div>` : ''}
+          </div>
+        </div>
+      `;
+      tradeinDetailModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    document.querySelectorAll('[data-close-tradein]').forEach(el => el.addEventListener('click', () => {
+      tradeinDetailModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }));
+
+    document.getElementById('exportTradeinBtn').addEventListener('click', () => {
+      const data = loadTradeins();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `bk-reprises-${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Export JSON téléchargé');
+    });
+
+    // Refresh quand on switche sur l'onglet
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        if (tab.dataset.tab === 'tradeins') renderTradeins();
+      });
+    });
+
     // ============ INIT ============
     renderList();
     renderReservations();
     renderRentalList();
+    renderTradeins();
   </script>
 </body>
 </html>

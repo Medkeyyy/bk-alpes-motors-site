@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Achat / Reprise — BK Alpes Motors</title>
-  <meta name="description" content="Vendez votre véhicule à BK Alpes Motors à Annecy. Expertise gratuite, offre sous 24h, paiement sous 48h." />
+  <title>Reprise — BK Alpes Motors</title>
+  <meta name="description" content="Faites estimer votre véhicule par BK Alpes Motors à Annecy. Offre sous 24h, paiement sous 48h, démarches comprises." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://bkalpesmotors.fr/achat" />
-  <meta property="og:title" content="Achat / Reprise — BK Alpes Motors" />
-  <meta property="og:description" content="Vendez votre véhicule à BK Alpes Motors à Annecy. Expertise gratuite, offre sous 24h, paiement sous 48h." />
+  <meta property="og:title" content="Reprise — BK Alpes Motors" />
+  <meta property="og:description" content="Faites estimer votre véhicule par BK Alpes Motors à Annecy." />
   <meta property="og:image" content="https://bkalpesmotors.fr/images/og-cover.jpg" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778871821" />
+  <link rel="stylesheet" href="css/style.css?v=1778873530" />
 </head>
 <body>
 <nav id="navbar" class="navbar">
@@ -28,7 +28,7 @@
       <div class="nav-links" id="navLinks">
         <a href="vente.html">Vente</a>
         <a href="location.html">Location</a>
-        <a href="achat.html" class="active">Achat / Reprise</a>
+        <a href="achat.html" class="active">Reprise</a>
         <a href="detailing.html">Lavage</a>
         <a href="atelier.html">L'atelier</a>
       </div>
@@ -41,48 +41,279 @@
   <div class="nav-mobile" id="navMobile">
     <a href="vente.html">Vente</a>
     <a href="location.html">Location</a>
-    <a href="achat.html">Achat / Reprise</a>
+    <a href="achat.html">Reprise</a>
     <a href="detailing.html">Lavage</a>
     <a href="atelier.html">L'atelier</a>
     <a href="contact.html" class="btn btn-primary">Nous contacter</a>
   </div>
-  <section class="page-tesla-hero">
-    <div class="page-tesla-hero-media">
-      <img src="images/branding/facade-utilitaires.png" alt="Achat / Reprise" />
+
+  <!-- HERO (style vente/location) -->
+  <section class="vente-hero">
+    <div class="vente-hero-media">
+      <img src="images/branding/facade-utilitaires.png" alt="Reprise BK Alpes Motors" />
     </div>
-    <div class="page-tesla-hero-content">
-      <h1>Achat / Reprise</h1>
-      <p>Vendez votre véhicule. Expertise gratuite, offre sous 24h, paiement sous 48h.</p>
-    </div>
-  </section>
-  <!-- 3 étapes en cards -->
-  <section class="tesla-flat light">
-    <div class="tesla-flat-inner">
-      <div class="tesla-flat-header">
-        <h2>Une démarche en 3 étapes.</h2>
-        <p class="lead">De l'envoi des photos au paiement, comptez 72 heures maximum.</p>
-      </div>
-      <div class="tesla-cards">
-        <article class="tesla-card">
-          <div class="tesla-card-num">Étape 01</div>
-          <h3>Vous nous envoyez</h3>
-          <p>Quelques photos, la carte grise et un descriptif rapide. Tout se fait par WhatsApp ou email, sans déplacement.</p>
-        </article>
-        <article class="tesla-card">
-          <div class="tesla-card-num">Étape 02</div>
-          <h3>On vous fait une offre</h3>
-          <p>Sous 24 heures, vous recevez une estimation chiffrée et argumentée. C'est ferme, sans engagement de votre côté.</p>
-        </article>
-        <article class="tesla-card">
-          <div class="tesla-card-num">Étape 03</div>
-          <h3>Vous repartez payé</h3>
-          <p>Si l'offre vous convient, on contrôle le véhicule physiquement et on règle sous 48 heures. Démarches comprises.</p>
-        </article>
+    <div class="vente-hero-content">
+      <h1 class="vente-hero-title">Reprise</h1>
+      <p class="vente-hero-sub">Vendez-nous votre véhicule, ou échangez-le contre un autre de notre stock. Estimation gratuite et offre ferme sous 24h.</p>
+      <div class="vente-hero-actions">
+        <a href="#form" class="vente-hero-btn vente-hero-btn-primary">Faire estimer mon véhicule</a>
+        <a href="contact.html" class="vente-hero-btn vente-hero-btn-ghost">Nous contacter</a>
       </div>
     </div>
   </section>
 
-  <!-- Bonus reprise -->
+  <!-- FORM REPRISE -->
+  <section class="reprise-page-section" id="form">
+    <div class="reprise-page-inner">
+
+      <div class="reprise-page-intro">
+        <span class="reprise-page-eyebrow">Demande d'estimation</span>
+        <h2>Dites-nous tout sur votre véhicule.</h2>
+        <p>Renseignez les infos ci-dessous. Plus elles sont précises, plus notre estimation sera juste. Vous recevrez une offre chiffrée sous 24 heures, sans engagement.</p>
+      </div>
+
+      <form class="reprise-form" id="repriseForm" autocomplete="off">
+
+        <!-- SECTION 1 : Votre véhicule actuel -->
+        <div class="reprise-form-section">
+          <div class="reprise-form-section-header">
+            <span class="reprise-form-section-num">1</span>
+            <h3 class="reprise-form-section-title">Votre véhicule actuel</h3>
+            <span class="reprise-form-section-sub">Celui que vous souhaitez nous vendre</span>
+          </div>
+
+          <div class="reprise-form-grid">
+            <div class="reprise-form-field">
+              <label>Marque <span class="req">*</span></label>
+              <select id="vehBrand" required>
+                <option value="">— Choisir —</option>
+                <option>Porsche</option><option>Audi</option><option>Mercedes-Benz</option>
+                <option>Mercedes-AMG</option><option>BMW</option><option>Ferrari</option>
+                <option>Lamborghini</option><option>Aston Martin</option><option>Bentley</option>
+                <option>Range Rover</option><option>Land Rover</option><option>Jaguar</option>
+                <option>Tesla</option><option>McLaren</option><option>Maserati</option>
+                <option>Rolls-Royce</option><option>Volkswagen</option><option>Renault</option>
+                <option>Peugeot</option><option>Citroën</option><option>Fiat</option>
+                <option>MINI</option><option>Alpine</option><option>Toyota</option>
+                <option>Volvo</option><option>Skoda</option><option>Autre</option>
+              </select>
+            </div>
+            <div class="reprise-form-field">
+              <label>Modèle <span class="req">*</span></label>
+              <input type="text" id="vehModel" placeholder="Ex: 911 Carrera 4 GTS" required />
+            </div>
+            <div class="reprise-form-field">
+              <label>Année de mise en circulation <span class="req">*</span></label>
+              <input type="number" id="vehYear" min="1980" max="2099" placeholder="Ex: 2020" required />
+            </div>
+            <div class="reprise-form-field">
+              <label>Kilométrage <span class="req">*</span></label>
+              <input type="number" id="vehKm" min="0" placeholder="Ex: 45 000" required />
+            </div>
+            <div class="reprise-form-field">
+              <label>Carburant <span class="req">*</span></label>
+              <select id="vehFuel" required>
+                <option value="">— Choisir —</option>
+                <option>Essence</option><option>Diesel</option>
+                <option>Hybride</option><option>Hybride rechargeable</option>
+                <option>Électrique</option><option>GPL</option>
+              </select>
+            </div>
+            <div class="reprise-form-field">
+              <label>Boîte de vitesses <span class="req">*</span></label>
+              <select id="vehGearbox" required>
+                <option value="">— Choisir —</option>
+                <option>Automatique</option><option>Manuelle</option>
+                <option>Robotisée (DCT)</option>
+              </select>
+            </div>
+            <div class="reprise-form-field">
+              <label>Puissance fiscale (CV)</label>
+              <input type="number" id="vehPower" min="0" placeholder="Ex: 12" />
+            </div>
+            <div class="reprise-form-field">
+              <label>Couleur extérieure</label>
+              <input type="text" id="vehColor" placeholder="Ex: Bleu Miami métallisé" />
+            </div>
+            <div class="reprise-form-field">
+              <label>État général <span class="req">*</span></label>
+              <select id="vehCondition" required>
+                <option value="">— Choisir —</option>
+                <option value="excellent">Excellent — comme neuf</option>
+                <option value="bon">Bon — usure normale</option>
+                <option value="moyen">Moyen — quelques défauts</option>
+                <option value="reparer">À réparer — défauts importants</option>
+              </select>
+            </div>
+            <div class="reprise-form-field">
+              <label>Prix de vente souhaité (€)</label>
+              <input type="number" id="vehWishPrice" min="0" placeholder="Optionnel" />
+              <span class="reprise-form-field-help">Indicatif — notre offre sera basée sur la cote du marché</span>
+            </div>
+            <div class="reprise-form-field full">
+              <label>Historique &amp; équipements</label>
+              <textarea id="vehDescription" rows="4" placeholder="Entretien (carnet à jour ? révisions à la concession ?), équipements remarquables (toit panoramique, sellerie cuir, jantes spécifiques...), historique (1er main ? sinistres ?). Plus c'est détaillé, mieux on chiffre."></textarea>
+            </div>
+          </div>
+
+          <!-- Photos upload -->
+          <div style="margin-top:16px;">
+            <label style="font-family:'Inter',sans-serif; font-size:0.82rem; font-weight:500; color:#14141A; display:block; margin-bottom:8px;">Photos du véhicule <span class="req">*</span></label>
+            <label class="reprise-upload" id="vehUploadZone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              <p><strong>Cliquez pour ajouter</strong> ou glissez vos photos ici</p>
+              <span class="help">Idéalement : 3/4 avant, 3/4 arrière, côté, intérieur, tableau de bord (kilométrage visible)</span>
+              <input type="file" id="vehPhotoInput" accept="image/*" multiple />
+            </label>
+            <div class="reprise-photo-preview" id="vehPhotoPreview"></div>
+          </div>
+        </div>
+
+        <!-- SECTION 2 : Projet d'achat (optionnel) -->
+        <div class="reprise-form-section">
+          <div class="reprise-form-section-header">
+            <span class="reprise-form-section-num">2</span>
+            <h3 class="reprise-form-section-title">Votre projet (optionnel)</h3>
+            <span class="reprise-form-section-sub">Échange contre un autre véhicule</span>
+          </div>
+
+          <p style="font-family:'Inter',sans-serif; font-size:0.9rem; color:#7A7670; margin:0 0 18px; line-height:1.5;">
+            Si vous souhaitez <strong style="color:#14141A;">échanger votre véhicule contre un autre</strong> de notre stock, dites-nous ce que vous cherchez. Nous bonifions la reprise dans ce cas.
+          </p>
+
+          <div class="reprise-form-grid">
+            <div class="reprise-form-field">
+              <label>Type de véhicule recherché</label>
+              <select id="projectType">
+                <option value="">— Aucune préférence —</option>
+                <option value="sport">Sport</option>
+                <option value="berline">Berline</option>
+                <option value="suv">SUV</option>
+                <option value="gt">Grand Tourisme</option>
+                <option value="cabriolet">Cabriolet</option>
+                <option value="compact">Compacte</option>
+              </select>
+            </div>
+            <div class="reprise-form-field">
+              <label>Budget approximatif</label>
+              <select id="projectBudget">
+                <option value="">— À discuter —</option>
+                <option value="0-30">Moins de 30 000 €</option>
+                <option value="30-60">30 000 — 60 000 €</option>
+                <option value="60-100">60 000 — 100 000 €</option>
+                <option value="100-150">100 000 — 150 000 €</option>
+                <option value="150-250">150 000 — 250 000 €</option>
+                <option value="250+">Plus de 250 000 €</option>
+              </select>
+            </div>
+            <div class="reprise-form-field">
+              <label>Motorisation préférée</label>
+              <select id="projectFuel">
+                <option value="">— Aucune préférence —</option>
+                <option>Essence</option>
+                <option>Diesel</option>
+                <option>Hybride</option>
+                <option>Électrique</option>
+              </select>
+            </div>
+            <div class="reprise-form-field">
+              <label>Délai souhaité</label>
+              <select id="projectTimeline">
+                <option value="">— Aucun —</option>
+                <option value="immediate">Dans les 2 semaines</option>
+                <option value="month">Dans le mois</option>
+                <option value="3months">Dans les 3 mois</option>
+                <option value="flexible">Flexible</option>
+              </select>
+            </div>
+            <div class="reprise-form-field full">
+              <label>Marques préférées <span class="reprise-form-field-help" style="display:inline; margin-left:6px;">(cliquez sur celles qui vous intéressent)</span></label>
+              <div class="reprise-brand-chips" id="projectBrands">
+                <label class="reprise-brand-chip"><input type="checkbox" value="Porsche">Porsche</label>
+                <label class="reprise-brand-chip"><input type="checkbox" value="Audi">Audi</label>
+                <label class="reprise-brand-chip"><input type="checkbox" value="Mercedes">Mercedes</label>
+                <label class="reprise-brand-chip"><input type="checkbox" value="BMW">BMW</label>
+                <label class="reprise-brand-chip"><input type="checkbox" value="Ferrari">Ferrari</label>
+                <label class="reprise-brand-chip"><input type="checkbox" value="Lamborghini">Lamborghini</label>
+                <label class="reprise-brand-chip"><input type="checkbox" value="Aston Martin">Aston Martin</label>
+                <label class="reprise-brand-chip"><input type="checkbox" value="Bentley">Bentley</label>
+                <label class="reprise-brand-chip"><input type="checkbox" value="Range Rover">Range Rover</label>
+                <label class="reprise-brand-chip"><input type="checkbox" value="Tesla">Tesla</label>
+                <label class="reprise-brand-chip"><input type="checkbox" value="McLaren">McLaren</label>
+                <label class="reprise-brand-chip"><input type="checkbox" value="Maserati">Maserati</label>
+                <label class="reprise-brand-chip"><input type="checkbox" value="Autre">Autre</label>
+              </div>
+            </div>
+            <div class="reprise-form-field full">
+              <label>Précisions sur votre projet</label>
+              <textarea id="projectNotes" rows="3" placeholder="Modèles précis qui vous intéressent, options recherchées, contraintes particulières..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3 : Vos coordonnées -->
+        <div class="reprise-form-section">
+          <div class="reprise-form-section-header">
+            <span class="reprise-form-section-num">3</span>
+            <h3 class="reprise-form-section-title">Vos coordonnées</h3>
+            <span class="reprise-form-section-sub">Pour vous envoyer notre offre</span>
+          </div>
+
+          <div class="reprise-form-grid">
+            <div class="reprise-form-field">
+              <label>Civilité</label>
+              <select id="contactCivility">
+                <option>M.</option><option>Mme</option><option>Autre</option>
+              </select>
+            </div>
+            <div class="reprise-form-field"></div>
+            <div class="reprise-form-field">
+              <label>Prénom <span class="req">*</span></label>
+              <input type="text" id="contactFirstName" required />
+            </div>
+            <div class="reprise-form-field">
+              <label>Nom <span class="req">*</span></label>
+              <input type="text" id="contactLastName" required />
+            </div>
+            <div class="reprise-form-field">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" id="contactEmail" required />
+            </div>
+            <div class="reprise-form-field">
+              <label>Téléphone <span class="req">*</span></label>
+              <input type="tel" id="contactPhone" required placeholder="+33 6 12 34 56 78" />
+            </div>
+            <div class="reprise-form-field">
+              <label>Ville <span class="req">*</span></label>
+              <input type="text" id="contactCity" required placeholder="Ex: Annecy" />
+            </div>
+            <div class="reprise-form-field">
+              <label>Mode de contact préféré</label>
+              <select id="contactPreferred">
+                <option value="email">Email</option>
+                <option value="phone">Téléphone</option>
+                <option value="whatsapp">WhatsApp</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="reprise-form-checkbox">
+            <input type="checkbox" id="acceptTerms" required />
+            <span>J'accepte que BK Alpes Motors me contacte au sujet de ma demande et conserve mes données conformément à la <a href="confidentialite.html" target="_blank">politique de confidentialité</a>.</span>
+          </label>
+        </div>
+
+        <div class="reprise-form-actions">
+          <button type="submit" class="reprise-btn-primary">
+            Envoyer ma demande
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Bonus reprise (info bandeau) -->
   <section class="tesla-flat dark">
     <div class="tesla-flat-inner">
       <div class="tesla-flat-grid">
@@ -91,7 +322,7 @@
           <h2>Achetez chez nous, reprenez chez nous.</h2>
           <p class="lead">Si vous achetez votre prochain véhicule chez BK Alpes Motors, nous bonifions la reprise de votre ancienne voiture. Un seul rendez-vous, un seul interlocuteur, aucune démarche de votre côté.</p>
           <div class="tesla-flat-actions">
-            <a href="https://wa.me/33756859026?text=Bonjour%2C%20je%20souhaite%20une%20estimation%20de%20mon%20v%C3%A9hicule." target="_blank" rel="noopener noreferrer" class="hero-tesla-btn hero-tesla-btn-primary">Faire estimer</a>
+            <a href="https://wa.me/33756859026?text=Bonjour%2C%20je%20souhaite%20une%20estimation%20de%20mon%20v%C3%A9hicule." target="_blank" rel="noopener noreferrer" class="hero-tesla-btn hero-tesla-btn-primary">Faire estimer par WhatsApp</a>
             <a href="tel:+33756859026" class="hero-tesla-btn hero-tesla-btn-ghost">07 56 85 90 26</a>
           </div>
         </div>
@@ -107,13 +338,13 @@
     <div class="footer-v2-inner">
       <div class="footer-v2-brand">
         <img src="images/branding/logo.jpeg" alt="BK Alpes Motors" />
-        <p>Vente, location, achat-reprise et lavage de véhicules premium à Annecy.</p>
+        <p>Vente, location, reprise et lavage de véhicules premium à Annecy.</p>
       </div>
       <div class="footer-v2-col">
         <h4>Services</h4>
         <a href="vente.html">Vente</a>
         <a href="location.html">Location</a>
-        <a href="achat.html">Achat / Reprise</a>
+        <a href="achat.html">Reprise</a>
         <a href="detailing.html">Lavage</a>
       </div>
       <div class="footer-v2-col">
@@ -139,6 +370,20 @@
     </div>
   </footer>
 
+  <!-- MODAL CONFIRMATION -->
+  <div class="reprise-confirm-modal" id="repriseConfirm" aria-hidden="true">
+    <div class="reprise-confirm-backdrop" data-close></div>
+    <div class="reprise-confirm-dialog">
+      <div class="loc-confirm-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3>Demande envoyée !</h3>
+      <p>Votre demande de reprise n°<strong id="repriseConfirmRef">—</strong> est bien transmise à BK Alpes Motors.</p>
+      <p class="sub">Vous recevrez sous <strong>24 heures</strong> une estimation chiffrée par email ou téléphone selon votre préférence. Sans engagement.</p>
+      <button type="button" class="reprise-btn-primary" data-close style="margin-top:18px;">Fermer</button>
+    </div>
+  </div>
+
   <a href="https://wa.me/33756859026" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact WhatsApp">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.134.557 4.135 1.533 5.875L0 24l6.295-1.51A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.372l-.36-.213-3.735.895.939-3.63-.234-.374A9.818 9.818 0 1112 21.818z"/></svg>
     <span>WhatsApp</span>
@@ -161,4 +406,163 @@
         navMobile.classList.remove('open');
       }));
     }
-  </script></body></html>
+
+    // ============ UPLOAD PHOTOS ============
+    const photoInput   = document.getElementById('vehPhotoInput');
+    const photoPreview = document.getElementById('vehPhotoPreview');
+    const uploadZone   = document.getElementById('vehUploadZone');
+    let vehPhotos = [];
+
+    photoInput.addEventListener('change', (e) => {
+      Array.from(e.target.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          vehPhotos.push(ev.target.result);
+          renderPhotos();
+        };
+        reader.readAsDataURL(file);
+      });
+      photoInput.value = '';
+    });
+
+    function renderPhotos() {
+      photoPreview.innerHTML = vehPhotos.map((src, i) => `
+        <div class="reprise-photo-tile">
+          <img src="${src}" alt="Photo ${i+1}" />
+          <button type="button" data-idx="${i}" aria-label="Supprimer">×</button>
+        </div>
+      `).join('');
+      photoPreview.querySelectorAll('button[data-idx]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          vehPhotos.splice(parseInt(btn.dataset.idx, 10), 1);
+          renderPhotos();
+        });
+      });
+    }
+
+    ['dragover','dragenter'].forEach(ev => uploadZone.addEventListener(ev, (e) => {
+      e.preventDefault();
+      uploadZone.style.borderColor = '#14141A';
+      uploadZone.style.background = '#F4F4F5';
+    }));
+    ['dragleave','drop'].forEach(ev => uploadZone.addEventListener(ev, (e) => {
+      e.preventDefault();
+      uploadZone.style.borderColor = '';
+      uploadZone.style.background = '';
+    }));
+    uploadZone.addEventListener('drop', (e) => {
+      Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          vehPhotos.push(ev.target.result);
+          renderPhotos();
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    // ============ SUBMIT ============
+    const form = document.getElementById('repriseForm');
+    const confirmModal = document.getElementById('repriseConfirm');
+
+    function loadRequests() {
+      try { return JSON.parse(localStorage.getItem('bk_tradein_requests') || '[]'); }
+      catch { return []; }
+    }
+    function saveRequests(arr) {
+      localStorage.setItem('bk_tradein_requests', JSON.stringify(arr));
+    }
+    function genRef() {
+      const d = new Date();
+      const y = String(d.getFullYear()).slice(-2);
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `BKR-${y}${m}${day}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const requiredFields = form.querySelectorAll('[required]');
+      for (const f of requiredFields) {
+        if (!f.checkValidity()) {
+          f.reportValidity();
+          f.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+      }
+      if (vehPhotos.length === 0) {
+        alert('Merci d\'ajouter au moins une photo de votre véhicule.');
+        document.getElementById('vehUploadZone').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+      const ref = genRef();
+      const projectBrands = Array.from(document.querySelectorAll('#projectBrands input:checked')).map(i => i.value);
+
+      const request = {
+        id: ref,
+        ref,
+        createdAt: new Date().toISOString(),
+        status: 'pending',
+        vehicle: {
+          brand:       document.getElementById('vehBrand').value,
+          model:       document.getElementById('vehModel').value.trim(),
+          year:        document.getElementById('vehYear').value,
+          km:          document.getElementById('vehKm').value,
+          fuel:        document.getElementById('vehFuel').value,
+          gearbox:     document.getElementById('vehGearbox').value,
+          power:       document.getElementById('vehPower').value,
+          color:       document.getElementById('vehColor').value.trim(),
+          condition:   document.getElementById('vehCondition').value,
+          wishPrice:   document.getElementById('vehWishPrice').value,
+          description: document.getElementById('vehDescription').value.trim(),
+        },
+        project: {
+          type:     document.getElementById('projectType').value,
+          budget:   document.getElementById('projectBudget').value,
+          fuel:     document.getElementById('projectFuel').value,
+          timeline: document.getElementById('projectTimeline').value,
+          brands:   projectBrands,
+          notes:    document.getElementById('projectNotes').value.trim(),
+        },
+        contact: {
+          civility:  document.getElementById('contactCivility').value,
+          firstName: document.getElementById('contactFirstName').value.trim(),
+          lastName:  document.getElementById('contactLastName').value.trim(),
+          email:     document.getElementById('contactEmail').value.trim(),
+          phone:     document.getElementById('contactPhone').value.trim(),
+          city:      document.getElementById('contactCity').value.trim(),
+          preferred: document.getElementById('contactPreferred').value,
+        },
+        photos: vehPhotos,
+      };
+
+      try {
+        const all = loadRequests();
+        all.unshift(request);
+        saveRequests(all);
+      } catch (err) {
+        alert('Erreur de sauvegarde (photos peut-être trop lourdes). Réduisez la taille des photos et réessayez.');
+        return;
+      }
+
+      document.getElementById('repriseConfirmRef').textContent = ref;
+      confirmModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      form.reset();
+      vehPhotos = [];
+      renderPhotos();
+    });
+
+    document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', () => {
+      confirmModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        confirmModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    });
+  </script>
+</body>
+</html>
