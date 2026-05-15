@@ -10878,3 +10878,126 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-cta {
   box-shadow: 0 1px 0 rgba(0,0,0,0.04) !important;
 }
 
+
+/* =============================================================
+   TESLA DUAL — 2 grandes cards côte à côte sous le hero
+   ============================================================= */
+
+.tesla-dual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 12px 12px 0;
+  background: #FFFFFF;
+}
+@media (max-width: 880px) {
+  .tesla-dual { grid-template-columns: 1fr; gap: 12px; }
+}
+
+.tesla-dual-card {
+  position: relative;
+  height: 60vh;
+  min-height: 480px;
+  max-height: 620px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #0A0A0A;
+}
+.tesla-dual-card-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.tesla-dual-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.tesla-dual-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.0) 35%, rgba(0,0,0,0.55) 100%);
+}
+
+.tesla-dual-card-content {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.tesla-dual-card-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: rgba(255,255,255,0.92);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+}
+.tesla-dual-card-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.tesla-dual-card-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: #FFFFFF;
+  margin: 0;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.tesla-dual-card-sub {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.88);
+  margin: 0;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+}
+.tesla-dual-card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+.tesla-dual-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 28px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 500;
+  border-radius: 4px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  min-width: 180px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+.tesla-dual-btn-primary {
+  background: rgba(20,20,26,0.88);
+  color: #FFFFFF;
+  backdrop-filter: blur(8px);
+}
+.tesla-dual-btn-primary:hover { background: #14141A; }
+.tesla-dual-btn-ghost {
+  background: rgba(255,255,255,0.92);
+  color: #14141A;
+  backdrop-filter: blur(8px);
+}
+.tesla-dual-btn-ghost:hover { background: #FFFFFF; }
+
+@media (max-width: 600px) {
+  .tesla-dual { padding: 8px 8px 0; }
+  .tesla-dual-card { height: 70vh; min-height: 420px; }
+  .tesla-dual-card-content { padding: 24px 24px; }
+  .tesla-dual-card-actions { width: 100%; }
+  .tesla-dual-btn { flex: 1; min-width: 0; }
+}
+
