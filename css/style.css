@@ -11162,3 +11162,36 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-cta {
   border-radius: 4px;
 }
 
+
+/* =============================================================
+   TESLA QUAD V2 — 1 card pleine largeur + aperçu de la suivante
+   ============================================================= */
+
+.tesla-quad-wrap {
+  padding: 14px 0 14px !important;
+}
+
+.tesla-quad {
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+  gap: 14px !important;
+}
+
+.tesla-quad-card {
+  flex: 0 0 calc(94% - 14px) !important;
+  height: 64vh !important;
+  min-height: 500px !important;
+  max-height: 660px !important;
+}
+@media (max-width: 880px) {
+  .tesla-quad-card { flex: 0 0 calc(92% - 14px) !important; }
+}
+
+/* Flèches plus visibles puisqu'on en voit qu'une à la fois */
+.tesla-quad-arrow {
+  width: 48px !important;
+  height: 48px !important;
+}
+.tesla-quad-arrow-left { left: 28px !important; }
+.tesla-quad-arrow-right { right: 28px !important; }
+
