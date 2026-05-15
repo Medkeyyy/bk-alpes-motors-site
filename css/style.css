@@ -11631,3 +11631,18 @@ html .nav-burger {
   .brands-marquee-item { height: 20px !important; }
 }
 
+
+/* =============================================================
+   MARQUEE LOGOS V3 — Plus de bordures, bien centré entre hero et cards
+   ============================================================= */
+.brands-marquee {
+  border-top: none !important;
+  border-bottom: none !important;
+  padding: 24px 0 !important;
+}
+
+/* On retire le padding-top du wrap des cards pour que le marquee soit pile au milieu */
+.tesla-quad-wrap {
+  padding: 0 0 32px !important;
+}
+
