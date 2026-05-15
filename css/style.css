@@ -9715,3 +9715,737 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-links a.active {
 /* Mais on ré-active la home version slider */
 .home-slider { display: block !important; }
 
+
+/* =============================================================
+   PALETTE VELUXE — Charcoal doux + Blanc cassé + Gris taupe
+   Plus d'or vif, plus de doré : neutre, premium, sobre
+   ============================================================= */
+
+:root {
+  /* On override les variables principales pour adopter le système Veluxe */
+  --bg: #FFFFFF !important;
+  --bg-alt: #F4F2EE !important;        /* Crème très légère */
+  --bg-dark: #16161A !important;        /* Charcoal doux (pas noir pur) */
+  --bg-dark2: #1E1E22 !important;       /* Anthracite chaud */
+  --bg-surface: #FFFFFF !important;
+  --bg-surface-2: #F8F7F4 !important;
+
+  /* Accent neutre — un blanc cassé pour les highlights */
+  --accent: #C9C3B5 !important;         /* Beige doux (au lieu de l'or) */
+  --accent-light: #E8E2D3 !important;
+  --accent-dark: #8A8478 !important;
+
+  --text: #14141A !important;
+  --text-muted: #7A7670 !important;
+  --text-on-dark: #FFFFFF !important;
+  --text-on-dark-muted: #9A958A !important;
+
+  --border: rgba(20,20,26,0.10) !important;
+  --border-strong: rgba(20,20,26,0.18) !important;
+  --border-dark: rgba(255,255,255,0.08) !important;
+}
+
+/* Annulation des or vifs accumulés des versions précédentes */
+.logo-bk { color: var(--accent-light) !important; }
+.home-slide-eyebrow,
+.veluxe-eyebrow,
+.split-eyebrow,
+.signature-eyebrow,
+.page-hero-eyebrow {
+  color: var(--accent) !important;
+}
+
+/* Boutons : noir/blanc, plus de doré */
+.nav-cta {
+  background: #FFFFFF !important;
+  color: #14141A !important;
+  border-color: #FFFFFF !important;
+}
+.nav-cta:hover {
+  background: var(--bg-dark) !important;
+  color: #FFFFFF !important;
+  border-color: var(--bg-dark) !important;
+}
+
+.intro-logo img { box-shadow: 0 20px 60px rgba(0,0,0,0.4) !important; }
+.intro-logo-label { color: var(--accent-light) !important; }
+.intro-seam {
+  background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.4) 30%, rgba(255,255,255,0.4) 70%, transparent 100%) !important;
+}
+.intro-door {
+  background: linear-gradient(180deg, #1E1E22 0%, #14141A 100%) !important;
+  border: none !important;
+}
+
+/* =============================================================
+   VELUXE SECTIONS — Conteneur générique
+   ============================================================= */
+.vlx-section {
+  padding: 90px 24px;
+  position: relative;
+}
+.vlx-section.dark {
+  background: var(--bg-dark);
+  color: var(--text-on-dark);
+}
+.vlx-section.light {
+  background: var(--bg-alt);
+  color: var(--text);
+}
+.vlx-section.white {
+  background: #FFFFFF;
+  color: var(--text);
+}
+.vlx-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.vlx-section h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0 0 14px;
+  text-transform: uppercase;
+}
+.vlx-section .vlx-section-sub {
+  font-size: 0.94rem;
+  color: var(--text-muted);
+  max-width: 480px;
+  margin: 0 0 50px;
+  line-height: 1.55;
+}
+.vlx-section.dark .vlx-section-sub { color: rgba(255,255,255,0.55); }
+
+/* =============================================================
+   SECTION HITS — 3 cards voitures (BMW 3 Series, Mercedes, etc.)
+   ============================================================= */
+.vlx-hits-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 30px;
+}
+@media (max-width: 980px) { .vlx-hits-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .vlx-hits-grid { grid-template-columns: 1fr; } }
+
+.vlx-hits-feature {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #232328 0%, #14141A 100%);
+  color: #FFFFFF;
+  padding: 32px;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.vlx-hits-feature h3 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+.vlx-hits-feature-sub {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.5;
+}
+.vlx-hits-feature-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+.vlx-hits-tag {
+  display: inline-block;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(8px);
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  width: fit-content;
+}
+
+.vlx-car-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+.vlx-section.dark .vlx-car-card { background: #FFFFFF; color: var(--text); }
+.vlx-car-card:hover { transform: translateY(-4px); }
+.vlx-car-card-brand {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.vlx-car-card-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.005em;
+  color: var(--text);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.vlx-car-card-photo {
+  width: 100%;
+  height: 110px;
+  background: linear-gradient(135deg, #F8F7F4 0%, #EDE9E3 100%);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.vlx-car-card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.vlx-car-card-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.vlx-car-card-rating .stars {
+  color: #14141A;
+  letter-spacing: 0.04em;
+}
+.vlx-car-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+.vlx-car-card-price {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+.vlx-car-card-price small { font-weight: 400; color: var(--text-muted); font-size: 0.78rem; margin-left: 2px; }
+.vlx-car-card-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 100px;
+  background: var(--bg-dark);
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background 0.25s ease;
+}
+.vlx-car-card-arrow:hover { background: #2C2C32; }
+
+.vlx-hits-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+.vlx-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 30px;
+  border-radius: 100px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.94rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.vlx-btn-dark {
+  background: var(--bg-dark);
+  color: #FFFFFF;
+}
+.vlx-btn-dark:hover { background: #2A2A32; transform: translateY(-2px); }
+.vlx-btn-light {
+  background: #FFFFFF;
+  color: var(--text);
+}
+.vlx-btn-light:hover { background: var(--bg-alt); }
+
+/* =============================================================
+   SECTION POURQUOI NOUS — Grille 6 cards
+   ============================================================= */
+.vlx-why-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.vlx-why-header h2 {
+  font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+  max-width: 700px;
+  margin: 0 auto 14px;
+}
+.vlx-why-header .vlx-section-sub {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.vlx-why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+@media (max-width: 880px) { .vlx-why-grid { grid-template-columns: 1fr; } }
+
+.vlx-why-card {
+  background: var(--bg-dark2);
+  color: #FFFFFF;
+  padding: 36px 30px;
+  border-radius: 16px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+.vlx-why-card.light {
+  background: #FFFFFF;
+  color: var(--text);
+}
+.vlx-why-card-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+.vlx-why-card-title span { color: var(--text-muted); font-weight: 400; }
+.vlx-why-card.light .vlx-why-card-title span { color: var(--text-muted); }
+.vlx-why-card p {
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.62);
+  margin: 0;
+}
+.vlx-why-card.light p { color: var(--text-muted); }
+.vlx-why-card-arrow {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 32px;
+  height: 32px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 0.9rem;
+}
+.vlx-why-card.light .vlx-why-card-arrow {
+  background: rgba(20,20,26,0.06);
+  color: var(--text);
+}
+
+/* =============================================================
+   SECTION 3 ÉTAPES — Photo voiture + accordion numéroté
+   ============================================================= */
+.vlx-steps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: stretch;
+}
+@media (max-width: 880px) { .vlx-steps { grid-template-columns: 1fr; } }
+
+.vlx-steps-media {
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, #1E1E22 0%, #14141A 100%);
+  min-height: 460px;
+}
+.vlx-steps-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+.vlx-steps-media-text {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  color: #FFFFFF;
+}
+.vlx-steps-media-text h3 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+.vlx-steps-media-text p { font-size: 0.86rem; color: rgba(255,255,255,0.78); margin: 0; max-width: 320px; }
+
+.vlx-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.vlx-step {
+  background: var(--bg-dark2);
+  border-radius: 18px;
+  padding: 24px 26px;
+  color: #FFFFFF;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 22px;
+  align-items: center;
+}
+.vlx-step.active {
+  padding: 28px 26px 30px;
+}
+.vlx-step-num {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1;
+}
+.vlx-step.active .vlx-step-num { color: #FFFFFF; font-size: 1.6rem; }
+.vlx-step-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1.02rem;
+  letter-spacing: -0.005em;
+  margin: 0;
+  text-transform: uppercase;
+}
+.vlx-step-title span { color: var(--accent-light); font-weight: 600; }
+.vlx-step-desc {
+  display: none;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.65);
+  margin-top: 8px;
+  grid-column: 2 / 3;
+}
+.vlx-step.active .vlx-step-desc { display: block; }
+.vlx-step-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 0.92rem;
+}
+
+/* =============================================================
+   SECTION TÉMOIGNAGES
+   ============================================================= */
+.vlx-testimonials-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.vlx-testimonials-arrows {
+  display: flex;
+  gap: 10px;
+}
+.vlx-arrow-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--bg-dark);
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+.vlx-arrow-btn:hover { background: #2A2A32; }
+
+.vlx-testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 18px;
+  align-items: center;
+}
+@media (max-width: 880px) {
+  .vlx-testimonials-grid { grid-template-columns: 1fr; }
+}
+.vlx-testimonial {
+  background: var(--bg-alt);
+  border-radius: 18px;
+  padding: 28px 26px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.vlx-testimonial.featured {
+  background: var(--bg-dark);
+  color: #FFFFFF;
+  transform: scale(1.05);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.18);
+  position: relative;
+}
+.vlx-testimonial-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.vlx-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-dark);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.86rem;
+}
+.vlx-testimonial.featured .vlx-avatar { background: #FFFFFF; color: var(--text); }
+.vlx-testimonial-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.vlx-testimonial-stars {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  letter-spacing: 0.18em;
+}
+.vlx-testimonial.featured .vlx-testimonial-stars { color: rgba(255,255,255,0.7); }
+.vlx-testimonial p {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin: 0;
+}
+.vlx-testimonial.featured p { color: rgba(255,255,255,0.85); }
+.vlx-testimonial-arrow {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 28px;
+  height: 28px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.12);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+/* =============================================================
+   SECTION FAQ — Accordion
+   ============================================================= */
+.vlx-faq-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.vlx-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 880px;
+  margin: 0 auto;
+}
+.vlx-faq-item {
+  background: var(--bg-alt);
+  border-radius: 18px;
+  padding: 22px 26px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.vlx-faq-item.open { padding-bottom: 26px; }
+.vlx-faq-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 18px;
+  align-items: center;
+}
+.vlx-faq-num {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+}
+.vlx-faq-q {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: -0.005em;
+  color: var(--text);
+  text-transform: uppercase;
+}
+.vlx-faq-q strong { font-weight: 700; }
+.vlx-faq-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  background: var(--bg-dark);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, background 0.25s ease;
+}
+.vlx-faq-item.open .vlx-faq-toggle { background: #14141A; }
+.vlx-faq-body {
+  display: none;
+  margin-top: 16px;
+  padding-left: 36px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.vlx-faq-item.open .vlx-faq-body { display: block; }
+.vlx-faq-body ul { margin: 8px 0 0 18px; padding: 0; }
+.vlx-faq-body li { margin-bottom: 4px; }
+
+/* =============================================================
+   SECTION CTA FINALE — Photo voiture + Formulaire
+   ============================================================= */
+.vlx-final {
+  position: relative;
+  background: var(--bg-dark);
+  color: #FFFFFF;
+  padding: 0;
+  overflow: hidden;
+}
+.vlx-final-photo {
+  position: relative;
+  height: 280px;
+  background: url('../images/branding/facade-sportives.png') center/cover no-repeat;
+}
+.vlx-final-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20,20,26,0.55) 0%, var(--bg-dark) 100%);
+}
+.vlx-final-content {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 60px;
+  padding: 60px 24px 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+@media (max-width: 880px) { .vlx-final-content { grid-template-columns: 1fr; gap: 30px; } }
+.vlx-final-text h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0 0 16px;
+}
+.vlx-final-text p {
+  font-size: 0.94rem;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+  margin: 0 0 22px;
+  max-width: 440px;
+}
+.vlx-final-social {
+  display: flex;
+  gap: 10px;
+}
+.vlx-final-social a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: background 0.25s ease;
+}
+.vlx-final-social a:hover { background: rgba(255,255,255,0.18); }
+
+.vlx-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.vlx-form input,
+.vlx-form select {
+  width: 100%;
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 100px;
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.25s ease;
+}
+.vlx-form input:focus { border-color: rgba(255,255,255,0.4); }
+.vlx-form input::placeholder { color: rgba(255,255,255,0.45); }
+.vlx-form button {
+  margin-top: 4px;
+  align-self: flex-start;
+  padding: 14px 26px;
+  background: #FFFFFF;
+  color: var(--text);
+  border: none;
+  border-radius: 100px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.94rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.25s ease;
+}
+.vlx-form button:hover { background: var(--bg-alt); }
+
+/* =============================================================
+   Adapt slider Tesla : on enlève les nuances dorées agressives
+   ============================================================= */
+.home-slide-eyebrow {
+  color: rgba(255,255,255,0.78) !important;
+}
+.home-slider-dot.active { background: #FFFFFF !important; }
+
