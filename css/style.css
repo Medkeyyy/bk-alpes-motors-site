@@ -9308,3 +9308,18 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-links a.active {
   -webkit-backdrop-filter: none !important;
 }
 
+
+/* =============================================================
+   NAVBAR — Logo + "BK" en or
+   ============================================================= */
+.nav-logo-img {
+  display: block !important;
+  height: 32px !important;
+  width: auto !important;
+  border-radius: 4px !important;
+}
+.nav-logo-text .logo-bk {
+  color: var(--accent) !important;
+  font-weight: 800 !important;
+}
+
