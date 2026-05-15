@@ -11762,3 +11762,10 @@ html .nav-burger {
   display: block;
 }
 
+
+/* =============================================================
+   FIX BOUTONS CARDS — Bouton clair en premier (gauche), sombre en second (droite)
+   ============================================================= */
+.tesla-quad-btn-ghost { order: 1 !important; }
+.tesla-quad-btn-primary { order: 2 !important; }
+
