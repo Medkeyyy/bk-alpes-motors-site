@@ -12427,3 +12427,39 @@ html .nav-burger {
 }
 .vente-empty strong { color: #14141A; }
 
+
+/* =============================================================
+   VENTE V3 — Hero plus court pour faire dépasser les annonces
+   ============================================================= */
+.vente-hero {
+  height: 46vh !important;
+  min-height: 380px !important;
+  max-height: 520px !important;
+}
+@media (max-width: 760px) {
+  .vente-hero { height: 42vh !important; min-height: 320px !important; }
+}
+.vente-hero-content {
+  padding: 50px 24px !important;
+}
+.vente-hero-title {
+  font-size: clamp(2rem, 4vw, 2.8rem) !important;
+}
+.vente-hero-sub {
+  margin-bottom: 24px !important;
+}
+
+.vente-catalog {
+  padding: 36px 24px 100px !important;
+}
+.vente-catalog-header {
+  margin-bottom: 24px !important;
+}
+.vente-filters-advanced {
+  margin-bottom: 22px !important;
+  padding-bottom: 20px !important;
+}
+.vente-results-bar {
+  margin-bottom: 18px !important;
+}
+
