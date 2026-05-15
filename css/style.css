@@ -13378,3 +13378,82 @@ html .nav-burger {
 }
 .v2-contact-form button:hover { background: #2A2A32; }
 
+
+/* =============================================================
+   PAGE VÉHICULE V2.1 — Header en ligne + galerie compacte
+   ============================================================= */
+
+/* Header : flèche + titre en ligne (avant la galerie) */
+.v2-topbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.v2-topbar .v2-back {
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+.v2-topbar-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  letter-spacing: -0.01em;
+  color: #14141A;
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.v2-topbar-loc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: #7A7670;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.v2-topbar-loc svg { width: 13px; height: 13px; }
+@media (max-width: 760px) {
+  .v2-topbar-loc { display: none; }
+}
+
+/* Galerie : 2 thumbs au lieu de 3 (la 2e a un overlay "+ photos") */
+.v2-gallery-thumbs {
+  grid-template-rows: 1fr 1fr !important;
+}
+.v2-gallery-thumb-overlay {
+  position: relative;
+  background: linear-gradient(135deg, #F4F4F5 0%, #E9E9EA 100%);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.v2-gallery-thumb-overlay svg {
+  width: 60%;
+  height: auto;
+  fill: rgba(20,20,26,0.18);
+  position: relative;
+  z-index: 1;
+}
+.v2-gallery-thumb-overlay::after {
+  content: "+ photos";
+  position: absolute;
+  inset: 0;
+  background: rgba(20,20,26,0.72);
+  color: rgba(255,255,255,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  z-index: 2;
+  backdrop-filter: blur(2px);
+}
+
