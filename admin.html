@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778868097" />
+  <link rel="stylesheet" href="css/style.css?v=1778869464" />
 </head>
 <body class="admin-body">
 
@@ -36,6 +36,7 @@
     <div class="admin-tabs">
       <button class="admin-tab active" data-tab="list">Mes véhicules</button>
       <button class="admin-tab" data-tab="form">+ Nouveau véhicule</button>
+      <button class="admin-tab" data-tab="reservations">Réservations location <span class="admin-tab-badge" id="reservationsBadge" hidden>0</span></button>
     </div>
 
     <!-- ===== TAB : Liste ===== -->
@@ -277,7 +278,33 @@
       </form>
     </section>
 
+    <!-- ===== TAB : Réservations Location ===== -->
+    <section class="admin-tab-pane" id="tab-reservations">
+      <div class="admin-list-header">
+        <div class="admin-list-count"><strong id="resCountLabel">0</strong> demande(s) de location</div>
+        <div style="display:flex;gap:8px;">
+          <button class="admin-btn-ghost" id="exportResBtn">Exporter en JSON</button>
+        </div>
+      </div>
+
+      <div id="resEmptyState" class="admin-empty" style="display:none;">
+        <strong>Aucune demande de réservation pour l'instant</strong>
+        <p>Les demandes envoyées via la page Location apparaîtront ici.</p>
+      </div>
+
+      <div id="resList"></div>
+    </section>
+
   </main>
+
+  <!-- ============ MODAL DÉTAIL RÉSERVATION ============ -->
+  <div class="admin-res-modal" id="resDetailModal" aria-hidden="true">
+    <div class="admin-res-modal-backdrop" data-close-res></div>
+    <div class="admin-res-modal-dialog" role="dialog">
+      <button type="button" class="loc-modal-close" data-close-res aria-label="Fermer">×</button>
+      <div id="resDetailContent"></div>
+    </div>
+  </div>
 
   <div class="admin-toast" id="toast"></div>
 
@@ -822,8 +849,375 @@
       setTimeout(() => toast.classList.remove('show'), 2800);
     }
 
+    // ============ RÉSERVATIONS LOCATION ============
+    const RES_STATUS_LABELS = {
+      pending:  'En attente',
+      accepted: 'Acceptée',
+      refused:  'Refusée',
+      paid:     'Payée',
+    };
+    const RES_GROUPS = [
+      { key: 'pending',  title: 'En attente de traitement',   sub: 'À traiter — répondez sous 24h' },
+      { key: 'accepted', title: 'Acceptées — en attente de paiement', sub: 'Lien de paiement envoyé au client' },
+      { key: 'paid',     title: 'Payées — confirmées',         sub: 'Réservations finalisées' },
+      { key: 'refused',  title: 'Refusées',                    sub: 'Archivées' },
+    ];
+
+    function loadReservations() {
+      try { return JSON.parse(localStorage.getItem('bk_reservations') || '[]'); }
+      catch { return []; }
+    }
+    function saveReservations(arr) {
+      localStorage.setItem('bk_reservations', JSON.stringify(arr));
+    }
+
+    function fmtDateFr(iso) {
+      if (!iso) return '';
+      const d = new Date(iso);
+      if (isNaN(d.getTime())) return iso;
+      return d.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
+    function fmtDateTimeFr(iso) {
+      if (!iso) return '';
+      const d = new Date(iso);
+      if (isNaN(d.getTime())) return iso;
+      return d.toLocaleString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    }
+    function fmtMoney(n) {
+      return Math.round(n).toLocaleString('fr-FR').replace(/,/g, ' ') + ' €';
+    }
+
+    const resCountLabel  = document.getElementById('resCountLabel');
+    const resEmptyState  = document.getElementById('resEmptyState');
+    const resList        = document.getElementById('resList');
+    const resBadge       = document.getElementById('reservationsBadge');
+
+    function resCardHTML(r) {
+      const cust = r.customer || {};
+      const veh  = r.vehicle  || {};
+      const per  = r.period   || {};
+      const total = r.quote ? r.quote.total : 0;
+      return `
+        <article class="admin-res" data-id="${r.id}">
+          <div class="admin-res-head">
+            <div>
+              <div class="admin-res-ref">${r.ref || r.id}</div>
+              <div class="admin-res-date">Reçue le ${fmtDateTimeFr(r.createdAt)}</div>
+            </div>
+            <span class="admin-res-status ${r.status}">${RES_STATUS_LABELS[r.status] || r.status}</span>
+          </div>
+          <div class="admin-res-body">
+            <div class="admin-res-row">
+              <div class="admin-res-cell">
+                <span class="admin-res-cell-label">Client</span>
+                <span class="admin-res-cell-value">${cust.civility || ''} ${cust.firstName || ''} ${cust.lastName || ''}</span>
+                <span class="admin-res-cell-sub">${cust.email || ''} · ${cust.phone || ''}</span>
+              </div>
+              <div class="admin-res-cell">
+                <span class="admin-res-cell-label">Véhicule</span>
+                <span class="admin-res-cell-value">${veh.brand || ''} ${veh.name || ''}</span>
+                <span class="admin-res-cell-sub">${fmtMoney(veh.basePrice || 0)}/jour</span>
+              </div>
+              <div class="admin-res-cell">
+                <span class="admin-res-cell-label">Période</span>
+                <span class="admin-res-cell-value">${fmtDateFr(per.pickupDate)} → ${fmtDateFr(per.returnDate)}</span>
+                <span class="admin-res-cell-sub">${per.days || 0} jour${per.days > 1 ? 's' : ''}</span>
+              </div>
+              <div class="admin-res-cell">
+                <span class="admin-res-cell-label">Total</span>
+                <span class="admin-res-cell-value admin-res-total">${fmtMoney(total)}</span>
+              </div>
+            </div>
+            <div class="admin-res-actions">
+              <button class="admin-btn-ghost" data-res-action="view"  data-id="${r.id}">Voir le détail</button>
+              ${r.status === 'pending' ? `
+                <button class="admin-btn-primary admin-btn-success" data-res-action="accept" data-id="${r.id}">Accepter</button>
+                <button class="admin-btn-danger"  data-res-action="refuse" data-id="${r.id}">Refuser</button>
+              ` : ''}
+              ${r.status === 'accepted' ? `
+                <button class="admin-btn-ghost"   data-res-action="resend"  data-id="${r.id}">Renvoyer le lien</button>
+                <button class="admin-btn-primary admin-btn-success" data-res-action="markpaid" data-id="${r.id}">Marquer payée</button>
+              ` : ''}
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderReservations() {
+      const all = loadReservations();
+      resCountLabel.textContent = all.length;
+      const pendingCount = all.filter(r => r.status === 'pending').length;
+      if (pendingCount > 0) { resBadge.hidden = false; resBadge.textContent = pendingCount; }
+      else { resBadge.hidden = true; }
+
+      if (all.length === 0) {
+        resEmptyState.style.display = '';
+        resList.innerHTML = '';
+        return;
+      }
+      resEmptyState.style.display = 'none';
+
+      // Group by status
+      const groups = { pending: [], accepted: [], paid: [], refused: [] };
+      all.forEach(r => {
+        (groups[r.status] || groups.pending).push(r);
+      });
+
+      resList.innerHTML = RES_GROUPS.map(g => {
+        const list = groups[g.key];
+        if (list.length === 0) return '';
+        return `
+          <section class="admin-section" data-status="res-${g.key}">
+            <div class="admin-section-header">
+              <div class="admin-section-title">
+                <span class="admin-section-dot admin-section-dot-${g.key}"></span>${g.title}
+              </div>
+              <div class="admin-section-count">${list.length} demande${list.length > 1 ? 's' : ''}</div>
+            </div>
+            <div class="admin-res-list">${list.map(resCardHTML).join('')}</div>
+          </section>
+        `;
+      }).join('');
+
+      // Bind actions
+      resList.querySelectorAll('button[data-res-action]').forEach(btn => {
+        btn.addEventListener('click', () => onResAction(btn.dataset.resAction, btn.dataset.id));
+      });
+    }
+
+    function onResAction(action, id) {
+      const all = loadReservations();
+      const idx = all.findIndex(r => r.id === id);
+      if (idx === -1) return;
+      const r = all[idx];
+
+      if (action === 'view') {
+        return openResDetail(r);
+      }
+      if (action === 'accept') {
+        const link = prompt(
+          "Lien de paiement Stripe pour " + r.ref + " :\n\n" +
+          "1. Allez sur dashboard.stripe.com → Liens de paiement → Créer un lien\n" +
+          "2. Montant : " + fmtMoney(r.quote.total) + "\n" +
+          "3. Collez le lien ici :",
+          ''
+        );
+        if (link === null) return;
+        all[idx].status = 'accepted';
+        all[idx].paymentLink = link.trim();
+        all[idx].acceptedAt = new Date().toISOString();
+        saveReservations(all);
+        // Compose email mailto pour le client
+        const cust = r.customer;
+        const subject = encodeURIComponent(`BK Alpes Motors — Devis validé ${r.ref}`);
+        const body = encodeURIComponent(
+`Bonjour ${cust.firstName} ${cust.lastName},
+
+Votre demande de location a été acceptée.
+
+Récapitulatif :
+- Véhicule : ${r.vehicle.brand} ${r.vehicle.name}
+- Période : ${fmtDateFr(r.period.pickupDate)} → ${fmtDateFr(r.period.returnDate)} (${r.period.days} jours)
+- Total : ${fmtMoney(r.quote.total)}
+
+Pour finaliser votre réservation, payez en ligne via ce lien sécurisé :
+${link || '[à compléter]'}
+
+Une fois le paiement reçu, vous recevrez votre contrat de location et toutes les informations pratiques.
+
+L'équipe BK Alpes Motors
+07 56 85 90 26`
+        );
+        window.location.href = `mailto:${cust.email}?subject=${subject}&body=${body}`;
+        renderReservations();
+        showToast('Réservation acceptée — email pré-rempli ouvert');
+        return;
+      }
+      if (action === 'refuse') {
+        const reason = prompt("Raison du refus (sera incluse dans l'email) :", '');
+        if (reason === null) return;
+        all[idx].status = 'refused';
+        all[idx].refusedAt = new Date().toISOString();
+        all[idx].refusalReason = reason.trim();
+        saveReservations(all);
+        const cust = r.customer;
+        const subject = encodeURIComponent(`BK Alpes Motors — Demande ${r.ref}`);
+        const body = encodeURIComponent(
+`Bonjour ${cust.firstName} ${cust.lastName},
+
+Nous avons bien reçu votre demande de location (réf. ${r.ref}) pour le ${r.vehicle.brand} ${r.vehicle.name}.
+
+Malheureusement, nous ne sommes pas en mesure de donner suite à votre demande.
+
+${reason ? 'Motif : ' + reason + '\n\n' : ''}N'hésitez pas à consulter notre flotte pour d'autres modèles disponibles, ou à nous contacter pour discuter d'autres options.
+
+Cordialement,
+L'équipe BK Alpes Motors
+07 56 85 90 26`
+        );
+        window.location.href = `mailto:${cust.email}?subject=${subject}&body=${body}`;
+        renderReservations();
+        showToast('Réservation refusée');
+        return;
+      }
+      if (action === 'resend') {
+        const cust = r.customer;
+        const subject = encodeURIComponent(`BK Alpes Motors — Rappel paiement ${r.ref}`);
+        const body = encodeURIComponent(
+`Bonjour ${cust.firstName} ${cust.lastName},
+
+Nous vous rappelons que le lien de paiement pour votre réservation ${r.ref} est toujours actif :
+${r.paymentLink || '[lien à recréer]'}
+
+Total : ${fmtMoney(r.quote.total)}
+
+Sans paiement sous 48h, votre réservation sera annulée.
+
+L'équipe BK Alpes Motors`
+        );
+        window.location.href = `mailto:${cust.email}?subject=${subject}&body=${body}`;
+        return;
+      }
+      if (action === 'markpaid') {
+        if (!confirm("Confirmer que la réservation " + r.ref + " a bien été payée ?")) return;
+        all[idx].status = 'paid';
+        all[idx].paidAt = new Date().toISOString();
+        saveReservations(all);
+        renderReservations();
+        showToast('Réservation marquée comme payée');
+        return;
+      }
+    }
+
+    // ============ MODAL DÉTAIL ============
+    const resDetailModal   = document.getElementById('resDetailModal');
+    const resDetailContent = document.getElementById('resDetailContent');
+
+    function openResDetail(r) {
+      const cust = r.customer || {};
+      const veh  = r.vehicle  || {};
+      const per  = r.period   || {};
+      const opts = r.options  || {};
+      const lic  = r.license  || {};
+      const q    = r.quote    || {};
+
+      const optsList = [];
+      if (opts.driver2) optsList.push('Conducteur secondaire');
+      if (opts.unlimitedKm) optsList.push('Kilométrage illimité');
+      if (opts.insurancePlus) optsList.push('Assurance tous risques + rachat franchise');
+      if (opts.childSeat) optsList.push('Siège enfant');
+
+      resDetailContent.innerHTML = `
+        <div class="admin-res-detail">
+          <div class="admin-res-detail-head">
+            <span class="admin-res-detail-eyebrow">Réservation</span>
+            <h2>${r.ref || r.id}</h2>
+            <span class="admin-res-status ${r.status}">${RES_STATUS_LABELS[r.status]}</span>
+          </div>
+
+          <div class="admin-res-detail-grid">
+            <div class="admin-res-detail-section">
+              <h3>Client</h3>
+              <p><strong>${cust.civility || ''} ${cust.firstName || ''} ${cust.lastName || ''}</strong></p>
+              <p>${cust.email || ''}</p>
+              <p>${cust.phone || ''}</p>
+              <p>Né(e) le ${fmtDateFr(cust.birthDate)}</p>
+              <p>${cust.address || ''}<br>${cust.postalCode || ''} ${cust.city || ''}<br>${cust.country || ''}</p>
+            </div>
+
+            <div class="admin-res-detail-section">
+              <h3>Permis de conduire</h3>
+              <p>N° ${lic.number || '—'}</p>
+              <p>Obtenu le ${fmtDateFr(lic.date)}</p>
+              <p>Pays : ${lic.country || '—'}</p>
+              <p>Catégorie : ${lic.category || '—'}</p>
+            </div>
+
+            <div class="admin-res-detail-section">
+              <h3>Véhicule</h3>
+              <p><strong>${veh.brand} ${veh.name}</strong></p>
+              <p>Tarif de base : ${fmtMoney(veh.basePrice || 0)}/jour</p>
+            </div>
+
+            <div class="admin-res-detail-section">
+              <h3>Période</h3>
+              <p>Départ : ${fmtDateFr(per.pickupDate)} à ${per.pickupTime || ''}</p>
+              <p>Retour : ${fmtDateFr(per.returnDate)} à ${per.returnTime || ''}</p>
+              <p>Durée : <strong>${per.days || 0} jours</strong></p>
+              <p>Lieu : ${per.pickupLoc || 'annecy'}</p>
+            </div>
+
+            <div class="admin-res-detail-section full">
+              <h3>Options</h3>
+              ${optsList.length ? '<ul>' + optsList.map(o => `<li>${o}</li>`).join('') + '</ul>' : '<p>Aucune option supplémentaire.</p>'}
+            </div>
+
+            ${r.message ? `
+              <div class="admin-res-detail-section full">
+                <h3>Message du client</h3>
+                <p style="white-space: pre-wrap;">${r.message}</p>
+              </div>
+            ` : ''}
+
+            <div class="admin-res-detail-section full">
+              <h3>Devis</h3>
+              <table class="admin-res-quote-table">
+                <tr><td>Tarif journalier${q.discountPct > 0 ? ` (−${Math.round(q.discountPct * 100)}%)` : ''}</td><td>${fmtMoney(q.dailyAfterDiscount || veh.basePrice || 0)}/j</td></tr>
+                <tr><td>Sous-total véhicule (${per.days || 0} jours)</td><td>${fmtMoney(q.subtotalVehicle || 0)}</td></tr>
+                ${q.optsCost > 0 ? `<tr><td>Options</td><td>${fmtMoney(q.optsCost)}</td></tr>` : ''}
+                ${q.pickupFee > 0 ? `<tr><td>Prise en charge</td><td>${fmtMoney(q.pickupFee)}</td></tr>` : ''}
+                <tr class="admin-res-quote-total"><td>Total</td><td><strong>${fmtMoney(q.total || 0)}</strong></td></tr>
+              </table>
+            </div>
+
+            ${r.paymentLink ? `
+              <div class="admin-res-detail-section full">
+                <h3>Lien de paiement</h3>
+                <a href="${r.paymentLink}" target="_blank" rel="noopener noreferrer" style="word-break: break-all;">${r.paymentLink}</a>
+              </div>
+            ` : ''}
+
+            ${r.refusalReason ? `
+              <div class="admin-res-detail-section full">
+                <h3>Motif du refus</h3>
+                <p>${r.refusalReason}</p>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+      resDetailModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    document.querySelectorAll('[data-close-res]').forEach(el => el.addEventListener('click', () => {
+      resDetailModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }));
+
+    document.getElementById('exportResBtn').addEventListener('click', () => {
+      const data = loadReservations();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `bk-reservations-${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Export JSON téléchargé');
+    });
+
+    // Quand on switche sur le tab reservations, on re-render (pour voir les nouvelles)
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        if (tab.dataset.tab === 'reservations') renderReservations();
+      });
+    });
+
     // ============ INIT ============
     renderList();
+    renderReservations();
   </script>
 </body>
 </html>

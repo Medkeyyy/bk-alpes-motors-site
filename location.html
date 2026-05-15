@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778868097" />
+  <link rel="stylesheet" href="css/style.css?v=1778869464" />
 </head>
 <body>
 <nav id="navbar" class="navbar">
@@ -46,72 +46,96 @@
     <a href="atelier.html">L'atelier</a>
     <a href="contact.html" class="btn btn-primary">Nous contacter</a>
   </div>
-  <!-- HERO TESLA -->
-  <section class="hero-tesla" style="min-height: 70vh;">
-    <div class="hero-tesla-media">
-      <img src="images/branding/facade-sportives.png" alt="Notre flotte" />
+  <!-- HERO (même style que vente.html) -->
+  <section class="vente-hero">
+    <div class="vente-hero-media">
+      <img src="images/branding/facade-sportives.png" alt="Notre flotte de location" />
     </div>
-    <div class="hero-tesla-overlay"></div>
-    <div class="hero-tesla-content" style="justify-content: flex-end;">
-      <div class="hero-tesla-text" style="padding-top: 60px;">
-        <h1 class="hero-tesla-title">Notre flotte</h1>
-        <p class="hero-tesla-sub">Roulez en sportive, SUV ou berline d'exception.</p>
-      </div>
-      <div style="margin-top: 40px;">
-        
-    <div class="catalog-hero-toggle">
-      <a href="vente.html" class="">Vente</a>
-      <a href="location.html" class="active">Location</a>
-    </div>
+    <div class="vente-hero-content">
+      <h1 class="vente-hero-title">Notre flotte</h1>
+      <p class="vente-hero-sub">Louez une sportive, un SUV ou une berline d'exception. Réservation 100% en ligne — devis instantané.</p>
+      <div class="vente-hero-actions">
+        <a href="#catalog" class="vente-hero-btn vente-hero-btn-primary">Voir la flotte</a>
+        <a href="contact.html" class="vente-hero-btn vente-hero-btn-ghost">Nous contacter</a>
       </div>
     </div>
   </section>
 
-  <!-- CATALOGUE GRID -->
-  <section style="background: var(--bg); padding: 80px 24px 120px;">
-    <div style="max-width: 1340px; margin: 0 auto;">
+  <!-- CATALOGUE -->
+  <section class="vente-catalog" id="catalog">
+    <div style="max-width: 1340px; margin: 0 auto; padding: 0 24px;">
 
-      <!-- SLIDER DURÉE → REMISE -->
-      <div class="loc-duration">
-        <div class="loc-duration-head">
-          <div class="loc-duration-title">
-            <span class="loc-duration-eyebrow">Tarification dégressive</span>
-            <h2>Plus vous louez longtemps, plus le tarif baisse.</h2>
+      <!-- BARRE DE RECHERCHE LOCATION : dates + options -->
+      <form class="loc-searchbar" id="locSearchbar" autocomplete="off">
+        <div class="loc-searchbar-row">
+
+          <div class="loc-searchbar-field">
+            <label for="locPickupDate">Départ</label>
+            <div class="loc-searchbar-field-inputs">
+              <input type="date" id="locPickupDate" required />
+              <input type="time" id="locPickupTime" value="10:00" required />
+            </div>
           </div>
-          <div class="loc-duration-readout">
-            <span class="loc-duration-readout-days"><strong id="locDurationValue">1</strong> jour</span>
-            <span class="loc-duration-readout-discount" id="locDurationDiscount">Tarif standard</span>
+
+          <div class="loc-searchbar-divider"></div>
+
+          <div class="loc-searchbar-field">
+            <label for="locReturnDate">Retour</label>
+            <div class="loc-searchbar-field-inputs">
+              <input type="date" id="locReturnDate" required />
+              <input type="time" id="locReturnTime" value="18:00" required />
+            </div>
+          </div>
+
+          <div class="loc-searchbar-divider"></div>
+
+          <div class="loc-searchbar-field">
+            <label for="locPickupLoc">Lieu de prise en charge</label>
+            <select id="locPickupLoc">
+              <option value="annecy">Annecy — Agence BK</option>
+              <option value="geneve">Aéroport Genève (+ 90 €)</option>
+              <option value="lyon">Aéroport Lyon-Saint Exupéry (+ 150 €)</option>
+              <option value="domicile">Livraison à domicile (sur devis)</option>
+            </select>
+          </div>
+
+          <div class="loc-searchbar-summary" id="locSummary">
+            <div class="loc-searchbar-summary-days"><strong>0</strong> jour</div>
+            <div class="loc-searchbar-summary-discount">—</div>
           </div>
         </div>
 
-        <div class="loc-duration-slider-wrap">
-          <input id="locDurationSlider" type="range" min="1" max="30" value="1" step="1" class="loc-duration-slider" />
-          <div class="loc-duration-track-fill" id="locDurationFill"></div>
+        <div class="loc-searchbar-options">
+          <label class="loc-opt">
+            <input type="checkbox" id="optDriver2" />
+            <span class="loc-opt-text">
+              <strong>Conducteur secondaire</strong>
+              <em>+ 25 €/jour</em>
+            </span>
+          </label>
+          <label class="loc-opt">
+            <input type="checkbox" id="optUnlimitedKm" />
+            <span class="loc-opt-text">
+              <strong>Kilométrage illimité</strong>
+              <em>+ 60 €/jour</em>
+            </span>
+          </label>
+          <label class="loc-opt">
+            <input type="checkbox" id="optInsurancePlus" />
+            <span class="loc-opt-text">
+              <strong>Assurance tous risques + rachat franchise</strong>
+              <em>+ 45 €/jour</em>
+            </span>
+          </label>
+          <label class="loc-opt">
+            <input type="checkbox" id="optChildSeat" />
+            <span class="loc-opt-text">
+              <strong>Siège enfant</strong>
+              <em>+ 8 €/jour</em>
+            </span>
+          </label>
         </div>
-
-        <div class="loc-duration-marks">
-          <div class="loc-duration-mark" data-d="1">
-            <span class="loc-duration-mark-day">1j</span>
-            <span class="loc-duration-mark-pct">0%</span>
-          </div>
-          <div class="loc-duration-mark" data-d="3">
-            <span class="loc-duration-mark-day">3j</span>
-            <span class="loc-duration-mark-pct">-10%</span>
-          </div>
-          <div class="loc-duration-mark" data-d="7">
-            <span class="loc-duration-mark-day">7j</span>
-            <span class="loc-duration-mark-pct">-18%</span>
-          </div>
-          <div class="loc-duration-mark" data-d="14">
-            <span class="loc-duration-mark-day">14j</span>
-            <span class="loc-duration-mark-pct">-25%</span>
-          </div>
-          <div class="loc-duration-mark" data-d="30">
-            <span class="loc-duration-mark-day">30j</span>
-            <span class="loc-duration-mark-pct">-35%</span>
-          </div>
-        </div>
-      </div>
+      </form>
 
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; flex-wrap: wrap; gap: 14px;">
         <div style="font-size: 0.95rem; color: var(--text);">
@@ -126,7 +150,7 @@
 
       <div class="catalog-grid">
         
-      <article class="catalog-card">
+      <article class="catalog-card" data-id="porsche-911-turbo-s" data-brand="Porsche" data-name="911 Turbo S" data-year="2023" data-base-price="1200">
         <div class="catalog-card-media">
           <div class="catalog-card-placeholder" data-brand="Porsche">
             <svg class="catalog-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
@@ -151,14 +175,14 @@
           <div class="catalog-card-footer">
             <div>
               <div class="catalog-card-price-label">Tarif</div>
-              <div class="catalog-card-price">1 200 €/jour</div>
+              <div class="catalog-card-price" data-base-price="1200">1 200 €/jour</div>
             </div>
-            <span class="catalog-card-cta">Voir →</span>
+            <button type="button" class="loc-reserve-btn" data-id="porsche-911-turbo-s">Réserver</button>
           </div>
         </div>
       </article>
 
-      <article class="catalog-card">
+      <article class="catalog-card" data-id="audi-rs6-avant-performance" data-brand="Audi" data-name="RS6 Avant Performance" data-year="2022" data-base-price="850">
         <div class="catalog-card-media">
           <div class="catalog-card-placeholder" data-brand="Audi">
             <svg class="catalog-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
@@ -183,14 +207,14 @@
           <div class="catalog-card-footer">
             <div>
               <div class="catalog-card-price-label">Tarif</div>
-              <div class="catalog-card-price">850 €/jour</div>
+              <div class="catalog-card-price" data-base-price="850">850 €/jour</div>
             </div>
-            <span class="catalog-card-cta">Voir →</span>
+            <button type="button" class="loc-reserve-btn" data-id="audi-rs6-avant-performance">Réserver</button>
           </div>
         </div>
       </article>
 
-      <article class="catalog-card">
+      <article class="catalog-card" data-id="mercedes-amg-gt-63-s-4-door" data-brand="Mercedes-AMG" data-name="GT 63 S 4-Door" data-year="2023" data-base-price="950">
         <div class="catalog-card-media">
           <div class="catalog-card-placeholder" data-brand="Mercedes-AMG">
             <svg class="catalog-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
@@ -215,14 +239,14 @@
           <div class="catalog-card-footer">
             <div>
               <div class="catalog-card-price-label">Tarif</div>
-              <div class="catalog-card-price">950 €/jour</div>
+              <div class="catalog-card-price" data-base-price="950">950 €/jour</div>
             </div>
-            <span class="catalog-card-cta">Voir →</span>
+            <button type="button" class="loc-reserve-btn" data-id="mercedes-amg-gt-63-s-4-door">Réserver</button>
           </div>
         </div>
       </article>
 
-      <article class="catalog-card">
+      <article class="catalog-card" data-id="bmw-m5-competition" data-brand="BMW" data-name="M5 Competition" data-year="2022" data-base-price="650">
         <div class="catalog-card-media">
           <div class="catalog-card-placeholder" data-brand="BMW">
             <svg class="catalog-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
@@ -247,14 +271,14 @@
           <div class="catalog-card-footer">
             <div>
               <div class="catalog-card-price-label">Tarif</div>
-              <div class="catalog-card-price">650 €/jour</div>
+              <div class="catalog-card-price" data-base-price="650">650 €/jour</div>
             </div>
-            <span class="catalog-card-cta">Voir →</span>
+            <button type="button" class="loc-reserve-btn" data-id="bmw-m5-competition">Réserver</button>
           </div>
         </div>
       </article>
 
-      <article class="catalog-card">
+      <article class="catalog-card" data-id="range-rover-sport-svr" data-brand="Range Rover" data-name="Sport SVR" data-year="2023" data-base-price="780">
         <div class="catalog-card-media">
           <div class="catalog-card-placeholder" data-brand="Range Rover">
             <svg class="catalog-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
@@ -279,14 +303,14 @@
           <div class="catalog-card-footer">
             <div>
               <div class="catalog-card-price-label">Tarif</div>
-              <div class="catalog-card-price">780 €/jour</div>
+              <div class="catalog-card-price" data-base-price="780">780 €/jour</div>
             </div>
-            <span class="catalog-card-cta">Voir →</span>
+            <button type="button" class="loc-reserve-btn" data-id="range-rover-sport-svr">Réserver</button>
           </div>
         </div>
       </article>
 
-      <article class="catalog-card">
+      <article class="catalog-card" data-id="lamborghini-urus" data-brand="Lamborghini" data-name="Urus" data-year="2022" data-base-price="1400">
         <div class="catalog-card-media">
           <div class="catalog-card-placeholder" data-brand="Lamborghini">
             <svg class="catalog-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
@@ -311,14 +335,14 @@
           <div class="catalog-card-footer">
             <div>
               <div class="catalog-card-price-label">Tarif</div>
-              <div class="catalog-card-price">1 400 €/jour</div>
+              <div class="catalog-card-price" data-base-price="1400">1 400 €/jour</div>
             </div>
-            <span class="catalog-card-cta">Voir →</span>
+            <button type="button" class="loc-reserve-btn" data-id="lamborghini-urus">Réserver</button>
           </div>
         </div>
       </article>
 
-      <article class="catalog-card">
+      <article class="catalog-card" data-id="aston-martin-vantage" data-brand="Aston Martin" data-name="Vantage" data-year="2023" data-base-price="950">
         <div class="catalog-card-media">
           <div class="catalog-card-placeholder" data-brand="Aston Martin">
             <svg class="catalog-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
@@ -343,14 +367,14 @@
           <div class="catalog-card-footer">
             <div>
               <div class="catalog-card-price-label">Tarif</div>
-              <div class="catalog-card-price">950 €/jour</div>
+              <div class="catalog-card-price" data-base-price="950">950 €/jour</div>
             </div>
-            <span class="catalog-card-cta">Voir →</span>
+            <button type="button" class="loc-reserve-btn" data-id="aston-martin-vantage">Réserver</button>
           </div>
         </div>
       </article>
 
-      <article class="catalog-card">
+      <article class="catalog-card" data-id="ferrari-296-gtb" data-brand="Ferrari" data-name="296 GTB" data-year="2023" data-base-price="1800">
         <div class="catalog-card-media">
           <div class="catalog-card-placeholder" data-brand="Ferrari">
             <svg class="catalog-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
@@ -375,14 +399,14 @@
           <div class="catalog-card-footer">
             <div>
               <div class="catalog-card-price-label">Tarif</div>
-              <div class="catalog-card-price">1 800 €/jour</div>
+              <div class="catalog-card-price" data-base-price="1800">1 800 €/jour</div>
             </div>
-            <span class="catalog-card-cta">Voir →</span>
+            <button type="button" class="loc-reserve-btn" data-id="ferrari-296-gtb">Réserver</button>
           </div>
         </div>
       </article>
 
-      <article class="catalog-card">
+      <article class="catalog-card" data-id="bentley-continental-gt-v8" data-brand="Bentley" data-name="Continental GT V8" data-year="2022" data-base-price="1200">
         <div class="catalog-card-media">
           <div class="catalog-card-placeholder" data-brand="Bentley">
             <svg class="catalog-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
@@ -407,14 +431,14 @@
           <div class="catalog-card-footer">
             <div>
               <div class="catalog-card-price-label">Tarif</div>
-              <div class="catalog-card-price">1 200 €/jour</div>
+              <div class="catalog-card-price" data-base-price="1200">1 200 €/jour</div>
             </div>
-            <span class="catalog-card-cta">Voir →</span>
+            <button type="button" class="loc-reserve-btn" data-id="bentley-continental-gt-v8">Réserver</button>
           </div>
         </div>
       </article>
 
-      <article class="catalog-card">
+      <article class="catalog-card" data-id="porsche-cayenne-turbo-gt" data-brand="Porsche" data-name="Cayenne Turbo GT" data-year="2023" data-base-price="780">
         <div class="catalog-card-media">
           <div class="catalog-card-placeholder" data-brand="Porsche">
             <svg class="catalog-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
@@ -439,9 +463,9 @@
           <div class="catalog-card-footer">
             <div>
               <div class="catalog-card-price-label">Tarif</div>
-              <div class="catalog-card-price">780 €/jour</div>
+              <div class="catalog-card-price" data-base-price="780">780 €/jour</div>
             </div>
-            <span class="catalog-card-cta">Voir →</span>
+            <button type="button" class="loc-reserve-btn" data-id="porsche-cayenne-turbo-gt">Réserver</button>
           </div>
         </div>
       </article>
@@ -494,6 +518,220 @@
     </div>
   </footer>
 
+  <!-- ============ MODAL DE RÉSERVATION ============ -->
+  <div class="loc-modal" id="locReserveModal" aria-hidden="true">
+    <div class="loc-modal-backdrop" data-close></div>
+    <div class="loc-modal-dialog" role="dialog" aria-labelledby="locReserveTitle">
+      <button type="button" class="loc-modal-close" data-close aria-label="Fermer">×</button>
+
+      <div class="loc-modal-header">
+        <span class="loc-modal-eyebrow">Réservation</span>
+        <h2 id="locReserveTitle">Demande de devis</h2>
+        <p class="loc-modal-vehicle" id="modalVehicleName">—</p>
+      </div>
+
+      <form id="locReserveForm" class="loc-form" novalidate>
+        <input type="hidden" id="resVehicleId" />
+        <input type="hidden" id="resVehicleBrand" />
+        <input type="hidden" id="resVehicleName" />
+        <input type="hidden" id="resVehicleBasePrice" />
+
+        <!-- Section : Dates & lieu -->
+        <fieldset class="loc-form-section">
+          <legend>Période de location</legend>
+          <div class="loc-form-grid">
+            <div class="loc-form-field">
+              <label>Date départ</label>
+              <input type="date" id="resPickupDate" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Heure</label>
+              <input type="time" id="resPickupTime" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Date retour</label>
+              <input type="date" id="resReturnDate" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Heure</label>
+              <input type="time" id="resReturnTime" required />
+            </div>
+            <div class="loc-form-field full">
+              <label>Lieu de prise en charge</label>
+              <select id="resPickupLoc" required>
+                <option value="annecy">Annecy — Agence BK</option>
+                <option value="geneve">Aéroport Genève (+ 90 €)</option>
+                <option value="lyon">Aéroport Lyon-Saint Exupéry (+ 150 €)</option>
+                <option value="domicile">Livraison à domicile (sur devis)</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section : Options -->
+        <fieldset class="loc-form-section">
+          <legend>Options</legend>
+          <div class="loc-form-options">
+            <label class="loc-opt-row">
+              <input type="checkbox" id="resOptDriver2" />
+              <span><strong>Conducteur secondaire</strong> <em>+ 25 €/jour</em></span>
+            </label>
+            <label class="loc-opt-row">
+              <input type="checkbox" id="resOptUnlimitedKm" />
+              <span><strong>Kilométrage illimité</strong> <em>+ 60 €/jour</em></span>
+            </label>
+            <label class="loc-opt-row">
+              <input type="checkbox" id="resOptInsurancePlus" />
+              <span><strong>Assurance tous risques + rachat franchise</strong> <em>+ 45 €/jour</em></span>
+            </label>
+            <label class="loc-opt-row">
+              <input type="checkbox" id="resOptChildSeat" />
+              <span><strong>Siège enfant</strong> <em>+ 8 €/jour</em></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- Section : Informations personnelles -->
+        <fieldset class="loc-form-section">
+          <legend>Informations personnelles</legend>
+          <div class="loc-form-grid">
+            <div class="loc-form-field">
+              <label>Civilité</label>
+              <select id="resCivility">
+                <option value="M.">M.</option>
+                <option value="Mme">Mme</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+            <div class="loc-form-field">
+              <label>Prénom <span class="req">*</span></label>
+              <input type="text" id="resFirstName" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Nom <span class="req">*</span></label>
+              <input type="text" id="resLastName" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Date de naissance <span class="req">*</span></label>
+              <input type="date" id="resBirthDate" required />
+              <span class="loc-form-help">Minimum 25 ans pour louer une sportive</span>
+            </div>
+            <div class="loc-form-field">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" id="resEmail" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Téléphone <span class="req">*</span></label>
+              <input type="tel" id="resPhone" required placeholder="+33 6 12 34 56 78" />
+            </div>
+            <div class="loc-form-field full">
+              <label>Adresse <span class="req">*</span></label>
+              <input type="text" id="resAddress" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Code postal <span class="req">*</span></label>
+              <input type="text" id="resPostalCode" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Ville <span class="req">*</span></label>
+              <input type="text" id="resCity" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Pays <span class="req">*</span></label>
+              <select id="resCountry" required>
+                <option value="France">France</option>
+                <option value="Suisse">Suisse</option>
+                <option value="Italie">Italie</option>
+                <option value="Allemagne">Allemagne</option>
+                <option value="Belgique">Belgique</option>
+                <option value="Royaume-Uni">Royaume-Uni</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section : Permis de conduire -->
+        <fieldset class="loc-form-section">
+          <legend>Permis de conduire</legend>
+          <div class="loc-form-grid">
+            <div class="loc-form-field">
+              <label>Numéro de permis <span class="req">*</span></label>
+              <input type="text" id="resLicenseNumber" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Date d'obtention <span class="req">*</span></label>
+              <input type="date" id="resLicenseDate" required />
+              <span class="loc-form-help">Minimum 3 ans de permis</span>
+            </div>
+            <div class="loc-form-field">
+              <label>Pays de délivrance <span class="req">*</span></label>
+              <select id="resLicenseCountry" required>
+                <option value="France">France</option>
+                <option value="Suisse">Suisse</option>
+                <option value="UE">UE (autre)</option>
+                <option value="International">International (avec permis international)</option>
+              </select>
+            </div>
+            <div class="loc-form-field">
+              <label>Catégorie</label>
+              <select id="resLicenseCategory">
+                <option value="B">B (voiture)</option>
+                <option value="B+E">B+E (avec remorque)</option>
+                <option value="A">A (moto)</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section : Message libre -->
+        <fieldset class="loc-form-section">
+          <legend>Informations complémentaires</legend>
+          <div class="loc-form-field full">
+            <label>Message (facultatif)</label>
+            <textarea id="resMessage" rows="3" placeholder="Demandes particulières, équipements souhaités, questions..."></textarea>
+          </div>
+          <label class="loc-form-checkbox">
+            <input type="checkbox" id="resAcceptTerms" required />
+            <span>J'accepte les <a href="cgv.html" target="_blank">Conditions Générales de Location</a> et la <a href="confidentialite.html" target="_blank">politique de confidentialité</a>.</span>
+          </label>
+        </fieldset>
+
+        <!-- DEVIS LIVE -->
+        <div class="loc-quote">
+          <div class="loc-quote-title">Récapitulatif du devis</div>
+          <div class="loc-quote-lines" id="quoteLines"></div>
+          <div class="loc-quote-total">
+            <span>Total estimé</span>
+            <strong id="quoteTotal">— €</strong>
+          </div>
+          <p class="loc-quote-note">Devis indicatif — confirmation finale après validation par notre équipe sous 24h. Frais de carburant et caution non inclus.</p>
+        </div>
+
+        <div class="loc-form-actions">
+          <button type="button" class="loc-btn-ghost" data-close>Annuler</button>
+          <button type="submit" class="loc-btn-primary">Envoyer la demande de devis</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ MODAL DE CONFIRMATION ============ -->
+  <div class="loc-modal" id="locConfirmModal" aria-hidden="true">
+    <div class="loc-modal-backdrop" data-close-confirm></div>
+    <div class="loc-modal-dialog loc-modal-dialog-sm" role="dialog">
+      <div class="loc-confirm">
+        <div class="loc-confirm-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Demande envoyée !</h3>
+        <p>Votre demande de devis n°<strong id="confirmRef">—</strong> a bien été transmise à l'équipe BK Alpes Motors.</p>
+        <p class="loc-confirm-sub">Vous recevrez sous <strong>24h</strong> un email de confirmation avec votre devis personnalisé et, si validé, un <strong>lien de paiement sécurisé</strong> pour finaliser votre réservation.</p>
+        <button type="button" class="loc-btn-primary" data-close-confirm>Fermer</button>
+      </div>
+    </div>
+  </div>
+
   <a href="https://wa.me/33756859026" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact WhatsApp">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.134.557 4.135 1.533 5.875L0 24l6.295-1.51A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.372l-.36-.213-3.735.895.939-3.63-.234-.374A9.818 9.818 0 1112 21.818z"/></svg>
     <span>WhatsApp</span>
@@ -519,73 +757,99 @@
 
     // ============ TARIFICATION DÉGRESSIVE ============
     // Paliers : 1j=0% / 3j=10% / 7j=18% / 14j=25% / 30j=35%
-    // Pour les jours intermédiaires : interpolation linéaire entre les paliers.
+    // Interpolation linéaire entre les paliers.
     const DURATION_TIERS = [
-      { d: 1,  pct: 0,    label: 'Tarif standard' },
-      { d: 3,  pct: 0.10, label: '-10% / jour' },
-      { d: 7,  pct: 0.18, label: '-18% / jour' },
-      { d: 14, pct: 0.25, label: '-25% / jour' },
-      { d: 30, pct: 0.35, label: '-35% / jour' },
+      { d: 1,  pct: 0    },
+      { d: 3,  pct: 0.10 },
+      { d: 7,  pct: 0.18 },
+      { d: 14, pct: 0.25 },
+      { d: 30, pct: 0.35 },
     ];
 
+    const PICKUP_FEES = { annecy: 0, geneve: 90, lyon: 150, domicile: 200 };
+    const OPT_PRICES  = { driver2: 25, unlimitedKm: 60, insurancePlus: 45, childSeat: 8 };
+
     function getDiscountFor(days) {
-      if (days <= 1) return { pct: 0, label: 'Tarif standard' };
-      // Trouver les 2 paliers qui encadrent days
+      if (days <= 1) return 0;
       for (let i = 0; i < DURATION_TIERS.length - 1; i++) {
         const a = DURATION_TIERS[i], b = DURATION_TIERS[i + 1];
         if (days >= a.d && days <= b.d) {
           const t = (days - a.d) / (b.d - a.d);
-          const pct = a.pct + (b.pct - a.pct) * t;
-          // Label : on prend le palier le plus proche
-          const closer = (days - a.d) <= (b.d - days) ? a : b;
-          return { pct, label: pct > 0 ? `-${Math.round(pct * 100)}% / jour` : 'Tarif standard' };
+          return a.pct + (b.pct - a.pct) * t;
         }
       }
-      const last = DURATION_TIERS[DURATION_TIERS.length - 1];
-      return { pct: last.pct, label: last.label };
+      return DURATION_TIERS[DURATION_TIERS.length - 1].pct;
     }
 
     function fmtPrice(n) {
       return Math.round(n).toLocaleString('fr-FR').replace(/,/g, ' ');
     }
 
-    const durSlider   = document.getElementById('locDurationSlider');
-    const durValue    = document.getElementById('locDurationValue');
-    const durDiscount = document.getElementById('locDurationDiscount');
-    const durFill     = document.getElementById('locDurationFill');
-    const durMarks    = document.querySelectorAll('.loc-duration-mark');
+    function daysBetween(d1, t1, d2, t2) {
+      if (!d1 || !d2) return 0;
+      const a = new Date(`${d1}T${t1 || '00:00'}`);
+      const b = new Date(`${d2}T${t2 || '00:00'}`);
+      const ms = b.getTime() - a.getTime();
+      if (isNaN(ms) || ms <= 0) return 0;
+      return Math.max(1, Math.ceil(ms / (1000 * 60 * 60 * 24)));
+    }
 
-    // 1. Snapshot des prix de base depuis le DOM (au chargement)
+    // ============ SEARCHBAR (haut de page) ============
+    const sb = {
+      pickupDate: document.getElementById('locPickupDate'),
+      pickupTime: document.getElementById('locPickupTime'),
+      returnDate: document.getElementById('locReturnDate'),
+      returnTime: document.getElementById('locReturnTime'),
+      pickupLoc:  document.getElementById('locPickupLoc'),
+      summary:    document.getElementById('locSummary'),
+      optDriver2:       document.getElementById('optDriver2'),
+      optUnlimitedKm:   document.getElementById('optUnlimitedKm'),
+      optInsurancePlus: document.getElementById('optInsurancePlus'),
+      optChildSeat:     document.getElementById('optChildSeat'),
+    };
+
+    // Date par défaut : demain → après-demain
+    const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+    const dayAfter = new Date(); dayAfter.setDate(dayAfter.getDate() + 2);
+    const isoDate = (d) => d.toISOString().slice(0, 10);
+    sb.pickupDate.value = isoDate(tomorrow);
+    sb.returnDate.value = isoDate(dayAfter);
+    sb.pickupDate.min = isoDate(new Date());
+    sb.returnDate.min = isoDate(new Date());
+
+    // Snapshot des prix de base
     const priceEls = Array.from(document.querySelectorAll('.catalog-card-price'));
     priceEls.forEach(el => {
-      const txt = el.textContent.trim();
-      const n = parseInt(txt.replace(/[^\d]/g, ''), 10);
-      if (!isNaN(n)) {
-        el.dataset.basePrice = n;
+      if (!el.dataset.basePrice) {
+        const n = parseInt(el.textContent.replace(/[^\d]/g, ''), 10);
+        if (!isNaN(n)) el.dataset.basePrice = n;
       }
     });
 
-    function updateDuration() {
-      const days = parseInt(durSlider.value, 10);
-      const { pct, label } = getDiscountFor(days);
-      durValue.textContent = days;
-      // Pluriel
-      durValue.nextSibling && (durValue.nextSibling.textContent = ' jour' + (days > 1 ? 's' : ''));
-      durDiscount.textContent = label;
-      durDiscount.classList.toggle('is-discount', pct > 0);
+    function getSelectedDays() {
+      return daysBetween(sb.pickupDate.value, sb.pickupTime.value, sb.returnDate.value, sb.returnTime.value);
+    }
 
-      // Fill bar
-      const ratio = (days - 1) / (30 - 1);
-      durFill.style.width = (ratio * 100) + '%';
+    function getSelectedOptions() {
+      return {
+        driver2:       sb.optDriver2.checked,
+        unlimitedKm:   sb.optUnlimitedKm.checked,
+        insurancePlus: sb.optInsurancePlus.checked,
+        childSeat:     sb.optChildSeat.checked,
+      };
+    }
 
-      // Marks actifs : celui le plus proche du curseur OU passé
-      durMarks.forEach(m => {
-        const md = parseInt(m.dataset.d, 10);
-        m.classList.toggle('is-active', md <= days);
-        m.classList.toggle('is-current', md === days);
-      });
+    function updateSearchbar() {
+      const days = getSelectedDays();
+      const pct = getDiscountFor(days);
+      const dayLabel = days > 1 ? 'jours' : 'jour';
+      const discountLabel = pct > 0 ? `−${Math.round(pct * 100)}% / jour` : (days >= 1 ? 'Tarif standard' : 'Sélectionnez les dates');
+      sb.summary.innerHTML = `
+        <div class="loc-searchbar-summary-days"><strong>${days}</strong> ${dayLabel}</div>
+        <div class="loc-searchbar-summary-discount ${pct > 0 ? 'is-discount' : ''}">${discountLabel}</div>
+      `;
 
-      // Met à jour les prix
+      // Met à jour les prix des cards
       priceEls.forEach(el => {
         const base = parseInt(el.dataset.basePrice, 10);
         if (isNaN(base)) return;
@@ -598,13 +862,254 @@
       });
     }
 
-    if (durSlider) {
-      durSlider.addEventListener('input', updateDuration);
-      // Click sur un mark = saute à cette durée
-      durMarks.forEach(m => m.addEventListener('click', () => {
-        durSlider.value = m.dataset.d;
-        updateDuration();
-      }));
-      updateDuration();
+    [sb.pickupDate, sb.pickupTime, sb.returnDate, sb.returnTime, sb.pickupLoc,
+     sb.optDriver2, sb.optUnlimitedKm, sb.optInsurancePlus, sb.optChildSeat]
+      .forEach(el => el.addEventListener('change', updateSearchbar));
+
+    updateSearchbar();
+
+    // ============ MODAL DE RÉSERVATION ============
+    const reserveModal  = document.getElementById('locReserveModal');
+    const confirmModal  = document.getElementById('locConfirmModal');
+    const reserveForm   = document.getElementById('locReserveForm');
+
+    function openReserveModal(vehicleData) {
+      // Pré-remplir avec les données du véhicule
+      document.getElementById('modalVehicleName').textContent = `${vehicleData.brand} ${vehicleData.name}`;
+      document.getElementById('resVehicleId').value = vehicleData.id;
+      document.getElementById('resVehicleBrand').value = vehicleData.brand;
+      document.getElementById('resVehicleName').value = vehicleData.name;
+      document.getElementById('resVehicleBasePrice').value = vehicleData.basePrice;
+
+      // Pré-remplir avec la searchbar
+      document.getElementById('resPickupDate').value = sb.pickupDate.value;
+      document.getElementById('resPickupTime').value = sb.pickupTime.value;
+      document.getElementById('resReturnDate').value = sb.returnDate.value;
+      document.getElementById('resReturnTime').value = sb.returnTime.value;
+      document.getElementById('resPickupLoc').value  = sb.pickupLoc.value;
+      document.getElementById('resOptDriver2').checked       = sb.optDriver2.checked;
+      document.getElementById('resOptUnlimitedKm').checked   = sb.optUnlimitedKm.checked;
+      document.getElementById('resOptInsurancePlus').checked = sb.optInsurancePlus.checked;
+      document.getElementById('resOptChildSeat').checked     = sb.optChildSeat.checked;
+
+      updateQuote();
+      reserveModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
     }
+
+    function closeReserveModal() {
+      reserveModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    function closeConfirmModal() {
+      confirmModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeReserveModal));
+    document.querySelectorAll('[data-close-confirm]').forEach(el => el.addEventListener('click', closeConfirmModal));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { closeReserveModal(); closeConfirmModal(); }
+    });
+
+    // Clic sur "Réserver" d'une card
+    document.querySelectorAll('.loc-reserve-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = btn.closest('.catalog-card');
+        openReserveModal({
+          id:        card.dataset.id,
+          brand:     card.dataset.brand,
+          name:      card.dataset.name,
+          year:      card.dataset.year,
+          basePrice: parseInt(card.dataset.basePrice, 10),
+        });
+      });
+    });
+
+    // ============ DEVIS LIVE DANS LA MODAL ============
+    function getQuoteData() {
+      const basePrice = parseInt(document.getElementById('resVehicleBasePrice').value, 10) || 0;
+      const days = daysBetween(
+        document.getElementById('resPickupDate').value,
+        document.getElementById('resPickupTime').value,
+        document.getElementById('resReturnDate').value,
+        document.getElementById('resReturnTime').value
+      );
+      const pct = getDiscountFor(days);
+      const dailyAfterDiscount = basePrice * (1 - pct);
+      const subtotalVehicle = dailyAfterDiscount * days;
+
+      const opts = {
+        driver2:       document.getElementById('resOptDriver2').checked,
+        unlimitedKm:   document.getElementById('resOptUnlimitedKm').checked,
+        insurancePlus: document.getElementById('resOptInsurancePlus').checked,
+        childSeat:     document.getElementById('resOptChildSeat').checked,
+      };
+      const optsCost =
+        (opts.driver2       ? OPT_PRICES.driver2       * days : 0) +
+        (opts.unlimitedKm   ? OPT_PRICES.unlimitedKm   * days : 0) +
+        (opts.insurancePlus ? OPT_PRICES.insurancePlus * days : 0) +
+        (opts.childSeat     ? OPT_PRICES.childSeat     * days : 0);
+
+      const pickupLoc = document.getElementById('resPickupLoc').value;
+      const pickupFee = PICKUP_FEES[pickupLoc] || 0;
+
+      const total = subtotalVehicle + optsCost + pickupFee;
+      return { basePrice, days, pct, dailyAfterDiscount, subtotalVehicle, opts, optsCost, pickupLoc, pickupFee, total };
+    }
+
+    function updateQuote() {
+      const q = getQuoteData();
+      const lines = [];
+      if (q.days <= 0) {
+        document.getElementById('quoteLines').innerHTML = '<div class="loc-quote-line"><span>Sélectionnez des dates valides</span><span>—</span></div>';
+        document.getElementById('quoteTotal').textContent = '— €';
+        return;
+      }
+      const discountPct = Math.round(q.pct * 100);
+      const dailyLabel = q.pct > 0
+        ? `${fmtPrice(q.basePrice)} € → <strong>${fmtPrice(q.dailyAfterDiscount)} €</strong>/j <span class="loc-quote-saving">(−${discountPct}%)</span>`
+        : `${fmtPrice(q.basePrice)} €/j`;
+      lines.push(`<div class="loc-quote-line"><span>Tarif journalier</span><span>${dailyLabel}</span></div>`);
+      lines.push(`<div class="loc-quote-line"><span>Durée</span><span>${q.days} jour${q.days > 1 ? 's' : ''}</span></div>`);
+      lines.push(`<div class="loc-quote-line"><span>Sous-total véhicule</span><span><strong>${fmtPrice(q.subtotalVehicle)} €</strong></span></div>`);
+      if (q.opts.driver2)       lines.push(`<div class="loc-quote-line opt"><span>+ Conducteur secondaire (${q.days}j)</span><span>${fmtPrice(OPT_PRICES.driver2 * q.days)} €</span></div>`);
+      if (q.opts.unlimitedKm)   lines.push(`<div class="loc-quote-line opt"><span>+ Kilométrage illimité (${q.days}j)</span><span>${fmtPrice(OPT_PRICES.unlimitedKm * q.days)} €</span></div>`);
+      if (q.opts.insurancePlus) lines.push(`<div class="loc-quote-line opt"><span>+ Assurance tous risques (${q.days}j)</span><span>${fmtPrice(OPT_PRICES.insurancePlus * q.days)} €</span></div>`);
+      if (q.opts.childSeat)     lines.push(`<div class="loc-quote-line opt"><span>+ Siège enfant (${q.days}j)</span><span>${fmtPrice(OPT_PRICES.childSeat * q.days)} €</span></div>`);
+      if (q.pickupFee > 0) {
+        const locLabels = { geneve: 'Aéroport Genève', lyon: 'Aéroport Lyon-Saint Ex.', domicile: 'Livraison à domicile' };
+        lines.push(`<div class="loc-quote-line opt"><span>+ ${locLabels[q.pickupLoc] || 'Prise en charge'}</span><span>${fmtPrice(q.pickupFee)} €</span></div>`);
+      }
+      document.getElementById('quoteLines').innerHTML = lines.join('');
+      document.getElementById('quoteTotal').textContent = fmtPrice(q.total) + ' €';
+    }
+
+    reserveForm.addEventListener('input', updateQuote);
+    reserveForm.addEventListener('change', updateQuote);
+
+    // ============ SUBMIT ============
+    function generateReservationRef() {
+      const now = new Date();
+      const y = now.getFullYear().toString().slice(-2);
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      const rand = Math.random().toString(36).slice(2, 6).toUpperCase();
+      return `BK-${y}${m}${d}-${rand}`;
+    }
+
+    function loadReservations() {
+      try { return JSON.parse(localStorage.getItem('bk_reservations') || '[]'); }
+      catch { return []; }
+    }
+    function saveReservations(arr) {
+      localStorage.setItem('bk_reservations', JSON.stringify(arr));
+    }
+
+    reserveForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Validation HTML5 manuelle
+      const requiredFields = reserveForm.querySelectorAll('[required]');
+      let firstInvalid = null;
+      for (const f of requiredFields) {
+        if (!f.checkValidity()) {
+          firstInvalid = f;
+          break;
+        }
+      }
+      if (firstInvalid) {
+        firstInvalid.reportValidity();
+        firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      // Validation âge minimum 25 ans
+      const birth = new Date(document.getElementById('resBirthDate').value);
+      const age = (Date.now() - birth.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
+      if (age < 25) {
+        alert("Désolé, l'âge minimum pour louer est de 25 ans.");
+        return;
+      }
+
+      // Validation permis minimum 3 ans
+      const licDate = new Date(document.getElementById('resLicenseDate').value);
+      const licYears = (Date.now() - licDate.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
+      if (licYears < 3) {
+        alert("Désolé, vous devez détenir le permis depuis au moins 3 ans.");
+        return;
+      }
+
+      const q = getQuoteData();
+      if (q.days <= 0) {
+        alert("Veuillez vérifier les dates de location.");
+        return;
+      }
+
+      const ref = generateReservationRef();
+      const reservation = {
+        id: ref,
+        ref: ref,
+        createdAt: new Date().toISOString(),
+        status: 'pending', // pending / accepted / refused / paid
+        vehicle: {
+          id:    document.getElementById('resVehicleId').value,
+          brand: document.getElementById('resVehicleBrand').value,
+          name:  document.getElementById('resVehicleName').value,
+          basePrice: parseInt(document.getElementById('resVehicleBasePrice').value, 10),
+        },
+        period: {
+          pickupDate: document.getElementById('resPickupDate').value,
+          pickupTime: document.getElementById('resPickupTime').value,
+          returnDate: document.getElementById('resReturnDate').value,
+          returnTime: document.getElementById('resReturnTime').value,
+          pickupLoc:  document.getElementById('resPickupLoc').value,
+          days:       q.days,
+        },
+        options: q.opts,
+        customer: {
+          civility:    document.getElementById('resCivility').value,
+          firstName:   document.getElementById('resFirstName').value.trim(),
+          lastName:    document.getElementById('resLastName').value.trim(),
+          birthDate:   document.getElementById('resBirthDate').value,
+          email:       document.getElementById('resEmail').value.trim(),
+          phone:       document.getElementById('resPhone').value.trim(),
+          address:     document.getElementById('resAddress').value.trim(),
+          postalCode:  document.getElementById('resPostalCode').value.trim(),
+          city:        document.getElementById('resCity').value.trim(),
+          country:     document.getElementById('resCountry').value,
+        },
+        license: {
+          number:   document.getElementById('resLicenseNumber').value.trim(),
+          date:     document.getElementById('resLicenseDate').value,
+          country:  document.getElementById('resLicenseCountry').value,
+          category: document.getElementById('resLicenseCategory').value,
+        },
+        message: document.getElementById('resMessage').value.trim(),
+        quote: {
+          basePrice: q.basePrice,
+          dailyAfterDiscount: q.dailyAfterDiscount,
+          discountPct: q.pct,
+          subtotalVehicle: q.subtotalVehicle,
+          optsCost: q.optsCost,
+          pickupFee: q.pickupFee,
+          total: q.total,
+        },
+      };
+
+      // Sauvegarde dans localStorage (l'admin la verra)
+      const all = loadReservations();
+      all.unshift(reservation);
+      saveReservations(all);
+
+      // Affiche la confirmation
+      document.getElementById('confirmRef').textContent = ref;
+      closeReserveModal();
+      confirmModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+
+      // Reset
+      reserveForm.reset();
+    });
   </script></body></html>
