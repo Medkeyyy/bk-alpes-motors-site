@@ -11195,3 +11195,96 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-cta {
 .tesla-quad-arrow-left { left: 28px !important; }
 .tesla-quad-arrow-right { right: 28px !important; }
 
+
+/* =============================================================
+   TESLA QUAD V3 — Proportions exactes Tesla
+   2 cards visibles, paddings serrés, flèches discrètes
+   ============================================================= */
+
+.tesla-quad-wrap {
+  padding: 0 0 24px !important;
+}
+
+.tesla-quad {
+  padding: 0 24px !important;
+  gap: 16px !important;
+}
+
+/* Card active ~60% + card suivante ~35% visibles à la fois */
+.tesla-quad-card {
+  flex: 0 0 calc(63% - 16px) !important;
+  height: 70vh !important;
+  min-height: 520px !important;
+  max-height: 720px !important;
+  border-radius: 6px !important;
+}
+@media (max-width: 880px) {
+  .tesla-quad-card { flex: 0 0 calc(86% - 16px) !important; }
+}
+
+/* Padding intérieur des cards serré (style Tesla) */
+.tesla-quad-card-content {
+  padding: 28px 36px !important;
+}
+
+/* Eyebrow plus discret */
+.tesla-quad-card-eyebrow {
+  font-size: 0.84rem !important;
+  font-weight: 400 !important;
+  color: rgba(255,255,255,0.95) !important;
+}
+
+/* Titre plus petit (style Tesla "Model Y") */
+.tesla-quad-card-title {
+  font-size: clamp(1.5rem, 2.2vw, 2rem) !important;
+  font-weight: 600 !important;
+}
+
+/* Boutons : INVERSER → primary = noir/foncé (action), ghost = blanc */
+.tesla-quad-btn {
+  padding: 10px 24px !important;
+  font-size: 0.84rem !important;
+  font-weight: 500 !important;
+  min-width: 150px !important;
+}
+.tesla-quad-btn-primary {
+  background: rgba(20,20,26,0.92) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(20,20,26,0.92) !important;
+  order: 1 !important;
+}
+.tesla-quad-btn-primary:hover { background: #14141A !important; }
+.tesla-quad-btn-ghost {
+  background: #FFFFFF !important;
+  color: #14141A !important;
+  border: 1px solid #FFFFFF !important;
+  order: 2 !important;
+}
+.tesla-quad-btn-ghost:hover { background: rgba(255,255,255,0.9) !important; }
+
+/* Flèches petites et discrètes */
+.tesla-quad-arrow {
+  width: 36px !important;
+  height: 36px !important;
+  background: rgba(255,255,255,0.92) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.tesla-quad-arrow-left { left: 14px !important; }
+.tesla-quad-arrow-right { right: 14px !important; }
+.tesla-quad-arrow svg { width: 16px !important; height: 16px !important; }
+
+/* Dots plus discrets */
+.tesla-quad-dots {
+  margin-top: 18px !important;
+  gap: 6px !important;
+}
+.tesla-quad-dot {
+  width: 6px !important;
+  height: 6px !important;
+}
+.tesla-quad-dot.active {
+  width: 18px !important;
+  border-radius: 3px !important;
+}
+
