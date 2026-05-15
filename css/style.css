@@ -11528,3 +11528,83 @@ html .nav-burger {
   border-radius: 6px !important;
 }
 
+
+/* =============================================================
+   MARQUEE LOGOS — Bandeau de logos qui défile en continu
+   ============================================================= */
+
+.brands-marquee {
+  background: #FFFFFF;
+  padding: 18px 0;
+  overflow: hidden;
+  position: relative;
+  border-top: 1px solid rgba(0,0,0,0.04);
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Fade sur les bords pour effet "infini" */
+.brands-marquee::before,
+.brands-marquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+.brands-marquee::before {
+  left: 0;
+  background: linear-gradient(90deg, #FFFFFF 0%, rgba(255,255,255,0) 100%);
+}
+.brands-marquee::after {
+  right: 0;
+  background: linear-gradient(-90deg, #FFFFFF 0%, rgba(255,255,255,0) 100%);
+}
+
+.brands-marquee-track {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  width: max-content;
+  animation: brands-scroll 40s linear infinite;
+}
+.brands-marquee:hover .brands-marquee-track {
+  animation-play-state: paused;
+}
+
+.brands-marquee-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  flex-shrink: 0;
+}
+.brands-marquee-item img {
+  height: 100%;
+  width: auto;
+  max-width: 100px;
+  object-fit: contain;
+  opacity: 0.45;
+  filter: grayscale(1);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+.brands-marquee-item img:hover {
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+@keyframes brands-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 760px) {
+  .brands-marquee { padding: 14px 0; }
+  .brands-marquee-track { gap: 36px; }
+  .brands-marquee-item { height: 28px; }
+}
+
+/* On désactive l'ancienne section home-brands statique */
+.home-brands { display: none !important; }
+
