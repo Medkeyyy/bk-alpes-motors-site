@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/style.css?v=1778844426" />
+  <link rel="stylesheet" href="css/style.css?v=1778844864" />
 </head>
 <body>
 
@@ -702,18 +702,31 @@
       next.addEventListener('click', () => goTo(current + 1));
       dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
 
-      // Sync dots avec le scroll natif
+      // Sync dots + arrows avec le scroll natif
+      function updateArrows() {
+        const maxScroll = quad.scrollWidth - quad.clientWidth;
+        if (quad.scrollLeft <= 4) prev.classList.add('is-hidden');
+        else prev.classList.remove('is-hidden');
+        if (quad.scrollLeft >= maxScroll - 4) next.classList.add('is-hidden');
+        else next.classList.remove('is-hidden');
+      }
+      updateArrows();
+
       let scrollTimer;
       quad.addEventListener('scroll', () => {
+        updateArrows();
         clearTimeout(scrollTimer);
         scrollTimer = setTimeout(() => {
-          const idx = Math.round(quad.scrollLeft / (cards[0].offsetWidth + 12));
-          if (idx !== current) {
+          const cardW = cards[0].offsetWidth + 22;
+          const firstCardLeft = cards[0].offsetLeft;
+          const idx = Math.round((quad.scrollLeft + firstCardLeft) / cardW);
+          if (idx !== current && idx >= 0 && idx < TOTAL) {
             current = idx;
             dots.forEach((d, i) => d.classList.toggle('active', i === current));
           }
         }, 80);
       });
+      window.addEventListener('resize', updateArrows);
     })();
 
     // ========== FAQ ACCORDION ==========

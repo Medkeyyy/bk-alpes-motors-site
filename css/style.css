@@ -11393,3 +11393,25 @@ html .tesla-quad-arrow-right { right: 22px !important; }
   }
 }
 
+
+/* =============================================================
+   FIX FINAL — Ratio Tesla exact (1536x870 ≈ 16:9 aplati)
+   ============================================================= */
+.tesla-quad-card {
+  aspect-ratio: 1536 / 870 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+}
+
+/* Flèche gauche masquée quand on est tout au début, droite masquée quand on est tout au bout */
+.tesla-quad-arrow.is-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(-50%) scale(0.85) !important;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.tesla-quad-arrow {
+  transition: opacity 0.25s ease, transform 0.25s ease, background 0.22s ease;
+}
+
