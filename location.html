@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778870569" />
+  <link rel="stylesheet" href="css/style.css?v=1778871821" />
 </head>
 <body>
 <nav id="navbar" class="navbar">
@@ -99,15 +99,17 @@
         </div>
       </form>
 
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; flex-wrap: wrap; gap: 14px;">
-        <div style="font-size: 0.95rem; color: var(--text);">
-          <strong style="font-weight: 700;">10</strong> véhicules disponibles
+      <div class="loc-toolbar">
+        <div class="loc-toolbar-count">
+          <strong id="locCount">10</strong> véhicules disponibles
         </div>
-        <select class="catalog-sort">
-          <option>Trier par : recommandés</option>
-          <option>Prix croissant</option>
-          <option>Prix décroissant</option>
-        </select>
+        <div class="loc-type-filter">
+          <button type="button" class="loc-type-filter-btn active" data-type="">Tous</button>
+          <button type="button" class="loc-type-filter-btn" data-type="sport">Sport</button>
+          <button type="button" class="loc-type-filter-btn" data-type="berline">Berline</button>
+          <button type="button" class="loc-type-filter-btn" data-type="suv">SUV</button>
+          <button type="button" class="loc-type-filter-btn" data-type="gt">Grand Tourisme</button>
+        </div>
       </div>
 
       <div class="catalog-grid">
@@ -116,56 +118,11 @@
         <div class="loc-card-media">
           <div class="loc-card-placeholder"><svg class="loc-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
               <path d="M10 55 C 10 50  14 47  20 47 L 30 47 C 32 36  40 28  55 28 L 130 28 C 145 28  155 36  162 47 L 180 47 C 186 47  190 50  190 55 L 190 60 C 190 64  186 67  182 67 L 168 67 C 165 73  160 76  154 76 C 148 76  143 73  140 67 L 60 67 C 57 73  52 76  46 76 C 40 76  35 73  32 67 L 18 67 C 14 67  10 64  10 60 Z M 46 55 C 50 55  53 58  53 62 C 53 66  50 69  46 69 C 42 69  39 66  39 62 C 39 58  42 55  46 55 Z M 154 55 C 158 55  161 58  161 62 C 161 66  158 69  154 69 C 150 69  147 66  147 62 C 147 58  150 55  154 55 Z M 55 35 L 70 47 L 130 47 L 145 35 Z" />
-            </svg></div>
-          <span class="loc-card-tag ">Disponible</span>
-        </div>
+            </svg></div></div>
         <div class="loc-card-body">
-          <div class="loc-card-head">
-            <div>
-              <div class="loc-card-eyebrow">Porsche</div>
+          <div class="loc-card-head"><div class="loc-card-eyebrow">Porsche</div>
               <h3 class="loc-card-title">911 Turbo S</h3>
-              <div class="loc-card-meta">2023 · 2 places · Sport</div>
-            </div>
-            <div class="loc-card-duration">
-              <div class="loc-card-duration-days"><strong class="js-card-days">0</strong>j</div>
-              <div class="loc-card-duration-pct js-card-pct">—</div>
-            </div>
-          </div>
-
-          <div class="loc-card-options">
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="unlimitedKm" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-                <span class="loc-card-opt-name">KM illimité</span>
-                <span class="loc-card-opt-price">+60€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="driver2" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <span class="loc-card-opt-name">Conducteur 2nd</span>
-                <span class="loc-card-opt-price">+25€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="insurancePlus" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span class="loc-card-opt-name">Assurance +</span>
-                <span class="loc-card-opt-price">+45€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="childSeat" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M6 22v-6l3-5h6l3 5v6"/></svg>
-                <span class="loc-card-opt-name">Siège enfant</span>
-                <span class="loc-card-opt-price">+8€/j</span>
-              </span>
-            </label>
-          </div>
+              <div class="loc-card-meta">2023 · 2 places · Sport</div></div>
 
           <div class="loc-card-price-block">
             <div class="loc-card-price-main">
@@ -187,56 +144,11 @@
         <div class="loc-card-media">
           <div class="loc-card-placeholder"><svg class="loc-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
               <path d="M10 55 C 10 50  14 47  20 47 L 30 47 C 32 36  40 28  55 28 L 130 28 C 145 28  155 36  162 47 L 180 47 C 186 47  190 50  190 55 L 190 60 C 190 64  186 67  182 67 L 168 67 C 165 73  160 76  154 76 C 148 76  143 73  140 67 L 60 67 C 57 73  52 76  46 76 C 40 76  35 73  32 67 L 18 67 C 14 67  10 64  10 60 Z M 46 55 C 50 55  53 58  53 62 C 53 66  50 69  46 69 C 42 69  39 66  39 62 C 39 58  42 55  46 55 Z M 154 55 C 158 55  161 58  161 62 C 161 66  158 69  154 69 C 150 69  147 66  147 62 C 147 58  150 55  154 55 Z M 55 35 L 70 47 L 130 47 L 145 35 Z" />
-            </svg></div>
-          <span class="loc-card-tag blue">Best-seller</span>
-        </div>
+            </svg></div></div>
         <div class="loc-card-body">
-          <div class="loc-card-head">
-            <div>
-              <div class="loc-card-eyebrow">Audi</div>
+          <div class="loc-card-head"><div class="loc-card-eyebrow">Audi</div>
               <h3 class="loc-card-title">RS6 Avant Performance</h3>
-              <div class="loc-card-meta">2022 · 5 places · Berline</div>
-            </div>
-            <div class="loc-card-duration">
-              <div class="loc-card-duration-days"><strong class="js-card-days">0</strong>j</div>
-              <div class="loc-card-duration-pct js-card-pct">—</div>
-            </div>
-          </div>
-
-          <div class="loc-card-options">
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="unlimitedKm" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-                <span class="loc-card-opt-name">KM illimité</span>
-                <span class="loc-card-opt-price">+60€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="driver2" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <span class="loc-card-opt-name">Conducteur 2nd</span>
-                <span class="loc-card-opt-price">+25€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="insurancePlus" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span class="loc-card-opt-name">Assurance +</span>
-                <span class="loc-card-opt-price">+45€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="childSeat" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M6 22v-6l3-5h6l3 5v6"/></svg>
-                <span class="loc-card-opt-name">Siège enfant</span>
-                <span class="loc-card-opt-price">+8€/j</span>
-              </span>
-            </label>
-          </div>
+              <div class="loc-card-meta">2022 · 5 places · Berline</div></div>
 
           <div class="loc-card-price-block">
             <div class="loc-card-price-main">
@@ -258,56 +170,11 @@
         <div class="loc-card-media">
           <div class="loc-card-placeholder"><svg class="loc-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
               <path d="M10 55 C 10 50  14 47  20 47 L 30 47 C 32 36  40 28  55 28 L 130 28 C 145 28  155 36  162 47 L 180 47 C 186 47  190 50  190 55 L 190 60 C 190 64  186 67  182 67 L 168 67 C 165 73  160 76  154 76 C 148 76  143 73  140 67 L 60 67 C 57 73  52 76  46 76 C 40 76  35 73  32 67 L 18 67 C 14 67  10 64  10 60 Z M 46 55 C 50 55  53 58  53 62 C 53 66  50 69  46 69 C 42 69  39 66  39 62 C 39 58  42 55  46 55 Z M 154 55 C 158 55  161 58  161 62 C 161 66  158 69  154 69 C 150 69  147 66  147 62 C 147 58  150 55  154 55 Z M 55 35 L 70 47 L 130 47 L 145 35 Z" />
-            </svg></div>
-          <span class="loc-card-tag ">Disponible</span>
-        </div>
+            </svg></div></div>
         <div class="loc-card-body">
-          <div class="loc-card-head">
-            <div>
-              <div class="loc-card-eyebrow">Mercedes-AMG</div>
+          <div class="loc-card-head"><div class="loc-card-eyebrow">Mercedes-AMG</div>
               <h3 class="loc-card-title">GT 63 S 4-Door</h3>
-              <div class="loc-card-meta">2023 · 5 places · Premium</div>
-            </div>
-            <div class="loc-card-duration">
-              <div class="loc-card-duration-days"><strong class="js-card-days">0</strong>j</div>
-              <div class="loc-card-duration-pct js-card-pct">—</div>
-            </div>
-          </div>
-
-          <div class="loc-card-options">
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="unlimitedKm" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-                <span class="loc-card-opt-name">KM illimité</span>
-                <span class="loc-card-opt-price">+60€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="driver2" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <span class="loc-card-opt-name">Conducteur 2nd</span>
-                <span class="loc-card-opt-price">+25€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="insurancePlus" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span class="loc-card-opt-name">Assurance +</span>
-                <span class="loc-card-opt-price">+45€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="childSeat" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M6 22v-6l3-5h6l3 5v6"/></svg>
-                <span class="loc-card-opt-name">Siège enfant</span>
-                <span class="loc-card-opt-price">+8€/j</span>
-              </span>
-            </label>
-          </div>
+              <div class="loc-card-meta">2023 · 5 places · Premium</div></div>
 
           <div class="loc-card-price-block">
             <div class="loc-card-price-main">
@@ -329,56 +196,11 @@
         <div class="loc-card-media">
           <div class="loc-card-placeholder"><svg class="loc-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
               <path d="M10 55 C 10 50  14 47  20 47 L 30 47 C 32 36  40 28  55 28 L 130 28 C 145 28  155 36  162 47 L 180 47 C 186 47  190 50  190 55 L 190 60 C 190 64  186 67  182 67 L 168 67 C 165 73  160 76  154 76 C 148 76  143 73  140 67 L 60 67 C 57 73  52 76  46 76 C 40 76  35 73  32 67 L 18 67 C 14 67  10 64  10 60 Z M 46 55 C 50 55  53 58  53 62 C 53 66  50 69  46 69 C 42 69  39 66  39 62 C 39 58  42 55  46 55 Z M 154 55 C 158 55  161 58  161 62 C 161 66  158 69  154 69 C 150 69  147 66  147 62 C 147 58  150 55  154 55 Z M 55 35 L 70 47 L 130 47 L 145 35 Z" />
-            </svg></div>
-          <span class="loc-card-tag ">Disponible</span>
-        </div>
+            </svg></div></div>
         <div class="loc-card-body">
-          <div class="loc-card-head">
-            <div>
-              <div class="loc-card-eyebrow">BMW</div>
+          <div class="loc-card-head"><div class="loc-card-eyebrow">BMW</div>
               <h3 class="loc-card-title">M5 Competition</h3>
-              <div class="loc-card-meta">2022 · 5 places · Berline</div>
-            </div>
-            <div class="loc-card-duration">
-              <div class="loc-card-duration-days"><strong class="js-card-days">0</strong>j</div>
-              <div class="loc-card-duration-pct js-card-pct">—</div>
-            </div>
-          </div>
-
-          <div class="loc-card-options">
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="unlimitedKm" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-                <span class="loc-card-opt-name">KM illimité</span>
-                <span class="loc-card-opt-price">+60€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="driver2" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <span class="loc-card-opt-name">Conducteur 2nd</span>
-                <span class="loc-card-opt-price">+25€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="insurancePlus" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span class="loc-card-opt-name">Assurance +</span>
-                <span class="loc-card-opt-price">+45€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="childSeat" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M6 22v-6l3-5h6l3 5v6"/></svg>
-                <span class="loc-card-opt-name">Siège enfant</span>
-                <span class="loc-card-opt-price">+8€/j</span>
-              </span>
-            </label>
-          </div>
+              <div class="loc-card-meta">2022 · 5 places · Berline</div></div>
 
           <div class="loc-card-price-block">
             <div class="loc-card-price-main">
@@ -400,56 +222,11 @@
         <div class="loc-card-media">
           <div class="loc-card-placeholder"><svg class="loc-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
               <path d="M10 55 C 10 50  14 47  20 47 L 30 47 C 32 36  40 28  55 28 L 130 28 C 145 28  155 36  162 47 L 180 47 C 186 47  190 50  190 55 L 190 60 C 190 64  186 67  182 67 L 168 67 C 165 73  160 76  154 76 C 148 76  143 73  140 67 L 60 67 C 57 73  52 76  46 76 C 40 76  35 73  32 67 L 18 67 C 14 67  10 64  10 60 Z M 46 55 C 50 55  53 58  53 62 C 53 66  50 69  46 69 C 42 69  39 66  39 62 C 39 58  42 55  46 55 Z M 154 55 C 158 55  161 58  161 62 C 161 66  158 69  154 69 C 150 69  147 66  147 62 C 147 58  150 55  154 55 Z M 55 35 L 70 47 L 130 47 L 145 35 Z" />
-            </svg></div>
-          <span class="loc-card-tag ">Disponible</span>
-        </div>
+            </svg></div></div>
         <div class="loc-card-body">
-          <div class="loc-card-head">
-            <div>
-              <div class="loc-card-eyebrow">Range Rover</div>
+          <div class="loc-card-head"><div class="loc-card-eyebrow">Range Rover</div>
               <h3 class="loc-card-title">Sport SVR</h3>
-              <div class="loc-card-meta">2023 · 7 places · SUV</div>
-            </div>
-            <div class="loc-card-duration">
-              <div class="loc-card-duration-days"><strong class="js-card-days">0</strong>j</div>
-              <div class="loc-card-duration-pct js-card-pct">—</div>
-            </div>
-          </div>
-
-          <div class="loc-card-options">
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="unlimitedKm" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-                <span class="loc-card-opt-name">KM illimité</span>
-                <span class="loc-card-opt-price">+60€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="driver2" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <span class="loc-card-opt-name">Conducteur 2nd</span>
-                <span class="loc-card-opt-price">+25€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="insurancePlus" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span class="loc-card-opt-name">Assurance +</span>
-                <span class="loc-card-opt-price">+45€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="childSeat" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M6 22v-6l3-5h6l3 5v6"/></svg>
-                <span class="loc-card-opt-name">Siège enfant</span>
-                <span class="loc-card-opt-price">+8€/j</span>
-              </span>
-            </label>
-          </div>
+              <div class="loc-card-meta">2023 · 7 places · SUV</div></div>
 
           <div class="loc-card-price-block">
             <div class="loc-card-price-main">
@@ -471,56 +248,11 @@
         <div class="loc-card-media">
           <div class="loc-card-placeholder"><svg class="loc-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
               <path d="M10 55 C 10 50  14 47  20 47 L 30 47 C 32 36  40 28  55 28 L 130 28 C 145 28  155 36  162 47 L 180 47 C 186 47  190 50  190 55 L 190 60 C 190 64  186 67  182 67 L 168 67 C 165 73  160 76  154 76 C 148 76  143 73  140 67 L 60 67 C 57 73  52 76  46 76 C 40 76  35 73  32 67 L 18 67 C 14 67  10 64  10 60 Z M 46 55 C 50 55  53 58  53 62 C 53 66  50 69  46 69 C 42 69  39 66  39 62 C 39 58  42 55  46 55 Z M 154 55 C 158 55  161 58  161 62 C 161 66  158 69  154 69 C 150 69  147 66  147 62 C 147 58  150 55  154 55 Z M 55 35 L 70 47 L 130 47 L 145 35 Z" />
-            </svg></div>
-          <span class="loc-card-tag red">Coup de cœur</span>
-        </div>
+            </svg></div></div>
         <div class="loc-card-body">
-          <div class="loc-card-head">
-            <div>
-              <div class="loc-card-eyebrow">Lamborghini</div>
+          <div class="loc-card-head"><div class="loc-card-eyebrow">Lamborghini</div>
               <h3 class="loc-card-title">Urus</h3>
-              <div class="loc-card-meta">2022 · 5 places · SUV</div>
-            </div>
-            <div class="loc-card-duration">
-              <div class="loc-card-duration-days"><strong class="js-card-days">0</strong>j</div>
-              <div class="loc-card-duration-pct js-card-pct">—</div>
-            </div>
-          </div>
-
-          <div class="loc-card-options">
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="unlimitedKm" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-                <span class="loc-card-opt-name">KM illimité</span>
-                <span class="loc-card-opt-price">+60€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="driver2" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <span class="loc-card-opt-name">Conducteur 2nd</span>
-                <span class="loc-card-opt-price">+25€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="insurancePlus" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span class="loc-card-opt-name">Assurance +</span>
-                <span class="loc-card-opt-price">+45€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="childSeat" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M6 22v-6l3-5h6l3 5v6"/></svg>
-                <span class="loc-card-opt-name">Siège enfant</span>
-                <span class="loc-card-opt-price">+8€/j</span>
-              </span>
-            </label>
-          </div>
+              <div class="loc-card-meta">2022 · 5 places · SUV</div></div>
 
           <div class="loc-card-price-block">
             <div class="loc-card-price-main">
@@ -542,56 +274,11 @@
         <div class="loc-card-media">
           <div class="loc-card-placeholder"><svg class="loc-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
               <path d="M10 55 C 10 50  14 47  20 47 L 30 47 C 32 36  40 28  55 28 L 130 28 C 145 28  155 36  162 47 L 180 47 C 186 47  190 50  190 55 L 190 60 C 190 64  186 67  182 67 L 168 67 C 165 73  160 76  154 76 C 148 76  143 73  140 67 L 60 67 C 57 73  52 76  46 76 C 40 76  35 73  32 67 L 18 67 C 14 67  10 64  10 60 Z M 46 55 C 50 55  53 58  53 62 C 53 66  50 69  46 69 C 42 69  39 66  39 62 C 39 58  42 55  46 55 Z M 154 55 C 158 55  161 58  161 62 C 161 66  158 69  154 69 C 150 69  147 66  147 62 C 147 58  150 55  154 55 Z M 55 35 L 70 47 L 130 47 L 145 35 Z" />
-            </svg></div>
-          <span class="loc-card-tag ">Disponible</span>
-        </div>
+            </svg></div></div>
         <div class="loc-card-body">
-          <div class="loc-card-head">
-            <div>
-              <div class="loc-card-eyebrow">Aston Martin</div>
+          <div class="loc-card-head"><div class="loc-card-eyebrow">Aston Martin</div>
               <h3 class="loc-card-title">Vantage</h3>
-              <div class="loc-card-meta">2023 · 2 places · Sport</div>
-            </div>
-            <div class="loc-card-duration">
-              <div class="loc-card-duration-days"><strong class="js-card-days">0</strong>j</div>
-              <div class="loc-card-duration-pct js-card-pct">—</div>
-            </div>
-          </div>
-
-          <div class="loc-card-options">
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="unlimitedKm" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-                <span class="loc-card-opt-name">KM illimité</span>
-                <span class="loc-card-opt-price">+60€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="driver2" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <span class="loc-card-opt-name">Conducteur 2nd</span>
-                <span class="loc-card-opt-price">+25€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="insurancePlus" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span class="loc-card-opt-name">Assurance +</span>
-                <span class="loc-card-opt-price">+45€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="childSeat" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M6 22v-6l3-5h6l3 5v6"/></svg>
-                <span class="loc-card-opt-name">Siège enfant</span>
-                <span class="loc-card-opt-price">+8€/j</span>
-              </span>
-            </label>
-          </div>
+              <div class="loc-card-meta">2023 · 2 places · Sport</div></div>
 
           <div class="loc-card-price-block">
             <div class="loc-card-price-main">
@@ -613,56 +300,11 @@
         <div class="loc-card-media">
           <div class="loc-card-placeholder"><svg class="loc-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
               <path d="M10 55 C 10 50  14 47  20 47 L 30 47 C 32 36  40 28  55 28 L 130 28 C 145 28  155 36  162 47 L 180 47 C 186 47  190 50  190 55 L 190 60 C 190 64  186 67  182 67 L 168 67 C 165 73  160 76  154 76 C 148 76  143 73  140 67 L 60 67 C 57 73  52 76  46 76 C 40 76  35 73  32 67 L 18 67 C 14 67  10 64  10 60 Z M 46 55 C 50 55  53 58  53 62 C 53 66  50 69  46 69 C 42 69  39 66  39 62 C 39 58  42 55  46 55 Z M 154 55 C 158 55  161 58  161 62 C 161 66  158 69  154 69 C 150 69  147 66  147 62 C 147 58  150 55  154 55 Z M 55 35 L 70 47 L 130 47 L 145 35 Z" />
-            </svg></div>
-          <span class="loc-card-tag ">Disponible</span>
-        </div>
+            </svg></div></div>
         <div class="loc-card-body">
-          <div class="loc-card-head">
-            <div>
-              <div class="loc-card-eyebrow">Ferrari</div>
+          <div class="loc-card-head"><div class="loc-card-eyebrow">Ferrari</div>
               <h3 class="loc-card-title">296 GTB</h3>
-              <div class="loc-card-meta">2023 · 2 places · Sport</div>
-            </div>
-            <div class="loc-card-duration">
-              <div class="loc-card-duration-days"><strong class="js-card-days">0</strong>j</div>
-              <div class="loc-card-duration-pct js-card-pct">—</div>
-            </div>
-          </div>
-
-          <div class="loc-card-options">
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="unlimitedKm" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-                <span class="loc-card-opt-name">KM illimité</span>
-                <span class="loc-card-opt-price">+60€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="driver2" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <span class="loc-card-opt-name">Conducteur 2nd</span>
-                <span class="loc-card-opt-price">+25€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="insurancePlus" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span class="loc-card-opt-name">Assurance +</span>
-                <span class="loc-card-opt-price">+45€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="childSeat" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M6 22v-6l3-5h6l3 5v6"/></svg>
-                <span class="loc-card-opt-name">Siège enfant</span>
-                <span class="loc-card-opt-price">+8€/j</span>
-              </span>
-            </label>
-          </div>
+              <div class="loc-card-meta">2023 · 2 places · Sport</div></div>
 
           <div class="loc-card-price-block">
             <div class="loc-card-price-main">
@@ -684,56 +326,11 @@
         <div class="loc-card-media">
           <div class="loc-card-placeholder"><svg class="loc-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
               <path d="M10 55 C 10 50  14 47  20 47 L 30 47 C 32 36  40 28  55 28 L 130 28 C 145 28  155 36  162 47 L 180 47 C 186 47  190 50  190 55 L 190 60 C 190 64  186 67  182 67 L 168 67 C 165 73  160 76  154 76 C 148 76  143 73  140 67 L 60 67 C 57 73  52 76  46 76 C 40 76  35 73  32 67 L 18 67 C 14 67  10 64  10 60 Z M 46 55 C 50 55  53 58  53 62 C 53 66  50 69  46 69 C 42 69  39 66  39 62 C 39 58  42 55  46 55 Z M 154 55 C 158 55  161 58  161 62 C 161 66  158 69  154 69 C 150 69  147 66  147 62 C 147 58  150 55  154 55 Z M 55 35 L 70 47 L 130 47 L 145 35 Z" />
-            </svg></div>
-          <span class="loc-card-tag ">Disponible</span>
-        </div>
+            </svg></div></div>
         <div class="loc-card-body">
-          <div class="loc-card-head">
-            <div>
-              <div class="loc-card-eyebrow">Bentley</div>
+          <div class="loc-card-head"><div class="loc-card-eyebrow">Bentley</div>
               <h3 class="loc-card-title">Continental GT V8</h3>
-              <div class="loc-card-meta">2022 · 4 places · Premium</div>
-            </div>
-            <div class="loc-card-duration">
-              <div class="loc-card-duration-days"><strong class="js-card-days">0</strong>j</div>
-              <div class="loc-card-duration-pct js-card-pct">—</div>
-            </div>
-          </div>
-
-          <div class="loc-card-options">
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="unlimitedKm" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-                <span class="loc-card-opt-name">KM illimité</span>
-                <span class="loc-card-opt-price">+60€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="driver2" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <span class="loc-card-opt-name">Conducteur 2nd</span>
-                <span class="loc-card-opt-price">+25€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="insurancePlus" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span class="loc-card-opt-name">Assurance +</span>
-                <span class="loc-card-opt-price">+45€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="childSeat" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M6 22v-6l3-5h6l3 5v6"/></svg>
-                <span class="loc-card-opt-name">Siège enfant</span>
-                <span class="loc-card-opt-price">+8€/j</span>
-              </span>
-            </label>
-          </div>
+              <div class="loc-card-meta">2022 · 4 places · Premium</div></div>
 
           <div class="loc-card-price-block">
             <div class="loc-card-price-main">
@@ -755,56 +352,11 @@
         <div class="loc-card-media">
           <div class="loc-card-placeholder"><svg class="loc-card-silhouette" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
               <path d="M10 55 C 10 50  14 47  20 47 L 30 47 C 32 36  40 28  55 28 L 130 28 C 145 28  155 36  162 47 L 180 47 C 186 47  190 50  190 55 L 190 60 C 190 64  186 67  182 67 L 168 67 C 165 73  160 76  154 76 C 148 76  143 73  140 67 L 60 67 C 57 73  52 76  46 76 C 40 76  35 73  32 67 L 18 67 C 14 67  10 64  10 60 Z M 46 55 C 50 55  53 58  53 62 C 53 66  50 69  46 69 C 42 69  39 66  39 62 C 39 58  42 55  46 55 Z M 154 55 C 158 55  161 58  161 62 C 161 66  158 69  154 69 C 150 69  147 66  147 62 C 147 58  150 55  154 55 Z M 55 35 L 70 47 L 130 47 L 145 35 Z" />
-            </svg></div>
-          <span class="loc-card-tag ">Disponible</span>
-        </div>
+            </svg></div></div>
         <div class="loc-card-body">
-          <div class="loc-card-head">
-            <div>
-              <div class="loc-card-eyebrow">Porsche</div>
+          <div class="loc-card-head"><div class="loc-card-eyebrow">Porsche</div>
               <h3 class="loc-card-title">Cayenne Turbo GT</h3>
-              <div class="loc-card-meta">2023 · 5 places · SUV</div>
-            </div>
-            <div class="loc-card-duration">
-              <div class="loc-card-duration-days"><strong class="js-card-days">0</strong>j</div>
-              <div class="loc-card-duration-pct js-card-pct">—</div>
-            </div>
-          </div>
-
-          <div class="loc-card-options">
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="unlimitedKm" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-                <span class="loc-card-opt-name">KM illimité</span>
-                <span class="loc-card-opt-price">+60€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="driver2" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <span class="loc-card-opt-name">Conducteur 2nd</span>
-                <span class="loc-card-opt-price">+25€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="insurancePlus" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                <span class="loc-card-opt-name">Assurance +</span>
-                <span class="loc-card-opt-price">+45€/j</span>
-              </span>
-            </label>
-            <label class="loc-card-opt">
-              <input type="checkbox" data-opt="childSeat" />
-              <span class="loc-card-opt-content">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M6 22v-6l3-5h6l3 5v6"/></svg>
-                <span class="loc-card-opt-name">Siège enfant</span>
-                <span class="loc-card-opt-price">+8€/j</span>
-              </span>
-            </label>
-          </div>
+              <div class="loc-card-meta">2023 · 5 places · SUV</div></div>
 
           <div class="loc-card-price-block">
             <div class="loc-card-price-main">
@@ -1165,50 +717,21 @@
       return daysBetween(sb.pickupDate.value, sb.pickupTime.value, sb.returnDate.value, sb.returnTime.value);
     }
 
-    // ============ CARDS (options par véhicule + prix live) ============
+    // ============ CARDS (prix live basé sur dates seules) ============
     const locCards = Array.from(document.querySelectorAll('.loc-card'));
-
-    function getCardOptions(card) {
-      return {
-        driver2:       card.querySelector('input[data-opt="driver2"]').checked,
-        unlimitedKm:   card.querySelector('input[data-opt="unlimitedKm"]').checked,
-        insurancePlus: card.querySelector('input[data-opt="insurancePlus"]').checked,
-        childSeat:     card.querySelector('input[data-opt="childSeat"]').checked,
-      };
-    }
 
     function updateCard(card) {
       const base = parseInt(card.dataset.basePrice, 10) || 0;
       const days = getSelectedDays();
       const pct  = getDiscountFor(days);
       const dailyAfter = base * (1 - pct);
-
-      const opts = getCardOptions(card);
-      const optsDaily =
-        (opts.driver2       ? OPT_PRICES.driver2       : 0) +
-        (opts.unlimitedKm   ? OPT_PRICES.unlimitedKm   : 0) +
-        (opts.insurancePlus ? OPT_PRICES.insurancePlus : 0) +
-        (opts.childSeat     ? OPT_PRICES.childSeat     : 0);
-
-      const dailyTotal = dailyAfter + optsDaily;
-      const total      = dailyTotal * days;
-
-      // Header duration badge
-      card.querySelector('.js-card-days').textContent = days;
-      const pctEl = card.querySelector('.js-card-pct');
-      if (pct > 0) {
-        pctEl.textContent = `−${Math.round(pct * 100)}%`;
-        pctEl.classList.add('is-discount');
-      } else {
-        pctEl.textContent = days >= 1 ? 'standard' : '—';
-        pctEl.classList.remove('is-discount');
-      }
+      const total      = dailyAfter * days;
 
       // Prix
       const oldEl = card.querySelector('.js-card-old');
       const curEl = card.querySelector('.js-card-current');
-      curEl.textContent = `${fmtPrice(dailyTotal)} €`;
-      if (pct > 0 || optsDaily > 0) {
+      curEl.textContent = `${fmtPrice(dailyAfter)} €`;
+      if (pct > 0) {
         oldEl.style.display = '';
         oldEl.textContent = `${fmtPrice(base)} €`;
       } else {
@@ -1230,18 +753,28 @@
       locCards.forEach(updateCard);
     }
 
-    // Listeners dates (recalc all cards)
     [sb.pickupDate, sb.pickupTime, sb.returnDate, sb.returnTime]
       .forEach(el => el.addEventListener('change', updateAllCards));
 
-    // Listeners options (chaque card est indépendante)
-    locCards.forEach(card => {
-      card.querySelectorAll('input[data-opt]').forEach(input => {
-        input.addEventListener('change', () => updateCard(card));
+    updateAllCards();
+
+    // ============ FILTRE PAR TYPE ============
+    const typeFilterBtns = Array.from(document.querySelectorAll('.loc-type-filter-btn'));
+    typeFilterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const type = btn.dataset.type;
+        typeFilterBtns.forEach(b => b.classList.toggle('active', b === btn));
+        let visible = 0;
+        locCards.forEach(card => {
+          const cardType = (card.dataset.type || '').toLowerCase();
+          const match = !type || cardType === type.toLowerCase();
+          card.style.display = match ? '' : 'none';
+          if (match) visible++;
+        });
+        const countEl = document.getElementById('locCount');
+        if (countEl) countEl.textContent = visible;
       });
     });
-
-    updateAllCards();
 
     // ============ MODAL DE RÉSERVATION ============
     const reserveModal  = document.getElementById('locReserveModal');
@@ -1301,7 +834,7 @@
           name:      card.dataset.name,
           year:      card.dataset.year,
           basePrice: parseInt(card.dataset.basePrice, 10),
-          options:   getCardOptions(card),
+          options:   {},
         });
       });
     });

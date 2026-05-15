@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778870569" />
+  <link rel="stylesheet" href="css/style.css?v=1778871821" />
 </head>
 <body class="admin-body">
 
@@ -34,9 +34,11 @@
 
     <!-- Tabs -->
     <div class="admin-tabs">
-      <button class="admin-tab active" data-tab="list">Mes véhicules</button>
-      <button class="admin-tab" data-tab="form">+ Nouveau véhicule</button>
-      <button class="admin-tab" data-tab="reservations">Réservations location <span class="admin-tab-badge" id="reservationsBadge" hidden>0</span></button>
+      <button class="admin-tab active" data-tab="list">Véhicules vente</button>
+      <button class="admin-tab" data-tab="form">+ Nouveau véhicule (vente)</button>
+      <button class="admin-tab" data-tab="rental-list">Véhicules location</button>
+      <button class="admin-tab" data-tab="rental-form">+ Nouveau véhicule (location)</button>
+      <button class="admin-tab" data-tab="reservations">Réservations <span class="admin-tab-badge" id="reservationsBadge" hidden>0</span></button>
     </div>
 
     <!-- ===== TAB : Liste ===== -->
@@ -274,6 +276,205 @@
         <div class="admin-form-footer">
           <button type="button" class="admin-btn-ghost" id="cancelBtn">Annuler</button>
           <button type="submit" class="admin-btn-primary">Publier le véhicule</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== TAB : Liste véhicules de location ===== -->
+    <section class="admin-tab-pane" id="tab-rental-list">
+      <div class="admin-list-header">
+        <div class="admin-list-count"><strong id="rentalCountLabel">0</strong> véhicule(s) de location</div>
+        <div style="display:flex;gap:8px;">
+          <button class="admin-btn-ghost" id="exportRentalBtn">Exporter en JSON</button>
+          <button class="admin-btn-primary" id="addRentalBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Ajouter un véhicule
+          </button>
+        </div>
+      </div>
+
+      <div id="rentalEmptyState" class="admin-empty" style="display:none;">
+        <strong>Aucun véhicule de location publié</strong>
+        <p>Cliquez sur <em>« Ajouter un véhicule »</em> pour publier votre premier modèle de location.</p>
+      </div>
+
+      <div id="rentalCarsGrid"></div>
+    </section>
+
+    <!-- ===== TAB : Formulaire véhicule de location ===== -->
+    <section class="admin-tab-pane" id="tab-rental-form">
+      <form class="admin-form" id="rentalForm">
+
+        <input type="hidden" id="rentalId" />
+
+        <!-- Identification -->
+        <div class="admin-form-section">
+          <h3>Identification</h3>
+          <div class="admin-form-grid">
+            <div class="admin-form-field">
+              <label>Marque <span class="req">*</span></label>
+              <select name="brand" required>
+                <option value="">— Choisir —</option>
+                <option>Porsche</option>
+                <option>Audi</option>
+                <option>Mercedes-Benz</option>
+                <option>Mercedes-AMG</option>
+                <option>BMW</option>
+                <option>Ferrari</option>
+                <option>Lamborghini</option>
+                <option>Aston Martin</option>
+                <option>Bentley</option>
+                <option>Range Rover</option>
+                <option>Land Rover</option>
+                <option>Jaguar</option>
+                <option>Tesla</option>
+                <option>McLaren</option>
+                <option>Maserati</option>
+                <option>Rolls-Royce</option>
+                <option>Volkswagen</option>
+                <option>Alpine</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="admin-form-field">
+              <label>Modèle <span class="req">*</span></label>
+              <input name="model" type="text" placeholder="Ex: 911 Turbo S" required />
+            </div>
+            <div class="admin-form-field">
+              <label>Référence interne</label>
+              <input name="reference" type="text" placeholder="Auto-générée (ex: BKL-0001)" readonly style="background: #F8F8F9; color: #14141A; font-family: 'Inter', monospace; letter-spacing: 0.04em;" />
+              <span class="admin-form-field-help">Auto-incrémentée — préfixe BKL pour Location</span>
+            </div>
+            <div class="admin-form-field">
+              <label>Type de véhicule <span class="req">*</span></label>
+              <select name="type" required>
+                <option value="">— Choisir —</option>
+                <option value="sport">Sport</option>
+                <option value="berline">Berline</option>
+                <option value="suv">SUV</option>
+                <option value="gt">Grand Tourisme</option>
+                <option value="cabriolet">Cabriolet</option>
+                <option value="compact">Compact</option>
+              </select>
+            </div>
+            <div class="admin-form-field">
+              <label>Année du modèle <span class="req">*</span></label>
+              <input name="year" type="number" min="1980" max="2099" placeholder="Ex: 2024" required />
+            </div>
+            <div class="admin-form-field">
+              <label>Nombre de places <span class="req">*</span></label>
+              <input name="places" type="number" min="1" max="9" placeholder="Ex: 4" required />
+            </div>
+            <div class="admin-form-field">
+              <label>Tarif location (€/jour) <span class="req">*</span></label>
+              <input name="basePrice" type="number" min="0" placeholder="Ex: 1200" required />
+              <span class="admin-form-field-help">Tarif de base — la remise dégressive s'applique automatiquement</span>
+            </div>
+            <div class="admin-form-field">
+              <label>Caution (€)</label>
+              <input name="deposit" type="number" min="0" placeholder="Ex: 5000" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Caractéristiques -->
+        <div class="admin-form-section">
+          <h3>Caractéristiques techniques</h3>
+          <div class="admin-form-grid">
+            <div class="admin-form-field">
+              <label>Puissance</label>
+              <input name="puissance" type="text" placeholder="Ex: 650 ch" />
+            </div>
+            <div class="admin-form-field">
+              <label>Carburant</label>
+              <select name="carburant">
+                <option value="">— Choisir —</option>
+                <option>Essence</option>
+                <option>Diesel</option>
+                <option>Hybride</option>
+                <option>Électrique</option>
+              </select>
+            </div>
+            <div class="admin-form-field">
+              <label>Boîte</label>
+              <select name="boite">
+                <option value="">— Choisir —</option>
+                <option>Automatique</option>
+                <option>Manuelle</option>
+                <option>DCT</option>
+              </select>
+            </div>
+            <div class="admin-form-field">
+              <label>Couleur</label>
+              <input name="couleur" type="text" placeholder="Ex: Noir métallisé" />
+            </div>
+            <div class="admin-form-field">
+              <label>Kilométrage inclus / jour</label>
+              <input name="kmIncluded" type="text" placeholder="Ex: 200 km/jour" />
+            </div>
+            <div class="admin-form-field">
+              <label>Âge minimum conducteur</label>
+              <input name="minAge" type="number" min="18" max="35" placeholder="25" value="25" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="admin-form-section">
+          <h3>Description</h3>
+          <div class="admin-form-grid">
+            <div class="admin-form-field full">
+              <label style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                <span>Description <span class="req">*</span></span>
+                <button type="button" id="generateRentalDescBtn" class="admin-generate-btn" title="Génère une description automatique">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l2.5 6L22 12l-6.5 3-2.5 6-2.5-6L4 12l6.5-3z"/></svg>
+                  Générer auto
+                </button>
+              </label>
+              <textarea name="description" placeholder="Décrivez le véhicule, son équipement, ses points forts pour la location..." required></textarea>
+            </div>
+            <div class="admin-form-field full">
+              <label>Équipements remarquables (un par ligne)</label>
+              <textarea name="features" placeholder="GPS intégré&#10;Sièges chauffants&#10;Carplay / Android Auto&#10;Toit ouvrant"></textarea>
+            </div>
+            <div class="admin-form-field">
+              <label>Tag (étiquette)</label>
+              <select name="tag">
+                <option value="">— Aucune —</option>
+                <option value="Disponible">Disponible</option>
+                <option value="Best-seller">Best-seller</option>
+                <option value="Nouveau">Nouveau</option>
+                <option value="Coup de cœur">Coup de cœur</option>
+                <option value="Rare">Rare</option>
+              </select>
+            </div>
+            <div class="admin-form-field">
+              <label>Statut</label>
+              <select name="status">
+                <option value="published">Publié (visible sur le site)</option>
+                <option value="draft">Brouillon (caché)</option>
+                <option value="archived">Archivé</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photos -->
+        <div class="admin-form-section">
+          <h3>Photos</h3>
+          <label class="admin-upload" id="rentalUploadZone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <p><strong>Cliquez pour ajouter</strong> ou glissez vos photos ici</p>
+            <span class="help">JPG, PNG, WebP — Première photo = photo principale</span>
+            <input type="file" id="rentalPhotoInput" accept="image/*" multiple />
+          </label>
+          <div class="admin-photo-preview" id="rentalPhotoPreview"></div>
+          <div class="admin-photo-hint" id="rentalPhotoHint" hidden>Glissez les photos pour les réorganiser. La 1<sup>re</sup> sera la photo principale.</div>
+        </div>
+
+        <div class="admin-form-footer">
+          <button type="button" class="admin-btn-ghost" id="cancelRentalBtn">Annuler</button>
+          <button type="submit" class="admin-btn-primary">Publier le véhicule de location</button>
         </div>
       </form>
     </section>
@@ -1207,16 +1408,346 @@ L'équipe BK Alpes Motors`
       showToast('Export JSON téléchargé');
     });
 
-    // Quand on switche sur le tab reservations, on re-render (pour voir les nouvelles)
+    // Quand on switche sur certains tabs, on re-render
     document.querySelectorAll('.admin-tab').forEach(tab => {
       tab.addEventListener('click', () => {
         if (tab.dataset.tab === 'reservations') renderReservations();
+        if (tab.dataset.tab === 'rental-list') renderRentalList();
       });
+    });
+
+    // ============================================================
+    // ============ VÉHICULES DE LOCATION (CRUD) ====================
+    // ============================================================
+    function loadRentals() {
+      try { return JSON.parse(localStorage.getItem('bk_rental_vehicles') || '[]'); }
+      catch { return []; }
+    }
+    function saveRentals(arr) {
+      localStorage.setItem('bk_rental_vehicles', JSON.stringify(arr));
+    }
+    function nextRentalReference() {
+      const arr = loadRentals();
+      let maxN = 0;
+      arr.forEach(v => {
+        const m = (v.reference || '').match(/^BKL-(\d{1,6})$/);
+        if (m) {
+          const n = parseInt(m[1], 10);
+          if (n > maxN) maxN = n;
+        }
+      });
+      return 'BKL-' + String(maxN + 1).padStart(4, '0');
+    }
+
+    const rentalForm = document.getElementById('rentalForm');
+    const rentalIdInput = document.getElementById('rentalId');
+    let currentRentalPhotos = [];
+
+    function resetRentalForm() {
+      rentalForm.reset();
+      rentalIdInput.value = '';
+      currentRentalPhotos = [];
+      renderRentalPhotos();
+      rentalForm.reference.value = nextRentalReference();
+    }
+
+    function fillRentalForm(v) {
+      rentalIdInput.value = v.id;
+      rentalForm.brand.value = v.brand || '';
+      rentalForm.model.value = v.model || '';
+      rentalForm.reference.value = v.reference || '';
+      rentalForm.type.value = v.type || '';
+      rentalForm.year.value = v.year || '';
+      rentalForm.places.value = v.places || '';
+      rentalForm.basePrice.value = v.basePrice || '';
+      rentalForm.deposit.value = v.deposit || '';
+      rentalForm.puissance.value = v.puissance || '';
+      rentalForm.carburant.value = v.carburant || '';
+      rentalForm.boite.value = v.boite || '';
+      rentalForm.couleur.value = v.couleur || '';
+      rentalForm.kmIncluded.value = v.kmIncluded || '';
+      rentalForm.minAge.value = v.minAge || 25;
+      rentalForm.description.value = v.description || '';
+      rentalForm.features.value = (v.features || []).join('\n');
+      rentalForm.tag.value = v.tag || '';
+      rentalForm.status.value = v.status || 'published';
+      currentRentalPhotos = v.photos ? [...v.photos] : [];
+      renderRentalPhotos();
+    }
+
+    document.getElementById('addRentalBtn').addEventListener('click', () => {
+      resetRentalForm();
+      document.querySelector('.admin-tab[data-tab="rental-form"]').click();
+    });
+
+    document.getElementById('cancelRentalBtn').addEventListener('click', () => {
+      resetRentalForm();
+      document.querySelector('.admin-tab[data-tab="rental-list"]').click();
+    });
+
+    function deleteRental(id) {
+      if (!confirm('Supprimer ce véhicule de location ?')) return;
+      const arr = loadRentals().filter(v => v.id !== id);
+      saveRentals(arr);
+      renderRentalList();
+      showToast('Véhicule supprimé');
+    }
+
+    function editRental(id) {
+      const v = loadRentals().find(r => r.id === id);
+      if (!v) return;
+      fillRentalForm(v);
+      document.querySelector('.admin-tab[data-tab="rental-form"]').click();
+    }
+
+    rentalForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fd = new FormData(rentalForm);
+      const features = (fd.get('features') || '').split('\n').map(s => s.trim()).filter(Boolean);
+      const id = rentalIdInput.value || ('rental-' + Date.now());
+
+      const v = {
+        id,
+        reference: rentalForm.reference.value,
+        brand: fd.get('brand'),
+        model: fd.get('model'),
+        type: fd.get('type'),
+        year: fd.get('year'),
+        places: fd.get('places'),
+        basePrice: parseInt(fd.get('basePrice'), 10) || 0,
+        deposit: fd.get('deposit') ? parseInt(fd.get('deposit'), 10) : null,
+        puissance: fd.get('puissance'),
+        carburant: fd.get('carburant'),
+        boite: fd.get('boite'),
+        couleur: fd.get('couleur'),
+        kmIncluded: fd.get('kmIncluded'),
+        minAge: parseInt(fd.get('minAge'), 10) || 25,
+        description: fd.get('description'),
+        features,
+        tag: fd.get('tag') || '',
+        status: fd.get('status') || 'published',
+        photos: currentRentalPhotos,
+        updatedAt: new Date().toISOString(),
+      };
+
+      const arr = loadRentals();
+      const idx = arr.findIndex(r => r.id === id);
+      if (idx >= 0) arr[idx] = v;
+      else arr.unshift(v);
+
+      try {
+        saveRentals(arr);
+        resetRentalForm();
+        renderRentalList();
+        document.querySelector('.admin-tab[data-tab="rental-list"]').click();
+        showToast(idx >= 0 ? 'Véhicule mis à jour' : 'Véhicule de location publié');
+      } catch (err) {
+        alert('Erreur de sauvegarde : les photos sont peut-être trop lourdes. Réduisez leur taille.');
+      }
+    });
+
+    // Photos rental (mêmes mécaniques que vente)
+    const rentalPhotoInput   = document.getElementById('rentalPhotoInput');
+    const rentalPhotoPreview = document.getElementById('rentalPhotoPreview');
+    const rentalPhotoHint    = document.getElementById('rentalPhotoHint');
+    const rentalUploadZone   = document.getElementById('rentalUploadZone');
+
+    rentalPhotoInput.addEventListener('change', (e) => {
+      Array.from(e.target.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          currentRentalPhotos.push(ev.target.result);
+          renderRentalPhotos();
+        };
+        reader.readAsDataURL(file);
+      });
+      rentalPhotoInput.value = '';
+    });
+
+    function renderRentalPhotos() {
+      rentalPhotoPreview.innerHTML = currentRentalPhotos.map((src, i) => `
+        <div class="admin-photo-tile" draggable="true" data-pos="${i}">
+          <span class="admin-photo-tile-order${i === 0 ? ' is-main' : ''}">${i + 1}</span>
+          <img src="${src}" alt="Photo ${i+1}" draggable="false" />
+          <button type="button" data-idx="${i}" aria-label="Supprimer">×</button>
+        </div>
+      `).join('');
+      rentalPhotoHint.hidden = currentRentalPhotos.length < 2;
+
+      rentalPhotoPreview.querySelectorAll('button[data-idx]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          currentRentalPhotos.splice(parseInt(btn.dataset.idx, 10), 1);
+          renderRentalPhotos();
+        });
+      });
+
+      let dragFromIdx = null;
+      rentalPhotoPreview.querySelectorAll('.admin-photo-tile').forEach(tile => {
+        tile.addEventListener('dragstart', (e) => {
+          dragFromIdx = parseInt(tile.dataset.pos, 10);
+          tile.classList.add('is-dragging');
+          try { e.dataTransfer.setData('text/plain', String(dragFromIdx)); } catch (_) {}
+          e.dataTransfer.effectAllowed = 'move';
+        });
+        tile.addEventListener('dragend', () => {
+          tile.classList.remove('is-dragging');
+          rentalPhotoPreview.querySelectorAll('.is-drop-target').forEach(t => t.classList.remove('is-drop-target'));
+          dragFromIdx = null;
+        });
+        tile.addEventListener('dragover', (e) => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; });
+        tile.addEventListener('dragenter', () => {
+          if (dragFromIdx === null) return;
+          rentalPhotoPreview.querySelectorAll('.is-drop-target').forEach(t => t.classList.remove('is-drop-target'));
+          tile.classList.add('is-drop-target');
+        });
+        tile.addEventListener('dragleave', () => tile.classList.remove('is-drop-target'));
+        tile.addEventListener('drop', (e) => {
+          e.preventDefault();
+          if (dragFromIdx === null) return;
+          const toIdx = parseInt(tile.dataset.pos, 10);
+          if (toIdx === dragFromIdx) return;
+          const [moved] = currentRentalPhotos.splice(dragFromIdx, 1);
+          currentRentalPhotos.splice(toIdx, 0, moved);
+          dragFromIdx = null;
+          renderRentalPhotos();
+        });
+      });
+    }
+
+    ['dragover','dragenter'].forEach(ev => rentalUploadZone.addEventListener(ev, (e) => {
+      e.preventDefault();
+      rentalUploadZone.style.borderColor = '#14141A';
+      rentalUploadZone.style.background = '#F4F4F5';
+    }));
+    ['dragleave','drop'].forEach(ev => rentalUploadZone.addEventListener(ev, (e) => {
+      e.preventDefault();
+      rentalUploadZone.style.borderColor = '';
+      rentalUploadZone.style.background = '';
+    }));
+    rentalUploadZone.addEventListener('drop', (e) => {
+      Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/')).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          currentRentalPhotos.push(ev.target.result);
+          renderRentalPhotos();
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    // Liste rental (style identique aux véhicules vente)
+    const rentalCountLabel = document.getElementById('rentalCountLabel');
+    const rentalEmptyState = document.getElementById('rentalEmptyState');
+    const rentalCarsGrid   = document.getElementById('rentalCarsGrid');
+
+    function rentalCardHTML(v) {
+      const status = normalizeStatus(v.status);
+      return `
+        <article class="admin-car">
+          <div class="admin-car-photo">
+            ${v.photos && v.photos.length
+              ? `<img src="${v.photos[0]}" alt="${v.brand} ${v.model}" />`
+              : `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg"><path d="M10 55 C 10 50, 14 47, 20 47 L 30 47 C 32 36, 40 28, 55 28 L 130 28 C 145 28, 155 36, 162 47 L 180 47 C 186 47, 190 50, 190 55 L 190 60 C 190 64, 186 67, 182 67 L 168 67 C 165 73, 160 76, 154 76 C 148 76, 143 73, 140 67 L 60 67 C 57 73, 52 76, 46 76 C 40 76, 35 73, 32 67 L 18 67 C 14 67, 10 64, 10 60 Z"/></svg>`}
+            <span class="admin-car-status ${status}">${STATUS_LABELS[status] || 'En ligne'}</span>
+          </div>
+          <div class="admin-car-body">
+            <div class="admin-car-brand">${v.brand}</div>
+            <div class="admin-car-name">${v.model}</div>
+            <div class="admin-car-meta">${v.year || ''} · ${v.places || ''} places · ${v.type || ''}</div>
+            <div class="admin-car-price">${fmtPrice(v.basePrice)} / jour</div>
+            <div class="admin-car-actions">
+              <button class="admin-btn-ghost" data-rental-action="edit"   data-id="${v.id}">Modifier</button>
+              <button class="admin-btn-danger" data-rental-action="delete" data-id="${v.id}">Supprimer</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderRentalList() {
+      const arr = loadRentals();
+      rentalCountLabel.textContent = arr.length;
+      if (arr.length === 0) {
+        rentalEmptyState.style.display = '';
+        rentalCarsGrid.innerHTML = '';
+        return;
+      }
+      rentalEmptyState.style.display = 'none';
+
+      const groups = { published: [], draft: [], archived: [] };
+      arr.forEach(v => {
+        const s = normalizeStatus(v.status);
+        (groups[s] || groups.published).push(v);
+      });
+
+      rentalCarsGrid.innerHTML = STATUS_GROUPS.map(g => {
+        const list = groups[g.key];
+        const cards = list.length
+          ? `<div class="admin-cars">${list.map(rentalCardHTML).join('')}</div>`
+          : `<div class="admin-section-empty">Aucun véhicule dans cette section.</div>`;
+        return `
+          <section class="admin-section" data-status="${g.key}">
+            <div class="admin-section-header">
+              <div class="admin-section-title">
+                <span class="admin-section-dot"></span>${g.title}
+              </div>
+              <div class="admin-section-count">${list.length} véhicule${list.length > 1 ? 's' : ''}</div>
+            </div>
+            ${cards}
+          </section>
+        `;
+      }).join('');
+
+      rentalCarsGrid.querySelectorAll('button[data-rental-action]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.id;
+          if (btn.dataset.rentalAction === 'edit') editRental(id);
+          else if (btn.dataset.rentalAction === 'delete') deleteRental(id);
+        });
+      });
+    }
+
+    document.getElementById('exportRentalBtn').addEventListener('click', () => {
+      const data = loadRentals();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `bk-vehicules-location-${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Export JSON téléchargé');
+    });
+
+    // Générateur description pour rental (réutilise la même fonction)
+    document.getElementById('generateRentalDescBtn').addEventListener('click', () => {
+      const fd = new FormData(rentalForm);
+      if (!fd.get('brand') && !fd.get('model')) {
+        alert('Renseignez au moins la marque et le modèle avant de générer la description.');
+        return;
+      }
+      const btn = document.getElementById('generateRentalDescBtn');
+      btn.classList.add('is-busy');
+      btn.disabled = true;
+      setTimeout(() => {
+        rentalForm.description.value = generateDescription(fd);
+        btn.classList.remove('is-busy');
+        btn.classList.add('is-success');
+        btn.disabled = false;
+        const original = btn.innerHTML;
+        btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Généré';
+        setTimeout(() => {
+          btn.classList.remove('is-success');
+          btn.innerHTML = original;
+        }, 1500);
+      }, 350);
     });
 
     // ============ INIT ============
     renderList();
     renderReservations();
+    renderRentalList();
   </script>
 </body>
 </html>
