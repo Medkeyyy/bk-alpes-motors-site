@@ -11608,3 +11608,26 @@ html .nav-burger {
 /* On désactive l'ancienne section home-brands statique */
 .home-brands { display: none !important; }
 
+
+/* =============================================================
+   MARQUEE LOGOS V2 — Plus petit, plus serré, espacement symétrique
+   ============================================================= */
+.brands-marquee {
+  padding: 16px 0 !important;
+}
+.brands-marquee-track {
+  gap: 48px !important;
+}
+.brands-marquee-item {
+  height: 24px !important;
+}
+.brands-marquee-item img {
+  max-width: 70px !important;
+}
+
+@media (max-width: 760px) {
+  .brands-marquee { padding: 12px 0 !important; }
+  .brands-marquee-track { gap: 32px !important; }
+  .brands-marquee-item { height: 20px !important; }
+}
+
