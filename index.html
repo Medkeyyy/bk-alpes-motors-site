@@ -29,6 +29,17 @@
 </head>
 <body>
 
+  <!-- ========== ANIMATION D'INTRO ========== -->
+  <div class="intro-overlay" id="introOverlay">
+    <div class="intro-door intro-door-left"></div>
+    <div class="intro-door intro-door-right"></div>
+    <div class="intro-seam"></div>
+    <div class="intro-logo">
+      <img src="images/branding/logo.jpeg" alt="BK Alpes Motors" />
+      <div class="intro-logo-label">L'Excellence Automobile</div>
+    </div>
+  </div>
+
   <!-- ========== NAVBAR ========== -->
   <nav id="navbar" class="navbar">
     <div class="nav-pill">
@@ -58,98 +69,109 @@
     <a href="contact.html" class="btn btn-primary">Nous contacter</a>
   </div>
 
-  <!-- ========== HERO TESLA ========== -->
-  <section class="hero-tesla" id="hero">
-    <div class="hero-tesla-media">
-      <img src="images/branding/facade-sportives.png" alt="BK Alpes Motors — Atelier Annecy" />
-    </div>
-    <div class="hero-tesla-overlay" aria-hidden="true"></div>
+  <!-- ========== SLIDER HOME TESLA-STYLE ========== -->
+  <section class="home-slider" id="homeSlider">
+    <div class="home-slides" id="homeSlides">
 
-    <div class="hero-tesla-content">
-      <div class="hero-tesla-text">
-        <span class="hero-tesla-eyebrow">Annecy — Haute-Savoie</span>
-        <h1 class="hero-tesla-title visually-hidden">BK Alpes Motors</h1>
-        <p class="hero-tesla-sub">
-          Vente, location, reprise et lavage de véhicules premium.
-        </p>
+      <!-- Slide 1 : Vente -->
+      <div class="home-slide">
+        <div class="home-slide-media">
+          <img src="images/branding/facade-sportives.png" alt="Vente de véhicules" />
+        </div>
+        <div class="home-slide-content">
+          <span class="home-slide-eyebrow">01 — Vente</span>
+          <h2 class="home-slide-title">Trouvez votre prochaine voiture.</h2>
+          <p class="home-slide-sub">Une sélection rigoureuse de véhicules premium, expertisés et préparés dans notre atelier d'Annecy.</p>
+        </div>
+        <div class="home-slide-actions">
+          <a href="vente.html" class="home-slide-btn home-slide-btn-primary">Voir le stock</a>
+          <a href="contact.html" class="home-slide-btn home-slide-btn-ghost">En savoir plus</a>
+        </div>
       </div>
 
-      <div class="hero-tesla-actions">
-        <a href="vente.html" class="hero-tesla-btn hero-tesla-btn-primary">Voir le stock</a>
-        <a href="location.html" class="hero-tesla-btn hero-tesla-btn-ghost">Louer un véhicule</a>
+      <!-- Slide 2 : Location -->
+      <div class="home-slide">
+        <div class="home-slide-media">
+          <img src="images/branding/facade-utilitaires.png" alt="Location de véhicules" />
+        </div>
+        <div class="home-slide-content">
+          <span class="home-slide-eyebrow">02 — Location</span>
+          <h2 class="home-slide-title">Conduisez l'exception.</h2>
+          <p class="home-slide-sub">Sportives, supercars, SUV : à la journée, au week-end ou plus. Livraison Annecy &amp; Haute-Savoie.</p>
+        </div>
+        <div class="home-slide-actions">
+          <a href="location.html" class="home-slide-btn home-slide-btn-primary">Voir la flotte</a>
+          <a href="contact.html" class="home-slide-btn home-slide-btn-ghost">Réserver</a>
+        </div>
       </div>
+
+      <!-- Slide 3 : Achat / Reprise -->
+      <div class="home-slide">
+        <div class="home-slide-media">
+          <img src="images/branding/facade-vide.png" alt="Achat et reprise" />
+        </div>
+        <div class="home-slide-content">
+          <span class="home-slide-eyebrow">03 — Achat / Reprise</span>
+          <h2 class="home-slide-title">Vendez en toute sérénité.</h2>
+          <p class="home-slide-sub">Expertise gratuite, offre ferme sous 24 h, paiement sous 48 h. Toutes les démarches incluses.</p>
+        </div>
+        <div class="home-slide-actions">
+          <a href="achat.html" class="home-slide-btn home-slide-btn-primary">Faire estimer</a>
+          <a href="contact.html" class="home-slide-btn home-slide-btn-ghost">En savoir plus</a>
+        </div>
+      </div>
+
+      <!-- Slide 4 : Lavage -->
+      <div class="home-slide">
+        <div class="home-slide-media">
+          <img src="images/branding/facade-sportives.png" alt="Lavage et detailing" />
+        </div>
+        <div class="home-slide-content">
+          <span class="home-slide-eyebrow">04 — Lavage</span>
+          <h2 class="home-slide-title">Lavage main &amp; detailing premium.</h2>
+          <p class="home-slide-sub">Du lavage hebdomadaire dès 50 € au traitement céramique longue durée. Au garage ou en mobilité.</p>
+        </div>
+        <div class="home-slide-actions">
+          <a href="detailing.html" class="home-slide-btn home-slide-btn-primary">Voir les formules</a>
+          <a href="contact.html" class="home-slide-btn home-slide-btn-ghost">Réserver</a>
+        </div>
+      </div>
+
     </div>
 
-    <div class="hero-tesla-scroll">
-      <span>Découvrir</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <!-- Flèches -->
+    <button class="home-slider-arrow home-slider-arrow-left" id="sliderPrev" aria-label="Précédent">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="home-slider-arrow home-slider-arrow-right" id="sliderNext" aria-label="Suivant">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+
+    <!-- Dots -->
+    <div class="home-slider-dots" id="sliderDots">
+      <button class="home-slider-dot active" data-slide="0" aria-label="Slide 1"></button>
+      <button class="home-slider-dot" data-slide="1" aria-label="Slide 2"></button>
+      <button class="home-slider-dot" data-slide="2" aria-label="Slide 3"></button>
+      <button class="home-slider-dot" data-slide="3" aria-label="Slide 4"></button>
+    </div>
+
+    <!-- Compteur -->
+    <div class="home-slider-counter">
+      <span id="sliderCounter">01 / 04</span>
     </div>
   </section>
 
-  <!-- ========== SECTION VENTE ========== -->
-  <section class="tesla-section">
-    <div class="tesla-section-media">
-      <img src="images/branding/facade-sportives.png" alt="Vente de véhicules" />
-    </div>
-    <div class="tesla-section-content">
-      <div class="tesla-section-text">
-        <h2 class="tesla-section-title">Vente</h2>
-        <p class="tesla-section-sub">Une sélection de véhicules premium, expertisés et préparés.</p>
-      </div>
-      <div class="tesla-section-actions">
-        <a href="vente.html" class="hero-tesla-btn hero-tesla-btn-primary">Voir le stock</a>
-        <a href="contact.html" class="hero-tesla-btn hero-tesla-btn-ghost">En savoir plus</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== SECTION LOCATION (dark) ========== -->
-  <section class="tesla-section dark">
-    <div class="tesla-section-media">
-      <img src="images/branding/facade-utilitaires.png" alt="Location de véhicules" />
-    </div>
-    <div class="tesla-section-content">
-      <div class="tesla-section-text">
-        <h2 class="tesla-section-title">Location</h2>
-        <p class="tesla-section-sub">Sportives, supercars, SUV : à la journée, au week-end ou plus.</p>
-      </div>
-      <div class="tesla-section-actions">
-        <a href="location.html" class="hero-tesla-btn hero-tesla-btn-primary">Voir la flotte</a>
-        <a href="contact.html" class="hero-tesla-btn hero-tesla-btn-ghost">En savoir plus</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== SECTION ACHAT / REPRISE ========== -->
-  <section class="tesla-section">
-    <div class="tesla-section-media">
-      <img src="images/branding/facade-utilitaires.png" alt="Achat et reprise" />
-    </div>
-    <div class="tesla-section-content">
-      <div class="tesla-section-text">
-        <h2 class="tesla-section-title">Achat &amp; Reprise</h2>
-        <p class="tesla-section-sub">Expertise gratuite. Offre sous 24 h. Paiement sous 48 h.</p>
-      </div>
-      <div class="tesla-section-actions">
-        <a href="achat.html" class="hero-tesla-btn hero-tesla-btn-primary">Faire estimer</a>
-        <a href="contact.html" class="hero-tesla-btn hero-tesla-btn-ghost">En savoir plus</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== SECTION LAVAGE (dark) ========== -->
-  <section class="tesla-section dark">
-    <div class="tesla-section-media">
-      <img src="images/branding/facade-sportives.png" alt="Lavage et detailing" />
-    </div>
-    <div class="tesla-section-content">
-      <div class="tesla-section-text">
-        <h2 class="tesla-section-title">Lavage</h2>
-        <p class="tesla-section-sub">Du lavage main hebdomadaire au traitement céramique longue durée.</p>
-      </div>
-      <div class="tesla-section-actions">
-        <a href="detailing.html" class="hero-tesla-btn hero-tesla-btn-primary">Voir les formules</a>
-        <a href="contact.html" class="hero-tesla-btn hero-tesla-btn-ghost">Réserver</a>
+  <!-- ========== BANDEAU MARQUES ========== -->
+  <section class="home-brands">
+    <div class="home-brands-inner">
+      <div class="home-brands-label">Maisons représentées</div>
+      <div class="home-brands-logos">
+        <img src="images/logos/Mercedes-Logo.svg.png" alt="Mercedes-Benz" />
+        <img src="images/logos/BMW.svg.webp" alt="BMW" />
+        <img src="images/logos/Lamborghini-Logo.svg.png" alt="Lamborghini" />
+        <img src="images/logos/Alpine-logo-1440x900-grand.png" alt="Alpine" />
+        <img src="images/logos/Tesla_T_symbol.svg.png" alt="Tesla" />
+        <img src="images/logos/MINI_logo.svg" alt="MINI" />
       </div>
     </div>
   </section>
@@ -191,18 +213,38 @@
     </div>
   </footer>
 
-  <!-- WhatsApp -->
+  <!-- WhatsApp flottant -->
   <a href="https://wa.me/33756859026" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact WhatsApp">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.134.557 4.135 1.533 5.875L0 24l6.295-1.51A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.372l-.36-.213-3.735.895.939-3.63-.234-.374A9.818 9.818 0 1112 21.818z"/></svg>
     <span>WhatsApp</span>
   </a>
 
   <script>
+    // ========== INTRO ANIMATION ==========
+    (function() {
+      const intro = document.getElementById('introOverlay');
+      if (!intro) return;
+      if (sessionStorage.getItem('bk_intro_seen') === '1') {
+        intro.classList.add('skip');
+        return;
+      }
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(() => setTimeout(() => intro.classList.add('show'), 200));
+      setTimeout(() => intro.classList.add('open'), 1600);
+      setTimeout(() => {
+        intro.classList.add('done');
+        document.body.style.overflow = '';
+        sessionStorage.setItem('bk_intro_seen', '1');
+      }, 3000);
+    })();
+
+    // ========== NAVBAR scroll ==========
     const navbar = document.getElementById('navbar');
     const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 30);
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
+    // ========== BURGER ==========
     const burger = document.getElementById('navBurger');
     const navMobile = document.getElementById('navMobile');
     if (burger && navMobile) {
@@ -215,6 +257,49 @@
         navMobile.classList.remove('open');
       }));
     }
+
+    // ========== HOME SLIDER ==========
+    (function() {
+      const slides = document.getElementById('homeSlides');
+      const dots = document.querySelectorAll('.home-slider-dot');
+      const prev = document.getElementById('sliderPrev');
+      const next = document.getElementById('sliderNext');
+      const counter = document.getElementById('sliderCounter');
+      if (!slides) return;
+
+      const TOTAL = 4;
+      let current = 0;
+      let autoplayTimer = null;
+      const AUTOPLAY_MS = 6500;
+
+      function go(idx) {
+        current = (idx + TOTAL) % TOTAL;
+        slides.style.transform = `translateX(-${current * 25}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        if (counter) {
+          counter.textContent = String(current + 1).padStart(2, '0') + ' / ' + String(TOTAL).padStart(2, '0');
+        }
+      }
+
+      prev.addEventListener('click', () => { go(current - 1); restartAuto(); });
+      next.addEventListener('click', () => { go(current + 1); restartAuto(); });
+      dots.forEach((dot, i) => dot.addEventListener('click', () => { go(i); restartAuto(); }));
+
+      function startAuto() { autoplayTimer = setInterval(() => go(current + 1), AUTOPLAY_MS); }
+      function restartAuto() { clearInterval(autoplayTimer); startAuto(); }
+
+      let startX = 0;
+      slides.parentElement.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      slides.parentElement.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 50) {
+          go(current + (dx < 0 ? 1 : -1));
+          restartAuto();
+        }
+      }, { passive: true });
+
+      startAuto();
+    })();
   </script>
 </body>
 </html>

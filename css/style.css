@@ -9323,3 +9323,395 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-links a.active {
   font-weight: 800 !important;
 }
 
+
+/* =============================================================
+   INTRO ANIMATION — Logo + portes de garage qui s'ouvrent
+   ============================================================= */
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: all;
+  overflow: hidden;
+}
+
+/* Les deux "portes" du garage */
+.intro-door {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  background: linear-gradient(180deg, #161616 0%, #0A0A0A 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 1.4s cubic-bezier(0.76, 0, 0.24, 1) 1.2s;
+}
+/* Petite texture de "porte de garage" : lignes verticales */
+.intro-door::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,0.02) 0px,
+    rgba(255,255,255,0.02) 1px,
+    transparent 1px,
+    transparent 40px
+  );
+  pointer-events: none;
+}
+.intro-door::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.5) 100%);
+  pointer-events: none;
+}
+
+.intro-door-left { left: 0; border-right: 1px solid rgba(212,175,55,0.15); }
+.intro-door-right { right: 0; border-left: 1px solid rgba(212,175,55,0.15); }
+
+/* Filet doré central qui sépare les 2 portes */
+.intro-seam {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: linear-gradient(180deg, transparent 0%, var(--accent) 30%, var(--accent) 70%, transparent 100%);
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.6s ease 0.3s, transform 1.4s cubic-bezier(0.76, 0, 0.24, 1) 1.2s;
+}
+
+/* Logo central qui apparaît */
+.intro-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.85);
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease, top 0.6s ease 1.0s;
+}
+.intro-logo img {
+  width: 180px;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  box-shadow: 0 20px 80px rgba(212,175,55,0.3);
+}
+.intro-logo-label {
+  margin-top: 18px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.6s ease 0.6s;
+}
+
+/* États : intro-active = page chargée, animation en cours */
+.intro-overlay.show .intro-logo { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.intro-overlay.show .intro-logo-label { opacity: 1; }
+.intro-overlay.show .intro-seam { opacity: 1; }
+
+.intro-overlay.open .intro-door-left { transform: translateX(-100%); }
+.intro-overlay.open .intro-door-right { transform: translateX(100%); }
+.intro-overlay.open .intro-seam { opacity: 0; transform: translateX(-50%) scaleY(0); }
+.intro-overlay.open .intro-logo {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.92);
+}
+
+/* Quand l'animation est finie, on enlève l'overlay */
+.intro-overlay.done {
+  display: none;
+}
+
+/* Skip l'intro si déjà vue dans la session */
+.intro-overlay.skip { display: none !important; }
+
+/* =============================================================
+   HOME SLIDER TESLA-STYLE — 4 services en carrousel
+   ============================================================= */
+
+.home-slider {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #0A0A0A;
+}
+
+.home-slides {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  width: 400%;
+  height: 100%;
+  transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+}
+.home-slide {
+  position: relative;
+  width: 25%;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 130px 24px 100px;
+  overflow: hidden;
+}
+.home-slide-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.home-slide-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 55%;
+}
+.home-slide-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.25) 40%, rgba(10,10,10,0.85) 100%);
+}
+
+.home-slide-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 40px;
+}
+.home-slide-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+.home-slide-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  margin: 0 0 14px;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+.home-slide-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  color: rgba(255,255,255,0.85);
+  max-width: 580px;
+  line-height: 1.5;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.home-slide-actions {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.home-slide-btn {
+  min-width: 240px;
+  padding: 14px 28px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 6px;
+  text-decoration: none;
+  text-align: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.home-slide-btn-primary {
+  background: rgba(20,20,20,0.85);
+  color: #FFFFFF;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.home-slide-btn-primary:hover {
+  background: var(--accent);
+  color: #0A0A0A;
+}
+.home-slide-btn-ghost {
+  background: rgba(255,255,255,0.75);
+  color: #0A0A0A;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.home-slide-btn-ghost:hover {
+  background: #FFFFFF;
+}
+
+/* Flèches latérales */
+.home-slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 50%;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.home-slider-arrow:hover {
+  background: rgba(255,255,255,0.85);
+  color: #0A0A0A;
+}
+.home-slider-arrow-left { left: 24px; }
+.home-slider-arrow-right { right: 24px; }
+.home-slider-arrow:disabled,
+.home-slider-arrow.disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Dots de pagination en bas */
+.home-slider-dots {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  gap: 10px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 8px 14px;
+  border-radius: 100px;
+}
+.home-slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.home-slider-dot.active {
+  background: #FFFFFF;
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* Compteur N / Total */
+.home-slider-counter {
+  position: absolute;
+  bottom: 50px;
+  right: 32px;
+  z-index: 5;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: rgba(255,255,255,0.75);
+}
+
+@media (max-width: 760px) {
+  .home-slide { padding: 110px 20px 130px; }
+  .home-slide-content { margin-top: 20px; }
+  .home-slide-actions { flex-direction: column; width: 100%; max-width: 320px; }
+  .home-slide-btn { width: 100%; min-width: 0; }
+  .home-slider-arrow { display: none; }
+  .home-slider-dots { bottom: 24px; }
+  .home-slider-counter { display: none; }
+}
+
+/* =============================================================
+   BANDEAU MARQUES sous le slider
+   ============================================================= */
+.home-brands {
+  background: #FFFFFF;
+  padding: 60px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.home-brands-inner {
+  max-width: 1340px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 60px;
+}
+.home-brands-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  flex-basis: 100%;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.home-brands-logos {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.home-brands-logos img {
+  height: 36px;
+  width: auto;
+  opacity: 0.5;
+  filter: grayscale(1);
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+.home-brands-logos img:hover {
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+/* On masque les anciennes sections de la home */
+.hero-tesla,
+.tesla-section,
+.brands-strip,
+.signature-section,
+.univers-section-v2,
+.gallery-section,
+.contact-express { display: none !important; }
+
+/* Mais on ré-active la home version slider */
+.home-slider { display: block !important; }
+
