@@ -11312,3 +11312,22 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-cta {
 .tesla-quad-arrow-left { left: 28px !important; }
 .tesla-quad-arrow-right { right: 28px !important; }
 
+
+/* =============================================================
+   FIX FINAL — margin-left explicite sur la 1ère card
+   (bug classique : padding-left ignoré sur scroll horizontal)
+   ============================================================= */
+
+.tesla-quad {
+  padding-left: 0 !important;
+  padding-right: 40px !important;
+}
+.tesla-quad-card:first-child {
+  margin-left: 40px !important;
+}
+
+@media (max-width: 880px) {
+  .tesla-quad { padding-right: 20px !important; }
+  .tesla-quad-card:first-child { margin-left: 20px !important; }
+}
+
