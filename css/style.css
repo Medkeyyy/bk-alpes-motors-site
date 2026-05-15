@@ -11001,3 +11001,164 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-cta {
   .tesla-dual-btn { flex: 1; min-width: 0; }
 }
 
+
+/* =============================================================
+   TESLA QUAD — 4 cards en carousel horizontal (fond noir vide)
+   ============================================================= */
+
+/* On masque l'ancien dual */
+.tesla-dual { display: none !important; }
+
+.tesla-quad-wrap {
+  position: relative;
+  padding: 12px 12px 12px;
+  background: #FFFFFF;
+}
+
+.tesla-quad {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+.tesla-quad::-webkit-scrollbar { display: none; }
+
+.tesla-quad-card {
+  position: relative;
+  flex: 0 0 calc(50% - 6px);
+  height: 60vh;
+  min-height: 480px;
+  max-height: 620px;
+  scroll-snap-align: start;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #0A0A0A;
+}
+@media (max-width: 880px) {
+  .tesla-quad-card { flex: 0 0 calc(100% - 8px); }
+}
+
+/* Contenu de la card : eyebrow haut gauche, titre + boutons bas gauche */
+.tesla-quad-card-content {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.tesla-quad-card-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.78);
+}
+.tesla-quad-card-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.tesla-quad-card-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: #FFFFFF;
+  margin: 0;
+}
+.tesla-quad-card-sub {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.65);
+  margin: 0;
+}
+.tesla-quad-card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+.tesla-quad-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 26px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 500;
+  border-radius: 4px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  min-width: 170px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+.tesla-quad-btn-primary {
+  background: rgba(255,255,255,0.18);
+  color: #FFFFFF;
+  backdrop-filter: blur(8px);
+  border-color: rgba(255,255,255,0.20);
+}
+.tesla-quad-btn-primary:hover { background: rgba(255,255,255,0.30); }
+.tesla-quad-btn-ghost {
+  background: rgba(255,255,255,0.92);
+  color: #14141A;
+  backdrop-filter: blur(8px);
+}
+.tesla-quad-btn-ghost:hover { background: #FFFFFF; }
+
+/* Flèches latérales de scroll */
+.tesla-quad-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 44px;
+  height: 44px;
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(20,20,26,0.08);
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #14141A;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+.tesla-quad-arrow:hover { background: #FFFFFF; }
+.tesla-quad-arrow-left { left: 20px; }
+.tesla-quad-arrow-right { right: 20px; }
+@media (max-width: 600px) {
+  .tesla-quad-arrow { display: none; }
+}
+
+/* Dots de pagination en bas */
+.tesla-quad-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding-bottom: 4px;
+}
+.tesla-quad-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(20,20,26,0.20);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.tesla-quad-dot.active {
+  background: rgba(20,20,26,0.85);
+  width: 22px;
+  border-radius: 4px;
+}
+

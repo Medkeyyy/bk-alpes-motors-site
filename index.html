@@ -161,41 +161,79 @@
     </div>
   </section>
 
-  <!-- ========== TESLA DUAL — 2 cards côte à côte ========== -->
-  <section class="tesla-dual">
-    <article class="tesla-dual-card">
-      <div class="tesla-dual-card-media">
-        <img src="images/branding/facade-sportives.png" alt="Voitures à vendre" />
-      </div>
-      <div class="tesla-dual-card-content">
-        <span class="tesla-dual-card-eyebrow">Notre stock</span>
-        <div class="tesla-dual-card-bottom">
-          <h3 class="tesla-dual-card-title">Voitures à vendre</h3>
-          <p class="tesla-dual-card-sub">Sportives, supercars, SUV et berlines premium expertisés.</p>
-          <div class="tesla-dual-card-actions">
-            <a href="vente.html" class="tesla-dual-btn tesla-dual-btn-primary">Voir le stock</a>
-            <a href="contact.html" class="tesla-dual-btn tesla-dual-btn-ghost">En savoir plus</a>
-          </div>
-        </div>
-      </div>
-    </article>
+  <!-- ========== TESLA QUAD — 4 cards en carousel horizontal ========== -->
+  <section class="tesla-quad-wrap">
+    <div class="tesla-quad" id="teslaQuad">
 
-    <article class="tesla-dual-card">
-      <div class="tesla-dual-card-media">
-        <img src="images/branding/facade-utilitaires.png" alt="Voitures à louer" />
-      </div>
-      <div class="tesla-dual-card-content">
-        <span class="tesla-dual-card-eyebrow">Notre flotte</span>
-        <div class="tesla-dual-card-bottom">
-          <h3 class="tesla-dual-card-title">Voitures à louer</h3>
-          <p class="tesla-dual-card-sub">À la journée, au week-end ou plus. Livraison Annecy &amp; Haute-Savoie.</p>
-          <div class="tesla-dual-card-actions">
-            <a href="location.html" class="tesla-dual-btn tesla-dual-btn-primary">Voir la flotte</a>
-            <a href="contact.html" class="tesla-dual-btn tesla-dual-btn-ghost">En savoir plus</a>
+      <article class="tesla-quad-card">
+        <div class="tesla-quad-card-content">
+          <span class="tesla-quad-card-eyebrow">Notre stock</span>
+          <div class="tesla-quad-card-bottom">
+            <h3 class="tesla-quad-card-title">Voitures à vendre</h3>
+            <div class="tesla-quad-card-actions">
+              <a href="vente.html" class="tesla-quad-btn tesla-quad-btn-ghost">Voir le stock</a>
+              <a href="contact.html" class="tesla-quad-btn tesla-quad-btn-primary">En savoir plus</a>
+            </div>
           </div>
         </div>
-      </div>
-    </article>
+      </article>
+
+      <article class="tesla-quad-card">
+        <div class="tesla-quad-card-content">
+          <span class="tesla-quad-card-eyebrow">Notre flotte</span>
+          <div class="tesla-quad-card-bottom">
+            <h3 class="tesla-quad-card-title">Voitures à louer</h3>
+            <div class="tesla-quad-card-actions">
+              <a href="location.html" class="tesla-quad-btn tesla-quad-btn-ghost">Voir la flotte</a>
+              <a href="contact.html" class="tesla-quad-btn tesla-quad-btn-primary">En savoir plus</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="tesla-quad-card">
+        <div class="tesla-quad-card-content">
+          <span class="tesla-quad-card-eyebrow">Reprise</span>
+          <div class="tesla-quad-card-bottom">
+            <h3 class="tesla-quad-card-title">Vendre ma voiture</h3>
+            <div class="tesla-quad-card-actions">
+              <a href="achat.html" class="tesla-quad-btn tesla-quad-btn-ghost">Faire estimer</a>
+              <a href="contact.html" class="tesla-quad-btn tesla-quad-btn-primary">En savoir plus</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="tesla-quad-card">
+        <div class="tesla-quad-card-content">
+          <span class="tesla-quad-card-eyebrow">Atelier</span>
+          <div class="tesla-quad-card-bottom">
+            <h3 class="tesla-quad-card-title">Lavage &amp; detailing</h3>
+            <div class="tesla-quad-card-actions">
+              <a href="detailing.html" class="tesla-quad-btn tesla-quad-btn-ghost">Voir les formules</a>
+              <a href="contact.html" class="tesla-quad-btn tesla-quad-btn-primary">Réserver</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Flèches -->
+    <button class="tesla-quad-arrow tesla-quad-arrow-left" id="quadPrev" aria-label="Précédent">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="tesla-quad-arrow tesla-quad-arrow-right" id="quadNext" aria-label="Suivant">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+
+    <!-- Dots -->
+    <div class="tesla-quad-dots" id="quadDots">
+      <button class="tesla-quad-dot active" data-idx="0" aria-label="1"></button>
+      <button class="tesla-quad-dot" data-idx="1" aria-label="2"></button>
+      <button class="tesla-quad-dot" data-idx="2" aria-label="3"></button>
+      <button class="tesla-quad-dot" data-idx="3" aria-label="4"></button>
+    </div>
   </section>
 
   <!-- ========== BANDEAU MARQUES ========== -->
@@ -637,6 +675,45 @@
       }, { passive: true });
 
       startAuto();
+    })();
+
+    // ========== TESLA QUAD CAROUSEL ==========
+    (function() {
+      const quad = document.getElementById('teslaQuad');
+      const prev = document.getElementById('quadPrev');
+      const next = document.getElementById('quadNext');
+      const dots = document.querySelectorAll('.tesla-quad-dot');
+      if (!quad) return;
+
+      const cards = quad.querySelectorAll('.tesla-quad-card');
+      const TOTAL = cards.length;
+      let current = 0;
+
+      function goTo(idx) {
+        current = Math.max(0, Math.min(TOTAL - 1, idx));
+        const card = cards[current];
+        if (card) {
+          quad.scrollTo({ left: card.offsetLeft - quad.offsetLeft, behavior: 'smooth' });
+        }
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+
+      prev.addEventListener('click', () => goTo(current - 1));
+      next.addEventListener('click', () => goTo(current + 1));
+      dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+
+      // Sync dots avec le scroll natif
+      let scrollTimer;
+      quad.addEventListener('scroll', () => {
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          const idx = Math.round(quad.scrollLeft / (cards[0].offsetWidth + 12));
+          if (idx !== current) {
+            current = idx;
+            dots.forEach((d, i) => d.classList.toggle('active', i === current));
+          }
+        }, 80);
+      });
     })();
 
     // ========== FAQ ACCORDION ==========
