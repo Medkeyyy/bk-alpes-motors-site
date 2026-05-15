@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778886759" />
+  <link rel="stylesheet" href="css/style.css?v=1778887336" />
 </head>
 <body>
 
@@ -600,50 +600,43 @@
     if (photos) {
       mainEl.innerHTML = `<img src="${photos[0]}" alt="${vehicle.brand} ${vehicle.name}" id="rdtMainImg" />`;
 
-      // 3 thumbs max (les 3 suivantes), avec overlay "+N" sur la 3e si plus de photos
-      const thumbsToShow = photos.slice(1, 4); // indexs 1, 2, 3
-      const extraCount = photos.length - 4; // nombre restant après les 3 thumbs
+      // 2 thumbs : photo 2 + photo 3 (avec overlay "+N photos" sur la 2e si plus de photos)
+      const thumb1 = photos[1] || null;
+      const thumb2 = photos[2] || null;
+      const extraCount = photos.length - 3; // photos restantes après les 2 thumbs
 
-      thumbsEl.innerHTML = thumbsToShow.map((src, i) => {
-        const idx = i + 1; // index réel dans photos[]
-        const isLastWithMore = (i === thumbsToShow.length - 1) && extraCount > 0;
-        if (isLastWithMore) {
-          // Dernière thumb : overlay "+N photos"
-          return `<div class="rdt-thumb rdt-thumb-more" data-idx="${idx}">+${extraCount + 1} photos</div>`;
-        }
-        return `<div class="rdt-thumb" data-idx="${idx}"><img src="${src}" alt="Photo ${idx+1}" /></div>`;
-      }).join('');
+      let thumbsHTML = '';
+      if (thumb1) {
+        thumbsHTML += `<div class="rdt-thumb" data-idx="1"><img src="${thumb1}" alt="Photo 2" /></div>`;
+      } else {
+        thumbsHTML += `<div class="rdt-thumb"><div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div></div>`;
+      }
+      if (extraCount > 0) {
+        // overlay "+N photos" sur la 2e thumb (au-dessus de la photo 3)
+        thumbsHTML += `<div class="rdt-thumb rdt-thumb-more">+${extraCount + 1} photos</div>`;
+      } else if (thumb2) {
+        thumbsHTML += `<div class="rdt-thumb" data-idx="2"><img src="${thumb2}" alt="Photo 3" /></div>`;
+      } else {
+        thumbsHTML += `<div class="rdt-thumb"><div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div></div>`;
+      }
+      thumbsEl.innerHTML = thumbsHTML;
 
-      // Click thumb (sauf "more") = update main
-      thumbsEl.querySelectorAll('.rdt-thumb:not(.rdt-thumb-more)').forEach(t => {
+      // Click n'importe où sur la galerie = ouvrir lightbox (comme vente)
+      mainEl.addEventListener('click', () => openLightbox(0));
+      thumbsEl.querySelectorAll('.rdt-thumb').forEach(t => {
         t.addEventListener('click', () => {
-          const idx = parseInt(t.dataset.idx, 10);
-          document.getElementById('rdtMainImg').src = photos[idx];
-          thumbsEl.querySelectorAll('.rdt-thumb').forEach(x => x.classList.remove('active'));
-          t.classList.add('active');
+          const idx = parseInt(t.dataset.idx || '0', 10);
+          openLightbox(idx);
         });
       });
-
-      // Click "more" = ouvrir lightbox
-      const moreThumb = thumbsEl.querySelector('.rdt-thumb-more');
-      if (moreThumb) {
-        moreThumb.addEventListener('click', () => openLightbox(0));
-      }
-
-      // Click main = lightbox
-      mainEl.addEventListener('click', () => {
-        const currentSrc = document.getElementById('rdtMainImg').src;
-        const idx = photos.findIndex(p => currentSrc.endsWith(p) || p === currentSrc);
-        openLightbox(idx >= 0 ? idx : 0);
-      });
     } else {
-      // Placeholder SVG : silhouette dans la main, et 3 thumbs placeholder
-      mainEl.innerHTML = `<div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}<span>Photos à venir</span></div>`;
+      // Pas de photos réelles : placeholder dans la main + 2 thumbs placeholder (sans 'Photos à venir')
+      mainEl.innerHTML = `<div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div>`;
       thumbsEl.innerHTML = `
         <div class="rdt-thumb"><div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div></div>
         <div class="rdt-thumb"><div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div></div>
-        <div class="rdt-thumb"><div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div></div>
       `;
+      mainEl.style.cursor = 'default'; // pas de zoom-in si pas de photos
     }
 
     // Specs
