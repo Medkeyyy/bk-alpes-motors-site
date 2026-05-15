@@ -10449,3 +10449,410 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-links a.active {
 }
 .home-slider-dot.active { background: #FFFFFF !important; }
 
+
+/* =============================================================
+   TESLA STRICT V2 — Navbar BLANCHE fixe + tout en CARRÉ
+   ============================================================= */
+
+/* ====== NAVBAR : fond blanc fixe (PAS de transparence sur l'image) ====== */
+.navbar,
+.navbar.scrolled,
+.navbar:not(.scrolled) {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  background: #FFFFFF !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: 1px solid rgba(0,0,0,0.06) !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04) !important;
+  padding: 14px 24px !important;
+}
+.navbar .nav-pill {
+  max-width: 1340px !important;
+}
+
+/* Liens et logo en NOIR sur fond blanc */
+.navbar .nav-logo-text,
+body:has(.hero-tesla) .navbar:not(.scrolled) .nav-logo-text,
+body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-logo-text {
+  color: #14141A !important;
+  -webkit-text-fill-color: #14141A !important;
+}
+.navbar .nav-logo-text .logo-bk { color: var(--accent-dark) !important; }
+
+.nav-links a,
+body:has(.hero-tesla) .navbar:not(.scrolled) .nav-links a,
+body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-links a {
+  color: #14141A !important;
+  font-weight: 500 !important;
+}
+.nav-links a:hover,
+body:has(.hero-tesla) .navbar:not(.scrolled) .nav-links a:hover {
+  background: rgba(20,20,26,0.06) !important;
+  color: #14141A !important;
+}
+.nav-links a.active,
+body:has(.hero-tesla) .navbar:not(.scrolled) .nav-links a.active {
+  background: rgba(20,20,26,0.08) !important;
+  color: #14141A !important;
+}
+
+/* CTA "Nous contacter" : noir plein, CARRÉ (pas pilule) */
+.nav-cta,
+body:has(.hero-tesla) .navbar:not(.scrolled) .nav-cta,
+body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-cta {
+  background: #14141A !important;
+  color: #FFFFFF !important;
+  border: 1px solid #14141A !important;
+  border-radius: 4px !important;
+  padding: 10px 22px !important;
+  font-size: 0.84rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+.nav-cta:hover {
+  background: #2A2A32 !important;
+  border-color: #2A2A32 !important;
+}
+
+/* Burger noir sur fond blanc */
+.nav-burger {
+  background: transparent !important;
+  border: 1px solid rgba(20,20,26,0.25) !important;
+  border-radius: 4px !important;
+}
+.nav-burger span { background: #14141A !important; }
+
+/* ====== TOUT EN CARRÉ : virer les pilules 100px ====== */
+
+/* Slider Tesla : boutons CARRÉS */
+.home-slide-btn,
+.home-slide-btn-primary,
+.home-slide-btn-ghost {
+  border-radius: 4px !important;
+  padding: 12px 32px !important;
+  font-size: 0.86rem !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  font-weight: 500 !important;
+  min-width: 280px !important;
+}
+
+/* Le slider doit avoir un padding-top pour ne pas être derrière la navbar */
+.home-slider {
+  padding-top: 72px !important;
+}
+.home-slide {
+  padding: 70px 24px 100px !important;
+}
+
+/* Slider arrows : carré aussi */
+.home-slider-arrow {
+  border-radius: 4px !important;
+  width: 44px !important;
+  height: 44px !important;
+}
+
+/* Dots du slider : reste comme tesla mais le conteneur carré */
+.home-slider-dots {
+  border-radius: 4px !important;
+  background: rgba(0,0,0,0.45) !important;
+  padding: 8px 12px !important;
+}
+
+/* Veluxe car-card : coins très subtils 6px */
+.vlx-car-card {
+  border-radius: 6px !important;
+}
+.vlx-car-card-photo {
+  border-radius: 4px !important;
+}
+.vlx-car-card-arrow {
+  border-radius: 4px !important;
+  width: 34px !important;
+  height: 34px !important;
+}
+
+/* Hits feature card */
+.vlx-hits-feature {
+  border-radius: 6px !important;
+}
+
+/* Veluxe tags (★ Confort & fiabilité etc.) : carrés */
+.vlx-hits-tag {
+  border-radius: 4px !important;
+}
+
+/* Veluxe why-cards */
+.vlx-why-card {
+  border-radius: 6px !important;
+}
+.vlx-why-card-arrow {
+  border-radius: 4px !important;
+  width: 30px !important;
+  height: 30px !important;
+}
+
+/* Veluxe steps */
+.vlx-steps-media {
+  border-radius: 6px !important;
+}
+.vlx-step {
+  border-radius: 6px !important;
+}
+.vlx-step-icon {
+  border-radius: 4px !important;
+  width: 30px !important;
+  height: 30px !important;
+}
+
+/* Veluxe testimonials */
+.vlx-testimonial {
+  border-radius: 6px !important;
+}
+.vlx-avatar {
+  border-radius: 50% !important; /* on garde le rond pour les avatars */
+}
+.vlx-arrow-btn {
+  border-radius: 4px !important;
+}
+.vlx-testimonial-arrow {
+  border-radius: 4px !important;
+}
+
+/* Veluxe FAQ */
+.vlx-faq-item {
+  border-radius: 6px !important;
+}
+.vlx-faq-toggle {
+  border-radius: 4px !important;
+  width: 36px !important;
+  height: 36px !important;
+}
+
+/* Boutons globaux Veluxe : carrés */
+.vlx-btn,
+.vlx-btn-dark,
+.vlx-btn-light {
+  border-radius: 4px !important;
+  padding: 12px 28px !important;
+}
+
+/* Formulaire final : inputs et bouton CARRÉS */
+.vlx-form input,
+.vlx-form select,
+.vlx-form button {
+  border-radius: 4px !important;
+  padding: 14px 20px !important;
+}
+.vlx-form button { padding: 12px 26px !important; }
+
+.vlx-final-social a {
+  border-radius: 4px !important;
+}
+
+/* Footer */
+.whatsapp-float {
+  border-radius: 50% !important; /* rond comme convention WhatsApp */
+}
+
+/* Brands : home-brands logos */
+.home-brands-logos img {
+  border-radius: 0 !important;
+}
+
+/* ====== SLIDER : repositionner le texte pour ne pas chevaucher le logo BK peint ====== */
+.home-slide-content {
+  margin-top: 30px !important;
+  align-self: flex-start !important;
+}
+.home-slide-actions {
+  align-self: flex-end !important;
+  margin-bottom: 60px !important;
+}
+/* On structure le slide en 3 zones : haut (texte), centre (vide pour respirer la photo), bas (boutons) */
+.home-slide {
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+/* Le slide media overlay : moins fort pour laisser la photo respirer + dégrader vers le bas */
+.home-slide-media::after {
+  background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.0) 25%, rgba(0,0,0,0.0) 60%, rgba(0,0,0,0.45) 100%) !important;
+}
+
+/* Titre slide : couleur dépend du fond → on garde blanc avec ombre */
+.home-slide-title {
+  color: #14141A !important;
+  text-shadow: 0 2px 8px rgba(255,255,255,0.7) !important;
+  font-weight: 700 !important;
+}
+.home-slide-eyebrow {
+  color: #14141A !important;
+  text-shadow: 0 1px 4px rgba(255,255,255,0.6) !important;
+  letter-spacing: 0.14em !important;
+}
+.home-slide-sub {
+  color: rgba(20,20,26,0.78) !important;
+  text-shadow: 0 1px 4px rgba(255,255,255,0.7) !important;
+}
+
+/* Boutons hero : primary noir, ghost blanc avec bord noir (style Tesla) */
+.home-slide-btn-primary {
+  background: rgba(20,20,26,0.88) !important;
+  color: #FFFFFF !important;
+}
+.home-slide-btn-primary:hover {
+  background: #14141A !important;
+}
+.home-slide-btn-ghost {
+  background: rgba(255,255,255,0.92) !important;
+  color: #14141A !important;
+}
+.home-slide-btn-ghost:hover {
+  background: #FFFFFF !important;
+}
+
+/* Compteur slider et dots : en bas */
+.home-slider-counter {
+  color: rgba(20,20,26,0.7) !important;
+  text-shadow: 0 1px 4px rgba(255,255,255,0.6);
+}
+.home-slider-dot {
+  background: rgba(255,255,255,0.5) !important;
+}
+.home-slider-dot.active {
+  background: rgba(20,20,26,0.85) !important;
+}
+.home-slider-arrow {
+  background: rgba(255,255,255,0.6) !important;
+  border: 1px solid rgba(20,20,26,0.15) !important;
+  color: #14141A !important;
+}
+.home-slider-arrow:hover {
+  background: #14141A !important;
+  color: #FFFFFF !important;
+  border-color: #14141A !important;
+}
+
+
+/* =============================================================
+   SLIDER TESLA STRICT — Texte en HAUT, boutons CENTRÉS BAS
+   ============================================================= */
+
+/* Layout 3 zones verticales :
+   - Top (texte) → directement sous la navbar (zone ciel/claire)
+   - Middle (vide pour la photo)
+   - Bottom (boutons centrés)
+*/
+.home-slide {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 110px 24px 110px !important;
+}
+
+.home-slide-content {
+  margin-top: 0 !important;
+  text-align: center !important;
+  align-self: center !important;
+  max-width: 800px !important;
+}
+
+.home-slide-eyebrow {
+  margin-bottom: 12px !important;
+  font-size: 0.78rem !important;
+  color: #14141A !important;
+  text-shadow: 0 1px 6px rgba(255,255,255,0.85) !important;
+  letter-spacing: 0.2em !important;
+  font-weight: 600 !important;
+}
+
+.home-slide-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem) !important;
+  font-weight: 600 !important;
+  color: #14141A !important;
+  text-shadow: 0 2px 12px rgba(255,255,255,0.85) !important;
+  margin-bottom: 8px !important;
+  line-height: 1.05 !important;
+}
+
+.home-slide-sub {
+  font-size: 0.96rem !important;
+  color: rgba(20,20,26,0.78) !important;
+  text-shadow: 0 1px 8px rgba(255,255,255,0.85) !important;
+  margin: 6px auto 0 !important;
+  max-width: 540px !important;
+  line-height: 1.5 !important;
+}
+
+/* Boutons centrés en bas */
+.home-slide-actions {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  align-self: center !important;
+  gap: 12px !important;
+  margin-bottom: 0 !important;
+  flex-wrap: wrap !important;
+}
+
+.home-slide-btn {
+  min-width: 220px !important;
+  text-align: center !important;
+  justify-content: center !important;
+}
+
+/* L'overlay de l'image : gradient blanc clair en haut pour rendre le texte lisible, neutre au milieu */
+.home-slide-media::after {
+  background: linear-gradient(180deg,
+    rgba(255,255,255,0.65) 0%,
+    rgba(255,255,255,0.35) 15%,
+    rgba(255,255,255,0.0) 35%,
+    rgba(0,0,0,0.0) 60%,
+    rgba(0,0,0,0.15) 100%) !important;
+}
+
+/* Compteur en bas droite, plus discret */
+.home-slider-counter {
+  bottom: 28px !important;
+  font-size: 0.74rem !important;
+  letter-spacing: 0.14em !important;
+}
+
+/* Dots en bas centre, blanc subtil */
+.home-slider-dots {
+  bottom: 24px !important;
+  background: rgba(255,255,255,0.6) !important;
+}
+
+
+/* =============================================================
+   FIX CENTRAGE FINAL — slider home (Tesla strict)
+   ============================================================= */
+.home-slider .home-slide .home-slide-content {
+  align-self: center !important;
+  max-width: 800px !important;
+  width: 100% !important;
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.home-slider .home-slide .home-slide-title,
+.home-slider .home-slide .home-slide-eyebrow,
+.home-slider .home-slide .home-slide-sub {
+  text-align: center !important;
+  width: 100% !important;
+  display: block !important;
+}
+.home-slider .home-slide .home-slide-actions {
+  align-self: center !important;
+  width: auto !important;
+  justify-content: center !important;
+}
