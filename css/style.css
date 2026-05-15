@@ -16680,7 +16680,7 @@ html .nav-burger {
 .rdt-page {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 110px 24px 80px;
+  padding: 90px 24px 60px;
 }
 
 /* ----- Top bar ----- */
@@ -16688,7 +16688,7 @@ html .nav-burger {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 28px;
+  margin-bottom: 18px;
   flex-wrap: wrap;
   gap: 12px;
 }
@@ -16720,28 +16720,28 @@ html .nav-burger {
   justify-content: space-between;
   align-items: flex-end;
   gap: 24px;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
 }
 .rdt-eyebrow {
   font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   color: #7A7670;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 .rdt-header-text h1 {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
   font-weight: 700;
   color: #14141A;
-  margin: 0 0 6px;
+  margin: 0 0 4px;
   letter-spacing: -0.02em;
 }
 .rdt-meta {
   font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   color: #7A7670;
 }
 .rdt-header-price {
@@ -16750,34 +16750,36 @@ html .nav-burger {
 .rdt-header-price-label {
   display: block;
   font-family: 'Inter', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   color: #7A7670;
   margin-bottom: 2px;
 }
 .rdt-header-price strong {
   font-family: 'Inter', sans-serif;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: #14141A;
   letter-spacing: -0.01em;
 }
 .rdt-header-price-unit {
   font-family: 'Inter', sans-serif;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   color: #7A7670;
   margin-left: 4px;
 }
 
-/* ----- Gallery (style vehicle vente) ----- */
+/* ----- Gallery (style vehicle vente, compacte) ----- */
 .rdt-gallery {
   display: grid;
   grid-template-columns: 1.85fr 1fr;
-  gap: 12px;
-  margin-bottom: 36px;
+  gap: 10px;
+  margin-bottom: 24px;
+  max-height: 360px;
 }
 .rdt-gallery-main {
   position: relative;
-  aspect-ratio: 4/3;
+  aspect-ratio: 16/9;
+  max-height: 360px;
   background: linear-gradient(135deg, #F4F4F5 0%, #E9E9EA 100%);
   border-radius: 12px;
   overflow: hidden;
@@ -16801,17 +16803,19 @@ html .nav-burger {
   cursor: default;
 }
 .rdt-gallery-placeholder svg {
-  width: 60%;
-  max-width: 240px;
+  width: 45%;
+  max-width: 200px;
   height: auto;
   fill: rgba(20,20,26,0.18);
 }
 .rdt-gallery-placeholder span {
   font-family: 'Inter', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   color: #7A7670;
   font-weight: 500;
 }
+.rdt-thumb .rdt-gallery-placeholder svg { width: 55%; max-width: 110px; }
+.rdt-thumb .rdt-gallery-placeholder span { display: none; }
 .rdt-gallery-thumbs {
   display: grid;
   grid-template-columns: 1fr;
