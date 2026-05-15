@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Détail véhicule - Location - BK Alpes Motors</title>
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=1778884993" />
+</head>
+<body>
+
+<nav id="navbar" class="navbar">
+    <div class="nav-pill">
+      <a href="index.html" class="nav-logo" aria-label="BK Alpes Motors - Accueil">
+        <span class="nav-logo-text"><span class="logo-bk">BK</span> Alpes Motors</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="vente.html">Vente</a>
+        <a href="location.html" class="active">Location</a>
+        <a href="achat.html">Reprise</a>
+        <a href="detailing.html">Lavage</a>
+        <a href="atelier.html">L'atelier</a>
+      </div>
+      <a href="contact.html" class="nav-cta btn">Nous contacter</a>
+      <button class="nav-burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="navMobile">
+    <a href="vente.html">Vente</a>
+    <a href="location.html">Location</a>
+    <a href="achat.html">Reprise</a>
+    <a href="detailing.html">Lavage</a>
+    <a href="atelier.html">L'atelier</a>
+    <a href="contact.html" class="btn btn-primary">Nous contacter</a>
+  </div>
+
+  <main class="rdt-page">
+
+    <!-- TOP BAR : retour + titre + lieu -->
+    <div class="rdt-topbar">
+      <a href="location.html" class="rdt-back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Retour à la flotte
+      </a>
+      <div class="rdt-loc">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Agence BK · Annecy
+      </div>
+    </div>
+
+    <!-- HEADER : marque + modèle -->
+    <header class="rdt-header" id="rdtHeader">
+      <div class="rdt-header-text">
+        <div class="rdt-eyebrow" id="rdtBrand">PORSCHE</div>
+        <h1 id="rdtTitle">911 Turbo S</h1>
+        <div class="rdt-meta" id="rdtMeta">2023 · 2 places · Sport</div>
+      </div>
+      <div class="rdt-header-price">
+        <span class="rdt-header-price-label">À partir de</span>
+        <strong id="rdtBasePrice">1 200 €</strong>
+        <span class="rdt-header-price-unit">/ jour</span>
+      </div>
+    </header>
+
+    <!-- GALERIE PHOTOS -->
+    <section class="rdt-gallery">
+      <div class="rdt-gallery-main" id="rdtGalleryMain">
+        <!-- rempli par JS -->
+      </div>
+      <div class="rdt-gallery-thumbs" id="rdtGalleryThumbs">
+        <!-- rempli par JS -->
+      </div>
+    </section>
+
+    <!-- CONTENU PRINCIPAL : specs + reservation widget -->
+    <section class="rdt-main">
+
+      <div class="rdt-left">
+
+        <!-- SPÉCIFICATIONS -->
+        <div class="rdt-block">
+          <h2 class="rdt-block-title">Caractéristiques</h2>
+          <div class="rdt-specs" id="rdtSpecs">
+            <!-- rempli par JS -->
+          </div>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="rdt-block" id="rdtDescriptionBlock">
+          <h2 class="rdt-block-title">À propos de ce véhicule</h2>
+          <p class="rdt-description" id="rdtDescription">
+            Un véhicule sélectionné pour vous offrir une expérience de location haut de gamme. Préparation soignée, intérieur impeccable, plein réalisé avant chaque remise.
+          </p>
+        </div>
+
+        <!-- ÉQUIPEMENTS -->
+        <div class="rdt-block" id="rdtFeaturesBlock">
+          <h2 class="rdt-block-title">Équipements remarquables</h2>
+          <ul class="rdt-features" id="rdtFeatures">
+            <!-- rempli par JS -->
+          </ul>
+        </div>
+
+        <!-- CONDITIONS -->
+        <div class="rdt-block">
+          <h2 class="rdt-block-title">Conditions de location</h2>
+          <ul class="rdt-conditions">
+            <li><strong>Âge minimum conducteur :</strong> <span id="rdtMinAge">25 ans</span></li>
+            <li><strong>Permis :</strong> 3 ans minimum, catégorie B</li>
+            <li><strong>Caution :</strong> <span id="rdtDeposit">Voir avec l'agence</span></li>
+            <li><strong>Kilométrage inclus :</strong> <span id="rdtKmIncluded">200 km / jour</span> (option illimité disponible)</li>
+            <li><strong>Carburant :</strong> Plein à plein</li>
+            <li><strong>Lieu de prise en charge :</strong> Agence BK Alpes Motors, Annecy</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- RIGHT : widget réservation -->
+      <aside class="rdt-right">
+        <div class="rdt-widget">
+
+          <div class="rdt-widget-head">
+            <div class="rdt-widget-price">
+              <span class="rdt-widget-price-old" id="rdtWidgetOld" style="display:none;"></span>
+              <strong id="rdtWidgetPrice">1 200 €</strong>
+              <span class="rdt-widget-price-unit">/ jour</span>
+            </div>
+            <div class="rdt-widget-discount" id="rdtWidgetDiscount" style="display:none;"></div>
+          </div>
+
+          <!-- Dates -->
+          <div class="rdt-widget-section">
+            <label class="rdt-widget-label">Période de location</label>
+            <div class="rdt-widget-dates">
+              <div>
+                <span class="rdt-widget-sub">Départ</span>
+                <input type="date" id="rdtPickupDate" />
+                <input type="time" id="rdtPickupTime" value="10:00" />
+              </div>
+              <div>
+                <span class="rdt-widget-sub">Retour</span>
+                <input type="date" id="rdtReturnDate" />
+                <input type="time" id="rdtReturnTime" value="18:00" />
+              </div>
+            </div>
+            <div class="rdt-widget-days" id="rdtWidgetDays">2 jours</div>
+          </div>
+
+          <!-- Options -->
+          <div class="rdt-widget-section">
+            <label class="rdt-widget-label">Options</label>
+            <div class="rdt-options">
+              <label class="rdt-option">
+                <input type="checkbox" data-opt="unlimitedKm" />
+                <span class="rdt-option-body">
+                  <span class="rdt-option-name">Kilométrage illimité</span>
+                  <span class="rdt-option-price">+ 60 €/jour</span>
+                </span>
+              </label>
+              <label class="rdt-option">
+                <input type="checkbox" data-opt="driver2" />
+                <span class="rdt-option-body">
+                  <span class="rdt-option-name">Conducteur secondaire</span>
+                  <span class="rdt-option-price">+ 25 €/jour</span>
+                </span>
+              </label>
+              <label class="rdt-option">
+                <input type="checkbox" data-opt="insurancePlus" />
+                <span class="rdt-option-body">
+                  <span class="rdt-option-name">Assurance tous risques + rachat franchise</span>
+                  <span class="rdt-option-price">+ 45 €/jour</span>
+                </span>
+              </label>
+              <label class="rdt-option">
+                <input type="checkbox" data-opt="childSeat" />
+                <span class="rdt-option-body">
+                  <span class="rdt-option-name">Siège enfant</span>
+                  <span class="rdt-option-price">+ 8 €/jour</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Récap -->
+          <div class="rdt-widget-recap">
+            <div class="rdt-widget-recap-row">
+              <span>Sous-total véhicule</span>
+              <span id="rdtRecapVehicle">— €</span>
+            </div>
+            <div class="rdt-widget-recap-row" id="rdtRecapOptionsRow" style="display:none;">
+              <span>Options</span>
+              <span id="rdtRecapOptions">— €</span>
+            </div>
+            <div class="rdt-widget-recap-total">
+              <span>Total estimé</span>
+              <strong id="rdtRecapTotal">— €</strong>
+            </div>
+          </div>
+
+          <button type="button" class="rdt-widget-cta" id="rdtRequestBtn">
+            Demander à réserver
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+
+          <p class="rdt-widget-note">
+            Pas de paiement maintenant. L'équipe BK valide votre demande sous 24h et vous envoie un lien de paiement sécurisé.
+          </p>
+
+        </div>
+      </aside>
+
+    </section>
+  </main>
+
+  <!-- ============ MODAL DE DEMANDE DE RÉSERVATION ============ -->
+  <div class="loc-modal" id="rdtReserveModal" aria-hidden="true">
+    <div class="loc-modal-backdrop" data-close></div>
+    <div class="loc-modal-dialog" role="dialog">
+      <button type="button" class="loc-modal-close" data-close aria-label="Fermer">×</button>
+
+      <div class="loc-modal-header">
+        <span class="loc-modal-eyebrow">Demande de réservation</span>
+        <h2>Vos informations</h2>
+        <p class="loc-modal-vehicle" id="rdtModalVehicle">—</p>
+      </div>
+
+      <form id="rdtReserveForm" class="loc-form" novalidate>
+        <fieldset class="loc-form-section">
+          <legend>Informations personnelles</legend>
+          <div class="loc-form-grid">
+            <div class="loc-form-field">
+              <label>Civilité</label>
+              <select id="rdtCivility">
+                <option value="M.">M.</option>
+                <option value="Mme">Mme</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+            <div class="loc-form-field">
+              <label>Prénom <span class="req">*</span></label>
+              <input type="text" id="rdtFirstName" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Nom <span class="req">*</span></label>
+              <input type="text" id="rdtLastName" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Date de naissance <span class="req">*</span></label>
+              <input type="date" id="rdtBirthDate" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" id="rdtEmail" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Téléphone <span class="req">*</span></label>
+              <input type="tel" id="rdtPhone" required placeholder="+33 6 12 34 56 78" />
+            </div>
+            <div class="loc-form-field full">
+              <label>Adresse <span class="req">*</span></label>
+              <input type="text" id="rdtAddress" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Code postal <span class="req">*</span></label>
+              <input type="text" id="rdtPostalCode" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Ville <span class="req">*</span></label>
+              <input type="text" id="rdtCity" required />
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="loc-form-section">
+          <legend>Permis de conduire</legend>
+          <div class="loc-form-grid">
+            <div class="loc-form-field">
+              <label>Numéro de permis <span class="req">*</span></label>
+              <input type="text" id="rdtLicenseNumber" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Date d'obtention <span class="req">*</span></label>
+              <input type="date" id="rdtLicenseDate" required />
+              <span class="loc-form-help">Minimum 3 ans de permis</span>
+            </div>
+            <div class="loc-form-field">
+              <label>Pays de délivrance <span class="req">*</span></label>
+              <select id="rdtLicenseCountry" required>
+                <option value="France">France</option>
+                <option value="Suisse">Suisse</option>
+                <option value="UE">UE (autre)</option>
+                <option value="International">International</option>
+              </select>
+            </div>
+            <div class="loc-form-field">
+              <label>Catégorie</label>
+              <select id="rdtLicenseCategory">
+                <option value="B">B (voiture)</option>
+                <option value="B+E">B+E (avec remorque)</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="loc-form-section">
+          <legend>Message (optionnel)</legend>
+          <div class="loc-form-field full">
+            <textarea id="rdtMessage" rows="3" placeholder="Demandes particulières, questions..."></textarea>
+          </div>
+          <label class="loc-form-checkbox">
+            <input type="checkbox" id="rdtAcceptTerms" required />
+            <span>J'accepte les <a href="cgv.html" target="_blank">Conditions Générales de Location</a> et la <a href="confidentialite.html" target="_blank">politique de confidentialité</a>.</span>
+          </label>
+        </fieldset>
+
+        <!-- Récap final dans la modal -->
+        <div class="loc-quote">
+          <div class="loc-quote-title">Récapitulatif de votre demande</div>
+          <div class="loc-quote-lines" id="rdtQuoteLines"></div>
+          <div class="loc-quote-total">
+            <span>Total estimé</span>
+            <strong id="rdtQuoteTotal">— €</strong>
+          </div>
+          <p class="loc-quote-note">Pas de paiement à cette étape. L'équipe BK valide votre demande sous 24h et vous envoie un lien de paiement sécurisé par email.</p>
+        </div>
+
+        <div class="loc-form-actions">
+          <button type="button" class="loc-btn-ghost" data-close>Annuler</button>
+          <button type="submit" class="loc-btn-primary">Envoyer ma demande</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL CONFIRMATION -->
+  <div class="loc-modal" id="rdtConfirmModal" aria-hidden="true">
+    <div class="loc-modal-backdrop" data-close-confirm></div>
+    <div class="loc-modal-dialog loc-modal-dialog-sm" role="dialog">
+      <div class="loc-confirm">
+        <div class="loc-confirm-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Demande envoyée !</h3>
+        <p>Votre demande de réservation n°<strong id="rdtConfirmRef">—</strong> est bien transmise à BK Alpes Motors.</p>
+        <p class="loc-confirm-sub">Vous recevrez sous <strong>24h</strong> un email de confirmation. Si validé, un <strong>lien de paiement sécurisé</strong> vous sera envoyé pour finaliser votre réservation.</p>
+        <button type="button" class="loc-btn-primary" data-close-confirm>Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX PHOTOS -->
+  <div class="rdt-lightbox" id="rdtLightbox" aria-hidden="true">
+    <button class="rdt-lightbox-close" data-lb-close aria-label="Fermer">×</button>
+    <button class="rdt-lightbox-prev" data-lb-prev aria-label="Précédent">‹</button>
+    <button class="rdt-lightbox-next" data-lb-next aria-label="Suivant">›</button>
+    <img id="rdtLightboxImg" src="" alt="" />
+    <div class="rdt-lightbox-counter" id="rdtLightboxCounter">1 / 1</div>
+  </div>
+
+<footer class="footer-v2">
+    <div class="footer-v2-inner">
+      <div class="footer-v2-brand">
+        <img src="images/branding/logo.jpeg" alt="BK Alpes Motors" />
+        <p>Vente, location, reprise et lavage de véhicules premium à Annecy.</p>
+      </div>
+      <div class="footer-v2-col">
+        <h4>Services</h4>
+        <a href="vente.html">Vente</a>
+        <a href="location.html">Location</a>
+        <a href="achat.html">Reprise</a>
+        <a href="detailing.html">Lavage</a>
+      </div>
+      <div class="footer-v2-col">
+        <h4>Maison</h4>
+        <a href="atelier.html">L'atelier</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-v2-col">
+        <h4>Contact</h4>
+        <a href="tel:+33756859026">07 56 85 90 26</a>
+        <a href="mailto:contact@bkalpesmotors.fr">contact@bkalpesmotors.fr</a>
+        <a style="color:#888;cursor:default;">Annecy · Haute-Savoie</a>
+      </div>
+    </div>
+    <div class="footer-v2-bottom">
+      <span>© 2026 BK Alpes Motors</span>
+      <span>
+        <a href="mentions-legales.html">Mentions légales</a> ·
+        <a href="confidentialite.html">Confidentialité</a> ·
+        <a href="cgv.html">CGV</a>
+      </span>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/33756859026" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.134.557 4.135 1.533 5.875L0 24l6.295-1.51A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.372l-.36-.213-3.735.895.939-3.63-.234-.374A9.818 9.818 0 1112 21.818z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script>
+    // ============ DEMOS HARDCODÉS (10 véhicules statiques de la page location) ============
+    const PLACEHOLDER_SVG = '<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;"><rect width="800" height="500" fill="#F4F4F5"/><path d="M120 270 C 120 245, 145 230, 175 230 L 230 230 C 245 165, 295 130, 380 130 L 580 130 C 660 130, 720 175, 760 230 L 820 230 C 850 230, 870 245, 870 270 L 870 300 C 870 320, 850 335, 830 335 L 760 335 C 745 365, 720 380, 690 380 C 660 380, 635 365, 620 335 L 280 335 C 265 365, 240 380, 210 380 C 180 380, 155 365, 140 335 L 90 335 C 70 335, 50 320, 50 300 Z" fill="rgba(20,20,26,0.15)"/></svg>';
+
+    const STATIC_RENTALS = {
+      "porsche-911-turbo-s": {
+        brand: "Porsche", name: "911 Turbo S", year: "2023", places: "2 places", type: "Sport",
+        basePrice: 1200, deposit: 8000, kmIncluded: "200 km / jour", minAge: 25,
+        puissance: "650 ch", carburant: "Essence", boite: "DCT 8 rapports", couleur: "Gris GT Argenté",
+        acceleration: "2,7 s (0-100)", consoMixte: "11,1 L/100km",
+        description: "La référence absolue des sportives. Cette 911 Turbo S combine une transmission intégrale, un boxer 6 cylindres biturbo de 650 ch et des sensations qui n'existent nulle part ailleurs. Préparation impeccable, intérieur cuir bicolore, options Sport Chrono et toit ouvrant panoramique.",
+        features: ["Pack Sport Chrono", "Sièges sport adaptatifs 18 voies", "Audio Burmester 855W", "Carbon Ceramic Brakes (PCCB)", "Suspension PASM Sport", "Toit ouvrant panoramique", "Caméra 360°", "Phares LED Matrix"]
+      },
+      "audi-rs6-avant-performance": {
+        brand: "Audi", name: "RS6 Avant Performance", year: "2022", places: "5 places", type: "Berline",
+        basePrice: 850, deposit: 6000, kmIncluded: "200 km / jour", minAge: 25,
+        puissance: "630 ch", carburant: "Essence Mild Hybrid", boite: "Tiptronic 8 rapports", couleur: "Nardo Grey",
+        acceleration: "3,4 s (0-100)", consoMixte: "12,1 L/100km",
+        description: "Le break sportif ultime. Le V8 4.0 TFSI Performance de 630 ch transforme cette familiale en supercar. Quattro permanent, suspension pneumatique, son APR sport. Idéal pour avaler les kilomètres en famille ou attaquer un col alpin.",
+        features: ["Pack Dynamic Plus", "Sièges RS sport en cuir Valcona", "Bang & Olufsen 1820W", "Carbon Ceramic Brakes optionnels", "Quattro Sport Differential", "Suspension pneumatique adaptative", "Pack carbone intérieur", "Phares Matrix LED HD"]
+      },
+      "mercedes-amg-gt-63s": {
+        brand: "Mercedes-AMG", name: "GT 63 S 4-Door", year: "2023", places: "5 places", type: "GT 4 portes",
+        basePrice: 950, deposit: 7000, kmIncluded: "200 km / jour", minAge: 28,
+        puissance: "639 ch", carburant: "Essence", boite: "AMG Speedshift MCT 9G", couleur: "Noir Obsidian",
+        acceleration: "3,2 s (0-100)", consoMixte: "11,8 L/100km",
+        description: "La GT 4 portes la plus performante de Stuttgart. Bi-turbo V8 4.0L de 639 ch, 4Matic+, direction intégrale, ambiance grand tourisme moderne avec écrans MBUX géants. Le compromis parfait entre performance et confort.",
+        features: ["AMG Dynamic Plus", "Direction intégrale", "Sièges AMG performance ventilés", "Burmester 3D Surround", "MBUX double écran 12.3''", "Toit panoramique", "Pack Night Edition", "Echappement AMG Performance"]
+      },
+      "bmw-m5-competition": {
+        brand: "BMW", name: "M5 Competition", year: "2022", places: "5 places", type: "Berline",
+        basePrice: 650, deposit: 5000, kmIncluded: "200 km / jour", minAge: 25,
+        puissance: "625 ch", carburant: "Essence", boite: "M Steptronic 8 rapports", couleur: "Brands Hatch Grey",
+        acceleration: "3,3 s (0-100)", consoMixte: "10,8 L/100km",
+        description: "Une icône M-Power dans sa déclinaison la plus aboutie. V8 4.4L bi-turbo de 625 ch, M xDrive avec mode 2WD pour les vrais. Sellerie cuir Merino, freins carbone-céramique, M Driver's Package pour les circuits.",
+        features: ["M Driver's Package (305 km/h)", "Carbon Ceramic Brakes", "M xDrive (mode 2WD)", "Sièges M Sport en cuir Merino", "Bowers & Wilkins Diamond", "Pack carbone extérieur", "Affichage tête haute couleur", "Caméra Surround"]
+      },
+      "range-rover-sport-svr": {
+        brand: "Range Rover", name: "Sport SVR", year: "2023", places: "5 places", type: "SUV",
+        basePrice: 780, deposit: 6000, kmIncluded: "200 km / jour", minAge: 25,
+        puissance: "575 ch", carburant: "Essence", boite: "ZF 8 rapports", couleur: "SVO Premium Black",
+        acceleration: "4,5 s (0-100)", consoMixte: "13,5 L/100km",
+        description: "Le SUV de luxe le plus rapide jamais conçu par Land Rover. V8 5.0L supercharged, son d'échappement orchestré, capacités tout-terrain Range Rover intactes. Idéal Annecy-Megève en hiver.",
+        features: ["Sport SVR Specification", "Sièges en cuir Windsor", "Meridian Reference 1700W", "Suspension pneumatique adaptative", "Terrain Response 2", "Mode tout-terrain", "Caméra ClearSight 360°", "Toit panoramique"]
+      },
+      "lamborghini-urus": {
+        brand: "Lamborghini", name: "Urus", year: "2022", places: "5 places", type: "Super SUV",
+        basePrice: 1400, deposit: 12000, kmIncluded: "150 km / jour", minAge: 30,
+        puissance: "650 ch", carburant: "Essence", boite: "ZF 8 rapports", couleur: "Giallo Auge",
+        acceleration: "3,6 s (0-100)", consoMixte: "12,7 L/100km",
+        description: "Le Super SUV qui a redéfini la catégorie. V8 4.0L bi-turbo de 650 ch partagé avec la RS6 mais avec l'ADN Lamborghini. 6 modes de conduite, freins carbo-céramique de série. L'expérience SUV la plus radicale.",
+        features: ["Mode Strada/Sport/Corsa/Neve/Terra/Sabbia", "Carbon Ceramic Brakes", "Sièges Q-Citura", "Bang & Olufsen 3D", "Echappement Akrapovic", "Pack Black Style", "Suspension pneumatique active", "Direction intégrale"]
+      },
+      "aston-martin-vantage": {
+        brand: "Aston Martin", name: "Vantage", year: "2023", places: "2 places", type: "Sport",
+        basePrice: 950, deposit: 8000, kmIncluded: "200 km / jour", minAge: 28,
+        puissance: "510 ch", carburant: "Essence", boite: "ZF 8 rapports", couleur: "Skyfall Silver",
+        acceleration: "3,6 s (0-100)", consoMixte: "11,4 L/100km",
+        description: "L'âme James Bond, l'élégance britannique pure. V8 4.0L AMG préparé par Aston Martin, châssis taillé pour la conduite engagée. Habitacle cuir cousu main, console centrale carbone. Le grand tourisme à l'anglaise.",
+        features: ["Sport Plus Pack", "Sièges sport en cuir Caithness", "Bang & Olufsen BeoSound", "Echappement sport titane", "Suspension adaptative", "Différentiel sport électronique", "Carbon Pack intérieur", "Phares LED matriciels"]
+      },
+      "ferrari-296-gtb": {
+        brand: "Ferrari", name: "296 GTB", year: "2023", places: "2 places", type: "Sport",
+        basePrice: 1800, deposit: 15000, kmIncluded: "150 km / jour", minAge: 30,
+        puissance: "830 ch", carburant: "Hybride essence", boite: "F1 DCT 8 rapports", couleur: "Rosso Corsa",
+        acceleration: "2,9 s (0-100)", consoMixte: "8,7 L/100km",
+        description: "Le manifeste Ferrari moderne. V6 3.0L bi-turbo hybride totalisant 830 ch, mode 100% électrique sur 25 km. Châssis affiné, son sublimé. La nouvelle référence des supercars de route. Préparation Ferrari Approved.",
+        features: ["Assetto Fiorano (pack circuit)", "Carbon Ceramic Brakes Brembo", "Sièges Daytona en cuir et alcantara", "JBL Pro Audio", "Mode 100% électrique (25 km)", "Manettino + eManettino", "Side Slip Control 8.0", "Suspension SCM-Frs"]
+      },
+      "bentley-continental-gt": {
+        brand: "Bentley", name: "Continental GT V8", year: "2022", places: "4 places", type: "GT",
+        basePrice: 1200, deposit: 10000, kmIncluded: "200 km / jour", minAge: 28,
+        puissance: "550 ch", carburant: "Essence", boite: "DCT 8 rapports", couleur: "Glacier White",
+        acceleration: "4,0 s (0-100)", consoMixte: "12,2 L/100km",
+        description: "Le grand tourisme à l'état pur. V8 4.0L bi-turbo de 550 ch, traction intégrale, habitacle entièrement cuir cousu main. 4 places de configuration grand luxe. Le voyage devient une destination en soi.",
+        features: ["Mulliner Driving Specification", "Sièges 20 voies cuir Linen", "Bang & Olufsen for Bentley", "Bois de marqueterie au choix", "Suspension pneumatique 3 chambres", "Direction active toutes roues", "Toit panoramique", "Phares LED Matrix"]
+      },
+      "porsche-cayenne-turbo-gt": {
+        brand: "Porsche", name: "Cayenne Turbo GT", year: "2023", places: "5 places", type: "Super SUV",
+        basePrice: 780, deposit: 6500, kmIncluded: "200 km / jour", minAge: 25,
+        puissance: "640 ch", carburant: "Essence", boite: "Tiptronic S 8 rapports", couleur: "Arctic Grey",
+        acceleration: "3,3 s (0-100)", consoMixte: "13,1 L/100km",
+        description: "Le SUV le plus rapide du Nürburgring. V8 4.0L bi-turbo de 640 ch, châssis surbaissé, freins PCCB de 440 mm. Carbone partout, audio Burmester, l'esprit GT3 dans un format familial. Pour les amateurs éclairés.",
+        features: ["Pack Turbo GT Sport", "Carbon Ceramic Brakes (PCCB) 440mm", "Sièges sport adaptatifs 18 voies cuir/alcantara", "Burmester 3D 21 HP", "Suspension PASM avec mode Sport Plus", "Mode Sport Response", "Pack carbone extérieur", "Echappement sport titane"]
+      }
+    };
+
+    const OPT_PRICES = { driver2: 25, unlimitedKm: 60, insurancePlus: 45, childSeat: 8 };
+    const DURATION_TIERS = [
+      { d: 1, pct: 0 }, { d: 3, pct: 0.10 }, { d: 7, pct: 0.18 },
+      { d: 14, pct: 0.25 }, { d: 30, pct: 0.35 },
+    ];
+    function getDiscountFor(days) {
+      if (days <= 1) return 0;
+      for (let i = 0; i < DURATION_TIERS.length - 1; i++) {
+        const a = DURATION_TIERS[i], b = DURATION_TIERS[i + 1];
+        if (days >= a.d && days <= b.d) {
+          const t = (days - a.d) / (b.d - a.d);
+          return a.pct + (b.pct - a.pct) * t;
+        }
+      }
+      return DURATION_TIERS[DURATION_TIERS.length - 1].pct;
+    }
+    function daysBetween(d1, t1, d2, t2) {
+      if (!d1 || !d2) return 0;
+      const a = new Date(`${d1}T${t1 || '00:00'}`);
+      const b = new Date(`${d2}T${t2 || '00:00'}`);
+      const ms = b.getTime() - a.getTime();
+      if (isNaN(ms) || ms <= 0) return 0;
+      return Math.max(1, Math.ceil(ms / (1000 * 60 * 60 * 24)));
+    }
+    function fmtPrice(n) {
+      return Math.round(n).toLocaleString('fr-FR').replace(/,/g, ' ');
+    }
+
+    // ============ NAV ============
+    const navbar = document.getElementById('navbar');
+    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 30);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    const burger = document.getElementById('navBurger');
+    const navMobile = document.getElementById('navMobile');
+    if (burger && navMobile) {
+      burger.addEventListener('click', () => {
+        burger.classList.toggle('open');
+        navMobile.classList.toggle('open');
+      });
+    }
+
+    // ============ LOAD VEHICLE FROM URL ============
+    const params = new URLSearchParams(window.location.search);
+    const vehicleId = params.get('id');
+
+    function loadAdminRentals() {
+      try { return JSON.parse(localStorage.getItem('bk_rental_vehicles') || '[]'); }
+      catch { return []; }
+    }
+
+    function findVehicle(id) {
+      // 1. Static demos
+      if (STATIC_RENTALS[id]) {
+        return { ...STATIC_RENTALS[id], id, source: 'demo' };
+      }
+      // 2. Admin
+      const admin = loadAdminRentals().find(v => v.id === id);
+      if (admin) {
+        return {
+          ...admin,
+          basePrice: admin.basePrice || 0,
+          places: admin.places ? `${admin.places} places` : '',
+          source: 'admin',
+        };
+      }
+      return null;
+    }
+
+    const vehicle = findVehicle(vehicleId);
+    if (!vehicle) {
+      document.querySelector('.rdt-page').innerHTML = `
+        <div style="text-align:center; padding:120px 24px;">
+          <h1 style="font-family:'Inter',sans-serif; font-size:1.8rem; color:#14141A; margin-bottom:12px;">Véhicule introuvable</h1>
+          <p style="color:#7A7670; margin-bottom:24px;">Ce véhicule n'existe plus ou a été retiré du catalogue.</p>
+          <a href="location.html" class="rdt-widget-cta" style="display:inline-flex;">Retour à la flotte</a>
+        </div>
+      `;
+      throw new Error('Vehicle not found');
+    }
+
+    // ============ POPULATE PAGE ============
+    document.getElementById('rdtBrand').textContent = (vehicle.brand || '').toUpperCase();
+    document.getElementById('rdtTitle').textContent = vehicle.name || vehicle.model || '';
+    const metaParts = [vehicle.year, vehicle.places, vehicle.type].filter(Boolean);
+    document.getElementById('rdtMeta').textContent = metaParts.join(' · ');
+    document.getElementById('rdtBasePrice').textContent = `${fmtPrice(vehicle.basePrice)} €`;
+    document.getElementById('rdtWidgetPrice').textContent = `${fmtPrice(vehicle.basePrice)} €`;
+    document.getElementById('rdtMinAge').textContent = `${vehicle.minAge || 25} ans`;
+    document.getElementById('rdtDeposit').textContent = vehicle.deposit
+      ? `${fmtPrice(vehicle.deposit)} €`
+      : 'Voir avec l\'agence';
+    document.getElementById('rdtKmIncluded').textContent = vehicle.kmIncluded || '200 km / jour';
+
+    // Description
+    if (vehicle.description) {
+      document.getElementById('rdtDescription').textContent = vehicle.description;
+    } else {
+      document.getElementById('rdtDescriptionBlock').style.display = 'none';
+    }
+
+    // Photos gallery
+    const photos = (vehicle.photos && vehicle.photos.length) ? vehicle.photos : null;
+    const mainEl = document.getElementById('rdtGalleryMain');
+    const thumbsEl = document.getElementById('rdtGalleryThumbs');
+
+    if (photos) {
+      mainEl.innerHTML = `<img src="${photos[0]}" alt="${vehicle.brand} ${vehicle.name}" id="rdtMainImg" />`;
+      thumbsEl.innerHTML = photos.map((src, i) => `
+        <div class="rdt-thumb${i === 0 ? ' active' : ''}" data-idx="${i}">
+          <img src="${src}" alt="Photo ${i+1}" />
+        </div>
+      `).join('');
+
+      // Click thumb = update main
+      thumbsEl.querySelectorAll('.rdt-thumb').forEach(t => {
+        t.addEventListener('click', () => {
+          const idx = parseInt(t.dataset.idx, 10);
+          document.getElementById('rdtMainImg').src = photos[idx];
+          thumbsEl.querySelectorAll('.rdt-thumb').forEach(x => x.classList.remove('active'));
+          t.classList.add('active');
+        });
+      });
+
+      // Click main = lightbox
+      mainEl.addEventListener('click', () => openLightbox(0));
+    } else {
+      // Placeholder SVG
+      mainEl.innerHTML = `<div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}<span>Photos à venir</span></div>`;
+      thumbsEl.style.display = 'none';
+    }
+
+    // Specs
+    const specs = [
+      { label: 'Puissance',     value: vehicle.puissance },
+      { label: 'Carburant',     value: vehicle.carburant },
+      { label: 'Boîte',         value: vehicle.boite },
+      { label: 'Accélération',  value: vehicle.acceleration },
+      { label: 'Conso. mixte',  value: vehicle.consoMixte },
+      { label: 'Couleur',       value: vehicle.couleur },
+      { label: 'Année',         value: vehicle.year },
+      { label: 'Places',        value: vehicle.places },
+      { label: 'Type',          value: vehicle.type },
+    ].filter(s => s.value);
+    document.getElementById('rdtSpecs').innerHTML = specs.map(s => `
+      <div class="rdt-spec">
+        <span class="rdt-spec-label">${s.label}</span>
+        <span class="rdt-spec-value">${s.value}</span>
+      </div>
+    `).join('');
+
+    // Features
+    const features = vehicle.features || [];
+    if (features.length) {
+      document.getElementById('rdtFeatures').innerHTML = features.map(f => `
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2D8E47" stroke-width="2.4" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>${f}</li>
+      `).join('');
+    } else {
+      document.getElementById('rdtFeaturesBlock').style.display = 'none';
+    }
+
+    // ============ LIGHTBOX ============
+    const lightbox = document.getElementById('rdtLightbox');
+    const lbImg = document.getElementById('rdtLightboxImg');
+    const lbCounter = document.getElementById('rdtLightboxCounter');
+    let lbIdx = 0;
+    function openLightbox(idx) {
+      if (!photos) return;
+      lbIdx = idx;
+      lbImg.src = photos[lbIdx];
+      lbCounter.textContent = `${lbIdx + 1} / ${photos.length}`;
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    function lbNav(delta) {
+      if (!photos) return;
+      lbIdx = (lbIdx + delta + photos.length) % photos.length;
+      lbImg.src = photos[lbIdx];
+      lbCounter.textContent = `${lbIdx + 1} / ${photos.length}`;
+    }
+    document.querySelectorAll('[data-lb-close]').forEach(el => el.addEventListener('click', closeLightbox));
+    document.querySelectorAll('[data-lb-prev]').forEach(el => el.addEventListener('click', () => lbNav(-1)));
+    document.querySelectorAll('[data-lb-next]').forEach(el => el.addEventListener('click', () => lbNav(1)));
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.getAttribute('aria-hidden') !== 'false') return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lbNav(-1);
+      if (e.key === 'ArrowRight') lbNav(1);
+    });
+
+    // ============ WIDGET PRIX LIVE ============
+    const dateInputs = {
+      pickupDate: document.getElementById('rdtPickupDate'),
+      pickupTime: document.getElementById('rdtPickupTime'),
+      returnDate: document.getElementById('rdtReturnDate'),
+      returnTime: document.getElementById('rdtReturnTime'),
+    };
+    // Dates par défaut : demain → après-demain
+    const today = new Date();
+    const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+    const dayAfter = new Date(today); dayAfter.setDate(today.getDate() + 2);
+    const isoDate = (d) => d.toISOString().slice(0, 10);
+    dateInputs.pickupDate.value = isoDate(tomorrow);
+    dateInputs.returnDate.value = isoDate(dayAfter);
+    dateInputs.pickupDate.min = isoDate(today);
+    dateInputs.returnDate.min = isoDate(today);
+
+    const optInputs = document.querySelectorAll('.rdt-option input[type="checkbox"]');
+
+    function getCurrentOptions() {
+      const opts = {};
+      optInputs.forEach(i => opts[i.dataset.opt] = i.checked);
+      return opts;
+    }
+
+    function computeQuote() {
+      const days = daysBetween(dateInputs.pickupDate.value, dateInputs.pickupTime.value,
+                                dateInputs.returnDate.value, dateInputs.returnTime.value);
+      const pct = getDiscountFor(days);
+      const base = vehicle.basePrice;
+      const dailyAfter = base * (1 - pct);
+      const subtotalVehicle = dailyAfter * days;
+      const opts = getCurrentOptions();
+      const optsDaily =
+        (opts.driver2       ? OPT_PRICES.driver2       : 0) +
+        (opts.unlimitedKm   ? OPT_PRICES.unlimitedKm   : 0) +
+        (opts.insurancePlus ? OPT_PRICES.insurancePlus : 0) +
+        (opts.childSeat     ? OPT_PRICES.childSeat     : 0);
+      const optsCost = optsDaily * days;
+      const total = subtotalVehicle + optsCost;
+      return { days, pct, base, dailyAfter, subtotalVehicle, optsCost, opts, total };
+    }
+
+    function updateWidget() {
+      const q = computeQuote();
+
+      // Days
+      document.getElementById('rdtWidgetDays').textContent = q.days > 0
+        ? `${q.days} jour${q.days > 1 ? 's' : ''}`
+        : 'Sélectionnez des dates valides';
+
+      // Price + discount
+      const widgetPrice = document.getElementById('rdtWidgetPrice');
+      const widgetOld = document.getElementById('rdtWidgetOld');
+      const widgetDiscount = document.getElementById('rdtWidgetDiscount');
+      widgetPrice.textContent = `${fmtPrice(q.dailyAfter)} €`;
+      if (q.pct > 0) {
+        widgetOld.style.display = '';
+        widgetOld.textContent = `${fmtPrice(q.base)} €`;
+        widgetDiscount.style.display = '';
+        widgetDiscount.textContent = `Économie de ${Math.round(q.pct * 100)}% / jour`;
+      } else {
+        widgetOld.style.display = 'none';
+        widgetDiscount.style.display = 'none';
+      }
+
+      // Recap
+      document.getElementById('rdtRecapVehicle').textContent = `${fmtPrice(q.subtotalVehicle)} €`;
+      const optsRow = document.getElementById('rdtRecapOptionsRow');
+      if (q.optsCost > 0) {
+        optsRow.style.display = '';
+        document.getElementById('rdtRecapOptions').textContent = `${fmtPrice(q.optsCost)} €`;
+      } else {
+        optsRow.style.display = 'none';
+      }
+      document.getElementById('rdtRecapTotal').textContent = q.days > 0 ? `${fmtPrice(q.total)} €` : '— €';
+    }
+
+    [...Object.values(dateInputs), ...optInputs].forEach(el => {
+      el.addEventListener('change', updateWidget);
+      el.addEventListener('input',  updateWidget);
+    });
+    updateWidget();
+
+    // ============ MODAL DE DEMANDE ============
+    const reserveModal = document.getElementById('rdtReserveModal');
+    const confirmModal = document.getElementById('rdtConfirmModal');
+
+    function openReserveModal() {
+      const q = computeQuote();
+      if (q.days <= 0) {
+        alert('Veuillez sélectionner des dates valides avant de continuer.');
+        return;
+      }
+      document.getElementById('rdtModalVehicle').textContent = `${vehicle.brand} ${vehicle.name || vehicle.model}`;
+      updateModalQuote();
+      reserveModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeReserveModal() {
+      reserveModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    function closeConfirmModal() {
+      confirmModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('rdtRequestBtn').addEventListener('click', openReserveModal);
+    document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeReserveModal));
+    document.querySelectorAll('[data-close-confirm]').forEach(el => el.addEventListener('click', closeConfirmModal));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { closeReserveModal(); closeConfirmModal(); }
+    });
+
+    function updateModalQuote() {
+      const q = computeQuote();
+      const lines = [];
+      if (q.pct > 0) {
+        lines.push(`<div class="loc-quote-line"><span>Tarif journalier</span><span>${fmtPrice(q.base)} € → <strong>${fmtPrice(q.dailyAfter)} €</strong> <span class="loc-quote-saving">(-${Math.round(q.pct * 100)}%)</span></span></div>`);
+      } else {
+        lines.push(`<div class="loc-quote-line"><span>Tarif journalier</span><span>${fmtPrice(q.dailyAfter)} €</span></div>`);
+      }
+      lines.push(`<div class="loc-quote-line"><span>Durée</span><span>${q.days} jour${q.days > 1 ? 's' : ''}</span></div>`);
+      lines.push(`<div class="loc-quote-line"><span>Sous-total véhicule</span><span><strong>${fmtPrice(q.subtotalVehicle)} €</strong></span></div>`);
+      if (q.opts.unlimitedKm)   lines.push(`<div class="loc-quote-line opt"><span>+ Kilométrage illimité (${q.days}j)</span><span>${fmtPrice(OPT_PRICES.unlimitedKm * q.days)} €</span></div>`);
+      if (q.opts.driver2)       lines.push(`<div class="loc-quote-line opt"><span>+ Conducteur secondaire (${q.days}j)</span><span>${fmtPrice(OPT_PRICES.driver2 * q.days)} €</span></div>`);
+      if (q.opts.insurancePlus) lines.push(`<div class="loc-quote-line opt"><span>+ Assurance tous risques (${q.days}j)</span><span>${fmtPrice(OPT_PRICES.insurancePlus * q.days)} €</span></div>`);
+      if (q.opts.childSeat)     lines.push(`<div class="loc-quote-line opt"><span>+ Siège enfant (${q.days}j)</span><span>${fmtPrice(OPT_PRICES.childSeat * q.days)} €</span></div>`);
+      document.getElementById('rdtQuoteLines').innerHTML = lines.join('');
+      document.getElementById('rdtQuoteTotal').textContent = `${fmtPrice(q.total)} €`;
+    }
+
+    // ============ SUBMIT ============
+    function generateRef() {
+      const d = new Date();
+      const y = String(d.getFullYear()).slice(-2);
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `BK-${y}${m}${dd}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+    }
+    function loadReservations() {
+      try { return JSON.parse(localStorage.getItem('bk_reservations') || '[]'); }
+      catch { return []; }
+    }
+    function saveReservations(arr) {
+      localStorage.setItem('bk_reservations', JSON.stringify(arr));
+    }
+
+    document.getElementById('rdtReserveForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const requiredFields = form.querySelectorAll('[required]');
+      for (const f of requiredFields) {
+        if (!f.checkValidity()) {
+          f.reportValidity();
+          f.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+      }
+      const birth = new Date(document.getElementById('rdtBirthDate').value);
+      const age = (Date.now() - birth.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
+      const minAge = vehicle.minAge || 25;
+      if (age < minAge) {
+        alert(`L'âge minimum pour louer ce véhicule est de ${minAge} ans.`);
+        return;
+      }
+      const licDate = new Date(document.getElementById('rdtLicenseDate').value);
+      const licYears = (Date.now() - licDate.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
+      if (licYears < 3) {
+        alert("Vous devez détenir le permis depuis au moins 3 ans.");
+        return;
+      }
+      const q = computeQuote();
+      const ref = generateRef();
+      const reservation = {
+        id: ref, ref, createdAt: new Date().toISOString(), status: 'pending',
+        vehicle: {
+          id: vehicle.id,
+          brand: vehicle.brand,
+          name: vehicle.name || vehicle.model,
+          basePrice: vehicle.basePrice,
+        },
+        period: {
+          pickupDate: dateInputs.pickupDate.value,
+          pickupTime: dateInputs.pickupTime.value,
+          returnDate: dateInputs.returnDate.value,
+          returnTime: dateInputs.returnTime.value,
+          pickupLoc: 'annecy',
+          days: q.days,
+        },
+        options: q.opts,
+        customer: {
+          civility:   document.getElementById('rdtCivility').value,
+          firstName:  document.getElementById('rdtFirstName').value.trim(),
+          lastName:   document.getElementById('rdtLastName').value.trim(),
+          birthDate:  document.getElementById('rdtBirthDate').value,
+          email:      document.getElementById('rdtEmail').value.trim(),
+          phone:      document.getElementById('rdtPhone').value.trim(),
+          address:    document.getElementById('rdtAddress').value.trim(),
+          postalCode: document.getElementById('rdtPostalCode').value.trim(),
+          city:       document.getElementById('rdtCity').value.trim(),
+          country:    'France',
+        },
+        license: {
+          number:   document.getElementById('rdtLicenseNumber').value.trim(),
+          date:     document.getElementById('rdtLicenseDate').value,
+          country:  document.getElementById('rdtLicenseCountry').value,
+          category: document.getElementById('rdtLicenseCategory').value,
+        },
+        message: document.getElementById('rdtMessage').value.trim(),
+        quote: {
+          basePrice: q.base,
+          dailyAfterDiscount: q.dailyAfter,
+          discountPct: q.pct,
+          subtotalVehicle: q.subtotalVehicle,
+          optsCost: q.optsCost,
+          total: q.total,
+        },
+      };
+      const all = loadReservations();
+      all.unshift(reservation);
+      saveReservations(all);
+
+      document.getElementById('rdtConfirmRef').textContent = ref;
+      closeReserveModal();
+      confirmModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      form.reset();
+    });
+
+    // Live update du devis dans la modal
+    document.getElementById('rdtReserveForm').addEventListener('input', updateModalQuote);
+  </script>
+</body>
+</html>
