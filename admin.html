@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778873530" />
+  <link rel="stylesheet" href="css/style.css?v=1778876234" />
 </head>
 <body class="admin-body">
 
@@ -76,7 +76,7 @@
             <div class="admin-form-field">
               <label>Marque <span class="req">*</span></label>
               <select name="brand" required>
-                <option value="">— Choisir —</option>
+                <option value="">Choisir...</option>
                 <option>Porsche</option>
                 <option>Audi</option>
                 <option>Mercedes-Benz</option>
@@ -115,7 +115,7 @@
             <div class="admin-form-field">
               <label>Type de véhicule <span class="req">*</span></label>
               <select name="type" required>
-                <option value="">— Choisir —</option>
+                <option value="">Choisir...</option>
                 <option value="compact">Compact</option>
                 <option value="berline">Berline</option>
                 <option value="sport">Sport</option>
@@ -160,7 +160,7 @@
             <div class="admin-form-field">
               <label>Énergie / Carburant</label>
               <select name="carburant">
-                <option value="">— Choisir —</option>
+                <option value="">Choisir...</option>
                 <option>Essence</option>
                 <option>Diesel</option>
                 <option>Hybride essence</option>
@@ -173,7 +173,7 @@
             <div class="admin-form-field">
               <label>Boîte de vitesses</label>
               <select name="boite">
-                <option value="">— Choisir —</option>
+                <option value="">Choisir...</option>
                 <option>Boîte automatique</option>
                 <option>Boîte manuelle</option>
                 <option>Boîte robotisée (DCT)</option>
@@ -207,7 +207,7 @@
             </div>
             <div class="admin-form-field">
               <label>Garantie</label>
-              <input name="garantie" type="text" placeholder="Ex: Mercedes-Benz Certified — 12 mois" />
+              <input name="garantie" type="text" placeholder="Ex: Mercedes-Benz Certified - 12 mois" />
             </div>
             <div class="admin-form-field">
               <label>Localisation</label>
@@ -266,7 +266,7 @@
           <label class="admin-upload" id="uploadZone">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             <p><strong>Cliquez pour ajouter</strong> ou glissez vos photos ici</p>
-            <span class="help">JPG, PNG, WebP — Première photo = photo principale</span>
+            <span class="help">JPG, PNG, WebP - Première photo = photo principale</span>
             <input type="file" id="photoInput" accept="image/*" multiple />
           </label>
           <div class="admin-photo-preview" id="photoPreview"></div>
@@ -315,7 +315,7 @@
             <div class="admin-form-field">
               <label>Marque <span class="req">*</span></label>
               <select name="brand" required>
-                <option value="">— Choisir —</option>
+                <option value="">Choisir...</option>
                 <option>Porsche</option>
                 <option>Audi</option>
                 <option>Mercedes-Benz</option>
@@ -344,12 +344,12 @@
             <div class="admin-form-field">
               <label>Référence interne</label>
               <input name="reference" type="text" placeholder="Auto-générée (ex: BKL-0001)" readonly style="background: #F8F8F9; color: #14141A; font-family: 'Inter', monospace; letter-spacing: 0.04em;" />
-              <span class="admin-form-field-help">Auto-incrémentée — préfixe BKL pour Location</span>
+              <span class="admin-form-field-help">Auto-incrémentée - préfixe BKL pour Location</span>
             </div>
             <div class="admin-form-field">
               <label>Type de véhicule <span class="req">*</span></label>
               <select name="type" required>
-                <option value="">— Choisir —</option>
+                <option value="">Choisir...</option>
                 <option value="sport">Sport</option>
                 <option value="berline">Berline</option>
                 <option value="suv">SUV</option>
@@ -369,7 +369,7 @@
             <div class="admin-form-field">
               <label>Tarif location (€/jour) <span class="req">*</span></label>
               <input name="basePrice" type="number" min="0" placeholder="Ex: 1200" required />
-              <span class="admin-form-field-help">Tarif de base — la remise dégressive s'applique automatiquement</span>
+              <span class="admin-form-field-help">Tarif de base - la remise dégressive s'applique automatiquement</span>
             </div>
             <div class="admin-form-field">
               <label>Caution (€)</label>
@@ -389,7 +389,7 @@
             <div class="admin-form-field">
               <label>Carburant</label>
               <select name="carburant">
-                <option value="">— Choisir —</option>
+                <option value="">Choisir...</option>
                 <option>Essence</option>
                 <option>Diesel</option>
                 <option>Hybride</option>
@@ -399,7 +399,7 @@
             <div class="admin-form-field">
               <label>Boîte</label>
               <select name="boite">
-                <option value="">— Choisir —</option>
+                <option value="">Choisir...</option>
                 <option>Automatique</option>
                 <option>Manuelle</option>
                 <option>DCT</option>
@@ -441,7 +441,7 @@
             <div class="admin-form-field">
               <label>Tag (étiquette)</label>
               <select name="tag">
-                <option value="">— Aucune —</option>
+                <option value="">Aucune</option>
                 <option value="Disponible">Disponible</option>
                 <option value="Best-seller">Best-seller</option>
                 <option value="Nouveau">Nouveau</option>
@@ -466,7 +466,7 @@
           <label class="admin-upload" id="rentalUploadZone">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             <p><strong>Cliquez pour ajouter</strong> ou glissez vos photos ici</p>
-            <span class="help">JPG, PNG, WebP — Première photo = photo principale</span>
+            <span class="help">JPG, PNG, WebP - Première photo = photo principale</span>
             <input type="file" id="rentalPhotoInput" accept="image/*" multiple />
           </label>
           <div class="admin-photo-preview" id="rentalPhotoPreview"></div>
@@ -958,17 +958,17 @@
       const introsSport = [
         `${fullName}${year ? ` de ${year}` : ''} : une sportive qui ne laisse personne indifférent.`,
         `Disponible chez BK Alpes Motors, cette ${fullName}${year ? ` ${year}` : ''} incarne la quintessence du plaisir de conduire.`,
-        `${fullName}${year ? ' (' + year + ')' : ''} — une pièce d'exception sélectionnée pour les amateurs de sensations.`,
+        `${fullName}${year ? ' (' + year + ')' : ''} - une pièce d'exception sélectionnée pour les amateurs de sensations.`,
       ];
       const introsBerline = [
         `${fullName}${year ? ` de ${year}` : ''}, l'équilibre parfait entre élégance, confort et performance.`,
         `Cette ${fullName}${year ? ` ${year}` : ''} affiche une présence statutaire et un raffinement haut de gamme.`,
-        `${fullName}${year ? ' (' + year + ')' : ''} — la berline qui ne fait aucun compromis.`,
+        `${fullName}${year ? ' (' + year + ')' : ''} - la berline qui ne fait aucun compromis.`,
       ];
       const introsSuv = [
         `${fullName}${year ? ` de ${year}` : ''}, le SUV qui combine prestance, polyvalence et puissance.`,
         `Avec cette ${fullName}${year ? ` ${year}` : ''}, profitez d'un SUV à la hauteur de toutes vos envies.`,
-        `${fullName}${year ? ' (' + year + ')' : ''} — un SUV premium pensé pour tous vos trajets, de la ville aux Alpes.`,
+        `${fullName}${year ? ' (' + year + ')' : ''} - un SUV premium pensé pour tous vos trajets, de la ville aux Alpes.`,
       ];
       const introsGen = [
         `Découvrez ${fullName}${year ? ` (${year})` : ''}, soigneusement sélectionnée pour rejoindre notre catalogue.`,
@@ -1023,7 +1023,7 @@
       if (garantie) closerBits.push(`garantie ${garantie.toLowerCase()}`);
       let closerSentence = '';
       if (closerBits.length) {
-        closerSentence = `${closerBits.join(', ')[0].toUpperCase() + closerBits.join(', ').slice(1)} — véhicule visible à ${localisation}.`;
+        closerSentence = `${closerBits.join(', ')[0].toUpperCase() + closerBits.join(', ').slice(1)} - véhicule visible à ${localisation}.`;
       } else {
         closerSentence = `Véhicule visible à ${localisation}, contactez-nous pour organiser un essai.`;
       }
@@ -1085,9 +1085,9 @@
       paid:     'Payée',
     };
     const RES_GROUPS = [
-      { key: 'pending',  title: 'En attente de traitement',   sub: 'À traiter — répondez sous 24h' },
-      { key: 'accepted', title: 'Acceptées — en attente de paiement', sub: 'Lien de paiement envoyé au client' },
-      { key: 'paid',     title: 'Payées — confirmées',         sub: 'Réservations finalisées' },
+      { key: 'pending',  title: 'En attente de traitement',   sub: 'À traiter - répondez sous 24h' },
+      { key: 'accepted', title: 'Acceptées - en attente de paiement', sub: 'Lien de paiement envoyé au client' },
+      { key: 'paid',     title: 'Payées - confirmées',         sub: 'Réservations finalisées' },
       { key: 'refused',  title: 'Refusées',                    sub: 'Archivées' },
     ];
 
@@ -1238,7 +1238,7 @@
         saveReservations(all);
         // Compose email mailto pour le client
         const cust = r.customer;
-        const subject = encodeURIComponent(`BK Alpes Motors — Devis validé ${r.ref}`);
+        const subject = encodeURIComponent(`BK Alpes Motors - Devis validé ${r.ref}`);
         const body = encodeURIComponent(
 `Bonjour ${cust.firstName} ${cust.lastName},
 
@@ -1259,7 +1259,7 @@ L'équipe BK Alpes Motors
         );
         window.location.href = `mailto:${cust.email}?subject=${subject}&body=${body}`;
         renderReservations();
-        showToast('Réservation acceptée — email pré-rempli ouvert');
+        showToast('Réservation acceptée - email pré-rempli ouvert');
         return;
       }
       if (action === 'refuse') {
@@ -1270,7 +1270,7 @@ L'équipe BK Alpes Motors
         all[idx].refusalReason = reason.trim();
         saveReservations(all);
         const cust = r.customer;
-        const subject = encodeURIComponent(`BK Alpes Motors — Demande ${r.ref}`);
+        const subject = encodeURIComponent(`BK Alpes Motors - Demande ${r.ref}`);
         const body = encodeURIComponent(
 `Bonjour ${cust.firstName} ${cust.lastName},
 
@@ -1291,7 +1291,7 @@ L'équipe BK Alpes Motors
       }
       if (action === 'resend') {
         const cust = r.customer;
-        const subject = encodeURIComponent(`BK Alpes Motors — Rappel paiement ${r.ref}`);
+        const subject = encodeURIComponent(`BK Alpes Motors - Rappel paiement ${r.ref}`);
         const body = encodeURIComponent(
 `Bonjour ${cust.firstName} ${cust.lastName},
 
@@ -1356,10 +1356,10 @@ L'équipe BK Alpes Motors`
 
             <div class="admin-res-detail-section">
               <h3>Permis de conduire</h3>
-              <p>N° ${lic.number || '—'}</p>
+              <p>N° ${lic.number || '-'}</p>
               <p>Obtenu le ${fmtDateFr(lic.date)}</p>
-              <p>Pays : ${lic.country || '—'}</p>
-              <p>Catégorie : ${lic.category || '—'}</p>
+              <p>Pays : ${lic.country || '-'}</p>
+              <p>Catégorie : ${lic.category || '-'}</p>
             </div>
 
             <div class="admin-res-detail-section">
@@ -1373,7 +1373,7 @@ L'équipe BK Alpes Motors`
               <p>Départ : ${fmtDateFr(per.pickupDate)} à ${per.pickupTime || ''}</p>
               <p>Retour : ${fmtDateFr(per.returnDate)} à ${per.returnTime || ''}</p>
               <p>Durée : <strong>${per.days || 0} jours</strong></p>
-              <p>Lieu : Agence BK — Annecy</p>
+              <p>Lieu : Agence BK - Annecy</p>
             </div>
 
             <div class="admin-res-detail-section full">
@@ -1807,10 +1807,10 @@ L'équipe BK Alpes Motors`
     };
     const BUDGET_LABELS = {
       '0-30':   'Moins de 30 000 €',
-      '30-60':  '30 000 — 60 000 €',
-      '60-100': '60 000 — 100 000 €',
-      '100-150':'100 000 — 150 000 €',
-      '150-250':'150 000 — 250 000 €',
+      '30-60':  '30 000 à 60 000 €',
+      '60-100': '60 000 à 100 000 €',
+      '100-150':'100 000 à 150 000 €',
+      '150-250':'150 000 à 250 000 €',
       '250+':   'Plus de 250 000 €',
     };
     const TIMELINE_LABELS = {
@@ -1852,7 +1852,7 @@ L'équipe BK Alpes Motors`
               </div>
               <div class="admin-res-cell">
                 <span class="admin-res-cell-label">État</span>
-                <span class="admin-res-cell-value">${CONDITION_LABELS[v.condition] || '—'}</span>
+                <span class="admin-res-cell-value">${CONDITION_LABELS[v.condition] || '-'}</span>
                 <span class="admin-res-cell-sub">${v.wishPrice ? fmtPrice(v.wishPrice) + ' souhaité' : 'À estimer'}</span>
               </div>
               <div class="admin-res-cell">
@@ -1937,7 +1937,7 @@ L'équipe BK Alpes Motors`
         all[idx].status = 'contacted';
         all[idx].contactedAt = new Date().toISOString();
         saveTradeins(all);
-        const subject = encodeURIComponent(`BK Alpes Motors — Votre demande de reprise ${r.ref}`);
+        const subject = encodeURIComponent(`BK Alpes Motors - Votre demande de reprise ${r.ref}`);
         const body = encodeURIComponent(
 `Bonjour ${c.firstName} ${c.lastName},
 
@@ -1968,7 +1968,7 @@ L'équipe BK Alpes Motors
         all[idx].status = 'quoted';
         all[idx].quote = { amount: cleanAmount, at: new Date().toISOString() };
         saveTradeins(all);
-        const subject = encodeURIComponent(`BK Alpes Motors — Offre de reprise ${r.ref}`);
+        const subject = encodeURIComponent(`BK Alpes Motors - Offre de reprise ${r.ref}`);
         const body = encodeURIComponent(
 `Bonjour ${c.firstName} ${c.lastName},
 
@@ -1985,7 +1985,7 @@ L'équipe BK Alpes Motors`
         );
         window.location.href = `mailto:${c.email}?subject=${subject}&body=${body}`;
         renderTradeins();
-        showToast('Offre enregistrée — email pré-rempli ouvert');
+        showToast('Offre enregistrée - email pré-rempli ouvert');
         return;
       }
 
@@ -1996,7 +1996,7 @@ L'équipe BK Alpes Motors`
         all[idx].refusedAt = new Date().toISOString();
         all[idx].refusalReason = reason.trim();
         saveTradeins(all);
-        const subject = encodeURIComponent(`BK Alpes Motors — Demande ${r.ref}`);
+        const subject = encodeURIComponent(`BK Alpes Motors - Demande ${r.ref}`);
         const body = encodeURIComponent(
 `Bonjour ${c.firstName} ${c.lastName},
 
@@ -2087,17 +2087,17 @@ L'équipe BK Alpes Motors`
               <p><strong>${c.civility || ''} ${c.firstName || ''} ${c.lastName || ''}</strong></p>
               <p>${c.email || ''}</p>
               <p>${c.phone || ''}</p>
-              <p>Ville : ${c.city || '—'}</p>
+              <p>Ville : ${c.city || '-'}</p>
               <p>Contact préféré : <strong>${c.preferred || 'email'}</strong></p>
             </div>
 
             <div class="admin-res-detail-section">
               <h3>Véhicule à reprendre</h3>
               <p><strong>${v.brand} ${v.model}</strong></p>
-              <p>Année : ${v.year || '—'} · ${v.km ? Number(v.km).toLocaleString('fr-FR').replace(/,/g, ' ') + ' km' : '—'}</p>
-              <p>${v.fuel || '—'} · ${v.gearbox || '—'}${v.power ? ' · ' + v.power + ' CV' : ''}</p>
-              <p>Couleur : ${v.color || '—'}</p>
-              <p>État : <strong>${CONDITION_LABELS[v.condition] || '—'}</strong></p>
+              <p>Année : ${v.year || '-'} · ${v.km ? Number(v.km).toLocaleString('fr-FR').replace(/,/g, ' ') + ' km' : '-'}</p>
+              <p>${v.fuel || '-'} · ${v.gearbox || '-'}${v.power ? ' · ' + v.power + ' CV' : ''}</p>
+              <p>Couleur : ${v.color || '-'}</p>
+              <p>État : <strong>${CONDITION_LABELS[v.condition] || '-'}</strong></p>
               ${v.wishPrice ? `<p>Prix souhaité : <strong>${fmtPrice(v.wishPrice)}</strong></p>` : ''}
             </div>
 
