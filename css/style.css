@@ -14280,6 +14280,24 @@ html .nav-burger {
   display: flex;
   gap: 8px;
 }
+/* Lieu fixe (toujours agence Annecy) */
+.loc-searchbar-static,
+.loc-form-static {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 12px;
+  background: #F4F4F5;
+  border: 1px solid #E5E5E7;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #14141A;
+}
+.loc-searchbar-static svg,
+.loc-form-static svg { color: #7A7670; flex-shrink: 0; }
+
 .loc-searchbar-field input[type="date"],
 .loc-searchbar-field input[type="time"],
 .loc-searchbar-field select {

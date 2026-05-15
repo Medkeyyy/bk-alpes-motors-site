@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778869464" />
+  <link rel="stylesheet" href="css/style.css?v=1778869743" />
 </head>
 <body class="admin-body">
 
@@ -1145,7 +1145,7 @@ L'équipe BK Alpes Motors`
               <p>Départ : ${fmtDateFr(per.pickupDate)} à ${per.pickupTime || ''}</p>
               <p>Retour : ${fmtDateFr(per.returnDate)} à ${per.returnTime || ''}</p>
               <p>Durée : <strong>${per.days || 0} jours</strong></p>
-              <p>Lieu : ${per.pickupLoc || 'annecy'}</p>
+              <p>Lieu : Agence BK — Annecy</p>
             </div>
 
             <div class="admin-res-detail-section full">
@@ -1166,7 +1166,6 @@ L'équipe BK Alpes Motors`
                 <tr><td>Tarif journalier${q.discountPct > 0 ? ` (−${Math.round(q.discountPct * 100)}%)` : ''}</td><td>${fmtMoney(q.dailyAfterDiscount || veh.basePrice || 0)}/j</td></tr>
                 <tr><td>Sous-total véhicule (${per.days || 0} jours)</td><td>${fmtMoney(q.subtotalVehicle || 0)}</td></tr>
                 ${q.optsCost > 0 ? `<tr><td>Options</td><td>${fmtMoney(q.optsCost)}</td></tr>` : ''}
-                ${q.pickupFee > 0 ? `<tr><td>Prise en charge</td><td>${fmtMoney(q.pickupFee)}</td></tr>` : ''}
                 <tr class="admin-res-quote-total"><td>Total</td><td><strong>${fmtMoney(q.total || 0)}</strong></td></tr>
               </table>
             </div>

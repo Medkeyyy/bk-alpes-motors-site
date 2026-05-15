@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778869464" />
+  <link rel="stylesheet" href="css/style.css?v=1778869743" />
 </head>
 <body>
 <nav id="navbar" class="navbar">
@@ -90,13 +90,11 @@
           <div class="loc-searchbar-divider"></div>
 
           <div class="loc-searchbar-field">
-            <label for="locPickupLoc">Lieu de prise en charge</label>
-            <select id="locPickupLoc">
-              <option value="annecy">Annecy — Agence BK</option>
-              <option value="geneve">Aéroport Genève (+ 90 €)</option>
-              <option value="lyon">Aéroport Lyon-Saint Exupéry (+ 150 €)</option>
-              <option value="domicile">Livraison à domicile (sur devis)</option>
-            </select>
+            <label>Lieu de prise en charge</label>
+            <div class="loc-searchbar-static">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Agence BK Alpes Motors — Annecy</span>
+            </div>
           </div>
 
           <div class="loc-searchbar-summary" id="locSummary">
@@ -558,12 +556,11 @@
             </div>
             <div class="loc-form-field full">
               <label>Lieu de prise en charge</label>
-              <select id="resPickupLoc" required>
-                <option value="annecy">Annecy — Agence BK</option>
-                <option value="geneve">Aéroport Genève (+ 90 €)</option>
-                <option value="lyon">Aéroport Lyon-Saint Exupéry (+ 150 €)</option>
-                <option value="domicile">Livraison à domicile (sur devis)</option>
-              </select>
+              <div class="loc-form-static">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>Agence BK Alpes Motors — Annecy</span>
+              </div>
+              <input type="hidden" id="resPickupLoc" value="annecy" />
             </div>
           </div>
         </fieldset>
@@ -766,7 +763,6 @@
       { d: 30, pct: 0.35 },
     ];
 
-    const PICKUP_FEES = { annecy: 0, geneve: 90, lyon: 150, domicile: 200 };
     const OPT_PRICES  = { driver2: 25, unlimitedKm: 60, insurancePlus: 45, childSeat: 8 };
 
     function getDiscountFor(days) {
@@ -800,7 +796,6 @@
       pickupTime: document.getElementById('locPickupTime'),
       returnDate: document.getElementById('locReturnDate'),
       returnTime: document.getElementById('locReturnTime'),
-      pickupLoc:  document.getElementById('locPickupLoc'),
       summary:    document.getElementById('locSummary'),
       optDriver2:       document.getElementById('optDriver2'),
       optUnlimitedKm:   document.getElementById('optUnlimitedKm'),
@@ -862,7 +857,7 @@
       });
     }
 
-    [sb.pickupDate, sb.pickupTime, sb.returnDate, sb.returnTime, sb.pickupLoc,
+    [sb.pickupDate, sb.pickupTime, sb.returnDate, sb.returnTime,
      sb.optDriver2, sb.optUnlimitedKm, sb.optInsurancePlus, sb.optChildSeat]
       .forEach(el => el.addEventListener('change', updateSearchbar));
 
@@ -886,7 +881,7 @@
       document.getElementById('resPickupTime').value = sb.pickupTime.value;
       document.getElementById('resReturnDate').value = sb.returnDate.value;
       document.getElementById('resReturnTime').value = sb.returnTime.value;
-      document.getElementById('resPickupLoc').value  = sb.pickupLoc.value;
+      // resPickupLoc reste à "annecy" (hidden)
       document.getElementById('resOptDriver2').checked       = sb.optDriver2.checked;
       document.getElementById('resOptUnlimitedKm').checked   = sb.optUnlimitedKm.checked;
       document.getElementById('resOptInsurancePlus').checked = sb.optInsurancePlus.checked;
@@ -952,11 +947,8 @@
         (opts.insurancePlus ? OPT_PRICES.insurancePlus * days : 0) +
         (opts.childSeat     ? OPT_PRICES.childSeat     * days : 0);
 
-      const pickupLoc = document.getElementById('resPickupLoc').value;
-      const pickupFee = PICKUP_FEES[pickupLoc] || 0;
-
-      const total = subtotalVehicle + optsCost + pickupFee;
-      return { basePrice, days, pct, dailyAfterDiscount, subtotalVehicle, opts, optsCost, pickupLoc, pickupFee, total };
+      const total = subtotalVehicle + optsCost;
+      return { basePrice, days, pct, dailyAfterDiscount, subtotalVehicle, opts, optsCost, total };
     }
 
     function updateQuote() {
@@ -978,10 +970,6 @@
       if (q.opts.unlimitedKm)   lines.push(`<div class="loc-quote-line opt"><span>+ Kilométrage illimité (${q.days}j)</span><span>${fmtPrice(OPT_PRICES.unlimitedKm * q.days)} €</span></div>`);
       if (q.opts.insurancePlus) lines.push(`<div class="loc-quote-line opt"><span>+ Assurance tous risques (${q.days}j)</span><span>${fmtPrice(OPT_PRICES.insurancePlus * q.days)} €</span></div>`);
       if (q.opts.childSeat)     lines.push(`<div class="loc-quote-line opt"><span>+ Siège enfant (${q.days}j)</span><span>${fmtPrice(OPT_PRICES.childSeat * q.days)} €</span></div>`);
-      if (q.pickupFee > 0) {
-        const locLabels = { geneve: 'Aéroport Genève', lyon: 'Aéroport Lyon-Saint Ex.', domicile: 'Livraison à domicile' };
-        lines.push(`<div class="loc-quote-line opt"><span>+ ${locLabels[q.pickupLoc] || 'Prise en charge'}</span><span>${fmtPrice(q.pickupFee)} €</span></div>`);
-      }
       document.getElementById('quoteLines').innerHTML = lines.join('');
       document.getElementById('quoteTotal').textContent = fmtPrice(q.total) + ' €';
     }
@@ -1064,7 +1052,7 @@
           pickupTime: document.getElementById('resPickupTime').value,
           returnDate: document.getElementById('resReturnDate').value,
           returnTime: document.getElementById('resReturnTime').value,
-          pickupLoc:  document.getElementById('resPickupLoc').value,
+          pickupLoc:  'annecy',
           days:       q.days,
         },
         options: q.opts,
@@ -1093,7 +1081,6 @@
           discountPct: q.pct,
           subtotalVehicle: q.subtotalVehicle,
           optsCost: q.optsCost,
-          pickupFee: q.pickupFee,
           total: q.total,
         },
       };
