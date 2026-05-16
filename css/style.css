@@ -16874,47 +16874,163 @@ html .nav-burger {
   max-width: 720px;
 }
 
-/* ----- ZONE ----- */
+/* ----- ZONE D'INTERVENTION (carte + checker) ----- */
 .lav-zone {
   background: var(--lav-bg);
-  padding: 64px 24px;
+  padding: 56px 24px 72px;
 }
-.lav-zone-grid {
+.lav-zone-wrapper {
   max-width: 1180px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 40px;
+  align-items: stretch;
 }
-.lav-zone-info h3 {
+.lav-zone-map-wrap {
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  border: 1px solid var(--lav-border);
+}
+#lavZoneMap {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  background: #F4F4F5;
+}
+/* Override Leaflet attribution pour matcher la DA */
+.leaflet-control-attribution {
   font-family: 'Inter', sans-serif;
-  font-size: 0.92rem;
+  font-size: 0.66rem !important;
+}
+
+.lav-zone-checker {
+  background: #FFFFFF;
+  border: 1px solid var(--lav-border);
+  border-radius: 18px;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+}
+.lav-zone-checker h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  color: var(--lav-text);
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+.lav-zone-checker-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
   color: var(--lav-text-soft);
-  margin: 0 0 14px;
+  line-height: 1.55;
+  margin: 0 0 18px;
+}
+.lav-zone-checker-sub strong { color: var(--lav-text); }
+
+.lav-zone-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.lav-zone-form label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--lav-text);
+}
+.lav-zone-form input {
+  border: 1px solid var(--lav-border);
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.94rem;
+  color: var(--lav-text);
+  background: #FFFFFF;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.lav-zone-form input:focus {
+  border-color: var(--lav-text);
+  box-shadow: 0 0 0 3px rgba(20,20,26,0.06);
+}
+.lav-zone-form button {
+  align-self: flex-start;
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+/* Result message */
+.lav-zone-result {
+  margin: 14px 0 18px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.lav-zone-result.is-success {
+  background: rgba(45,142,71,0.08);
+  border: 1px solid rgba(45,142,71,0.25);
+  color: #1F6A33;
+}
+.lav-zone-result.is-mid {
+  background: rgba(168,150,104,0.10);
+  border: 1px solid rgba(168,150,104,0.35);
+  color: #6E5F3B;
+}
+.lav-zone-result.is-far {
+  background: rgba(180,56,56,0.08);
+  border: 1px solid rgba(180,56,56,0.25);
+  color: #8C2C2C;
+}
+.lav-zone-result.is-error {
+  background: rgba(180,56,56,0.06);
+  border: 1px solid rgba(180,56,56,0.2);
+  color: #8C2C2C;
+}
+.lav-zone-result-cta {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.84rem;
+  opacity: 0.85;
+}
+
+.lav-zone-cities-compact {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--lav-border);
+}
+.lav-zone-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: var(--lav-text-soft);
+  margin: 0 0 10px;
+  font-weight: 500;
 }
 .lav-zone-cities {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
+  gap: 6px;
 }
 .lav-zone-cities span {
-  padding: 7px 14px;
-  background: #FFFFFF;
+  padding: 5px 11px;
+  background: #FAFAFA;
   border: 1px solid var(--lav-border);
   border-radius: 100px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   color: var(--lav-text);
   font-weight: 500;
 }
-.lav-zone-cities-alt span {
-  background: #FAFAFA;
-  color: var(--lav-text-soft);
-  border-style: dashed;
+.lav-zone-cities-more {
+  background: #FFFFFF !important;
+  color: var(--lav-text-soft) !important;
+  border-style: dashed !important;
+  font-style: italic;
 }
 .lav-zone-visual {
   position: relative;
@@ -17049,6 +17165,8 @@ html .nav-burger {
   .lav-cards-grid { grid-template-columns: 1fr; }
   .lav-ba-grid { grid-template-columns: 1fr; }
   .lav-zone-grid { grid-template-columns: 1fr; gap: 24px; }
+  .lav-zone-wrapper { grid-template-columns: 1fr; gap: 24px; }
+  #lavZoneMap { min-height: 320px; }
   .lav-review { flex: 0 0 280px; }
 }
 

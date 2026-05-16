@@ -17,7 +17,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778927262" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="css/style.css?v=1778927591" />
 </head>
 <body>
 
@@ -502,45 +504,49 @@
     </div>
   </section>
 
-  <!-- ========== ZONE ========== -->
+  <!-- ========== ZONE D'INTERVENTION (map + check adresse) ========== -->
   <section class="lav-zone" id="zone">
     <div class="lav-section-header">
-      <h2 class="lav-section-title">Annecy et <span class="lav-title-em">tout le bassin.</span></h2>
+      <h2 class="lav-section-title">Êtes-vous dans <span class="lav-title-em">notre zone&nbsp;?</span></h2>
     </div>
-    <div class="lav-zone-grid">
-      <div class="lav-zone-info">
-        <h3>Zone gratuite (Annecy + 15 km)</h3>
-        <div class="lav-zone-cities">
-          <span>Annecy</span>
-          <span>Annecy-le-Vieux</span>
-          <span>Cran-Gevrier</span>
-          <span>Seynod</span>
-          <span>Pringy</span>
-          <span>Meythet</span>
-          <span>Épagny</span>
-          <span>Argonay</span>
-          <span>Poisy</span>
-          <span>Sevrier</span>
-          <span>Veyrier-du-Lac</span>
-          <span>Saint-Jorioz</span>
-        </div>
-        <h3 style="margin-top:24px;">Sur devis (majoration déplacement)</h3>
-        <div class="lav-zone-cities lav-zone-cities-alt">
-          <span>Annemasse</span>
-          <span>Thonon-les-Bains</span>
-          <span>Évian</span>
-          <span>Genève (CH)</span>
-          <span>Chambéry</span>
-          <span>Aix-les-Bains</span>
-          <span>Albertville</span>
-          <span>Megève</span>
-          <span>Chamonix</span>
-        </div>
-        <a href="#contact" class="lav-btn-primary" style="margin-top:24px;">Vérifier votre adresse</a>
+
+    <div class="lav-zone-wrapper">
+      <!-- Carte Leaflet -->
+      <div class="lav-zone-map-wrap">
+        <div id="lavZoneMap"></div>
       </div>
-      <div class="lav-zone-visual">
-        <img src="images/branding/facade-utilitaires.png" alt="L'atelier BK Alpes Motors à Annecy" />
-        <div class="lav-zone-visual-label">Agence BK · Annecy</div>
+
+      <!-- Vérificateur d'adresse -->
+      <div class="lav-zone-checker">
+        <h3>Vérifier mon adresse</h3>
+        <p class="lav-zone-checker-sub">Nous intervenons à Annecy et dans un rayon de <strong>15 km</strong> sans frais. Au-delà, un forfait déplacement s'applique (+30 € jusqu'à 30 km, +60 € au-delà).</p>
+
+        <div class="lav-zone-form">
+          <label for="lavCheckAddress">Votre adresse</label>
+          <input type="text" id="lavCheckAddress" placeholder="Ex: 15 rue de la République, Annecy" autocomplete="off" />
+          <button type="button" class="lav-btn-primary" id="lavCheckBtn">Vérifier</button>
+        </div>
+
+        <div id="lavCheckResult" class="lav-zone-result" style="display:none;"></div>
+
+        <div class="lav-zone-cities-compact">
+          <p class="lav-zone-label">Villes incluses sans supplément :</p>
+          <div class="lav-zone-cities">
+            <span>Annecy</span>
+            <span>Annecy-le-Vieux</span>
+            <span>Cran-Gevrier</span>
+            <span>Seynod</span>
+            <span>Pringy</span>
+            <span>Meythet</span>
+            <span>Épagny</span>
+            <span>Argonay</span>
+            <span>Poisy</span>
+            <span>Sevrier</span>
+            <span>Veyrier-du-Lac</span>
+            <span>Saint-Jorioz</span>
+            <span class="lav-zone-cities-more">+ bien d'autres...</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -974,6 +980,128 @@
       document.querySelector('input[name="lavLocType"][value="agence"]').checked = true;
       lavAddressBlock.style.display = 'none';
     });
+
+    // ============ ZONE MAP + ADDRESS CHECKER ============
+    const ANNECY_LAT = 45.8992;
+    const ANNECY_LON = 6.1294;
+    const FREE_KM = 15;
+    const MID_KM  = 30;
+    const FEE_MID = 30;
+    const FEE_FAR = 60;
+
+    function haversineKm(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    // Init Leaflet map quand Leaflet est dispo (defer)
+    window.addEventListener('load', () => {
+      const mapEl = document.getElementById('lavZoneMap');
+      if (!mapEl || typeof L === 'undefined') return;
+
+      const ANNECY = [ANNECY_LAT, ANNECY_LON];
+      const map = L.map('lavZoneMap', {
+        center: ANNECY,
+        zoom: 10,
+        scrollWheelZoom: false,
+        zoomControl: true,
+      });
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 18,
+      }).addTo(map);
+
+      // Cercle zone gratuite (15 km) - doré moutarde
+      L.circle(ANNECY, {
+        radius: FREE_KM * 1000,
+        color: '#A89668',
+        weight: 2,
+        fillColor: '#A89668',
+        fillOpacity: 0.12,
+      }).addTo(map);
+
+      // Cercle zone mid (30 km) - plus pâle
+      L.circle(ANNECY, {
+        radius: MID_KM * 1000,
+        color: '#A89668',
+        weight: 1,
+        dashArray: '6,6',
+        fillColor: '#A89668',
+        fillOpacity: 0.04,
+      }).addTo(map);
+
+      // Marker centre Annecy (agence BK)
+      L.circleMarker(ANNECY, {
+        radius: 8,
+        color: '#14141A',
+        fillColor: '#A89668',
+        fillOpacity: 1,
+        weight: 2,
+      }).addTo(map).bindPopup('<strong>BK Alpes Motors</strong><br>Annecy');
+    });
+
+    // Adresse checker
+    const lavCheckBtn = document.getElementById('lavCheckBtn');
+    const lavCheckInput = document.getElementById('lavCheckAddress');
+    const lavCheckResult = document.getElementById('lavCheckResult');
+
+    async function lavCheckAddress() {
+      const addr = lavCheckInput.value.trim();
+      if (!addr) return;
+
+      lavCheckBtn.disabled = true;
+      lavCheckBtn.textContent = '...';
+      lavCheckResult.style.display = 'none';
+      lavCheckResult.className = 'lav-zone-result';
+
+      try {
+        const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addr + ', France')}&limit=1&countrycodes=fr,ch`;
+        const res = await fetch(url, { headers: { 'Accept-Language': 'fr' } });
+        const data = await res.json();
+
+        if (!data.length) {
+          lavCheckResult.className = 'lav-zone-result is-error';
+          lavCheckResult.innerHTML = 'Adresse introuvable. Essayez d\'être plus précis (ex: <em>15 rue de la République, Annecy</em>).';
+          lavCheckResult.style.display = 'block';
+          return;
+        }
+
+        const lat = parseFloat(data[0].lat);
+        const lon = parseFloat(data[0].lon);
+        const dist = haversineKm(ANNECY_LAT, ANNECY_LON, lat, lon);
+        const distRounded = Math.round(dist * 10) / 10;
+
+        if (dist <= FREE_KM) {
+          lavCheckResult.className = 'lav-zone-result is-success';
+          lavCheckResult.innerHTML = `<strong>Vous êtes à ${distRounded} km</strong> de l'agence BK Annecy. Vous êtes dans la zone gratuite, <strong>aucun frais de déplacement</strong>.`;
+        } else if (dist <= MID_KM) {
+          lavCheckResult.className = 'lav-zone-result is-mid';
+          lavCheckResult.innerHTML = `<strong>Vous êtes à ${distRounded} km</strong> de l'agence BK Annecy. Forfait déplacement : <strong>+${FEE_MID} €</strong>.`;
+        } else {
+          lavCheckResult.className = 'lav-zone-result is-far';
+          lavCheckResult.innerHTML = `<strong>Vous êtes à ${distRounded} km</strong> de l'agence BK Annecy. Forfait déplacement : <strong>+${FEE_FAR} €</strong>.<br><span class="lav-zone-result-cta">Pour les plus longues distances, contactez-nous pour un devis personnalisé.</span>`;
+        }
+        lavCheckResult.style.display = 'block';
+      } catch {
+        lavCheckResult.className = 'lav-zone-result is-error';
+        lavCheckResult.textContent = 'Impossible de vérifier l\'adresse. Vérifiez votre connexion et réessayez.';
+        lavCheckResult.style.display = 'block';
+      } finally {
+        lavCheckBtn.disabled = false;
+        lavCheckBtn.textContent = 'Vérifier';
+      }
+    }
+
+    if (lavCheckBtn) {
+      lavCheckBtn.addEventListener('click', lavCheckAddress);
+      lavCheckInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); lavCheckAddress(); }
+      });
+    }
 
     // ============ SMOOTH SCROLL ============
     document.querySelectorAll('a[href^="#"]').forEach(a => {
