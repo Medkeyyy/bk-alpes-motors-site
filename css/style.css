@@ -14821,14 +14821,17 @@ html .nav-burger {
    ============================================================= */
 .home-svc {
   background: #FFFFFF;
-  padding: 64px 24px;
+  padding: 64px 32px;
 }
 .home-svc.home-svc-alt {
   background: #FAFAFA;
 }
 .home-svc-inner {
-  max-width: 1280px;
+  max-width: 1480px;
   margin: 0 auto;
+}
+@media (min-width: 1600px) {
+  .home-svc-inner { max-width: 1560px; }
 }
 .home-svc-header {
   text-align: center;
