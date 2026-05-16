@@ -15961,7 +15961,7 @@ html .nav-burger {
 }
 .lav-hero-title-em {
   display: block;
-  font-style: normal;
+  font-style: italic;
   color: var(--lav-accent);
   font-weight: 800;
 }
@@ -16029,8 +16029,8 @@ html .nav-burger {
 /* ----- LOGOS MARQUEE ----- */
 .lav-logos {
   background: #FFFFFF;
-  padding: 28px 0;
-  border-top: 1px solid var(--lav-border);
+  padding: 16px 0 28px;
+  border-top: none;
   border-bottom: 1px solid var(--lav-border);
 }
 .lav-logos-wrap {
@@ -16250,7 +16250,7 @@ html .nav-burger {
 /* ----- PRESTATIONS / CARDS ----- */
 .lav-prestations {
   background: var(--lav-bg);
-  padding: 64px 24px 64px;
+  padding: 40px 24px 64px;
 }
 .lav-vehicle-filter {
   display: flex;
