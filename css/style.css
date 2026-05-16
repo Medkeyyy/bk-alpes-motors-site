@@ -15473,16 +15473,7 @@ html .nav-burger {
   position: relative;
   overflow: hidden;
 }
-.reprise-steps::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, transparent, #A89668);
-  opacity: 0.4;
-}
+.reprise-steps::before { content: none; }
 .reprise-steps-inner {
   max-width: 1180px;
   margin: 0 auto;
