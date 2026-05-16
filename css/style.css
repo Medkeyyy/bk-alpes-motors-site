@@ -10188,10 +10188,7 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-links a.active {
   animation: vlx-testimonials-scroll 60s linear infinite;
   will-change: transform;
 }
-.vlx-testimonials-wrap:hover .vlx-testimonials-track,
-.vlx-testimonials-track:focus-within {
-  animation-play-state: paused;
-}
+/* Le marquee continue de défiler au survol (pas de pause) */
 .vlx-testimonials-track .vlx-testimonial {
   flex: 0 0 360px;
   margin: 0;
