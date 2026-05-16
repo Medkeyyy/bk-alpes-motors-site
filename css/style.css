@@ -18741,6 +18741,93 @@ html .nav-burger {
 }
 
 /* =============================================================
+   HOME - Section Lavage avec carousel vidéos (variante de .lav-vidcaro)
+   ============================================================= */
+.home-lavage-vidcaro {
+  padding: 96px 0 80px;
+}
+.home-lavage-vidcaro .lav-vidcaro-header {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.home-lavage-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #A89668;
+  margin-bottom: 18px;
+}
+.home-lavage-eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: #A89668;
+}
+.home-lavage-vidcaro .lav-vidcaro-title em {
+  font-style: italic;
+  font-weight: 800;
+  color: #A89668;
+}
+.home-lavage-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 22px auto 0;
+  max-width: 620px;
+}
+.home-lavage-foot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  margin-top: 12px;
+  padding: 0 24px;
+}
+.home-lavage-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 56px;
+  padding: 28px 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 760px;
+  width: 100%;
+}
+.home-lavage-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: center;
+}
+.home-lavage-stat .num {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+.home-lavage-stat .lbl {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+@media (max-width: 640px) {
+  .home-lavage-vidcaro { padding: 64px 0 56px; }
+  .home-lavage-stats { gap: 28px; padding-top: 22px; }
+  .home-lavage-stat .num { font-size: 1.4rem; }
+}
+
+/* =============================================================
    LAVAGE - Carousel vidéos réalisations (style cleanned, branding BK)
    ============================================================= */
 .lav-vidcaro {
