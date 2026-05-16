@@ -14861,31 +14861,35 @@ html .nav-burger {
 }
 
 /* =============================================================
-   HOME - Divider de réassurance (gris clair, accents dorés)
+   HOME - Divider de réassurance (marquee animé)
    ============================================================= */
 .home-divider {
   background: #F4F4F5;
-  padding: 22px 24px;
+  padding: 20px 0;
   border-top: 1px solid #E5E5E7;
   border-bottom: 1px solid #E5E5E7;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%);
 }
-.home-divider-inner {
-  max-width: 1280px;
-  margin: 0 auto;
+.home-divider-track {
   display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
+  width: max-content;
+  gap: 56px;
+  animation: home-divider-scroll 40s linear infinite;
+  will-change: transform;
 }
 .home-divider span {
   font-family: 'Inter', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   font-weight: 500;
   color: #14141A;
   letter-spacing: 0.02em;
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .home-divider svg {
   width: 16px;
@@ -14893,10 +14897,14 @@ html .nav-burger {
   color: #A89668;
   flex-shrink: 0;
 }
+@keyframes home-divider-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
 @media (max-width: 720px) {
-  .home-divider { padding: 18px 20px; }
-  .home-divider-inner { gap: 18px; }
-  .home-divider span { font-size: 0.82rem; }
+  .home-divider { padding: 16px 0; }
+  .home-divider-track { gap: 36px; }
+  .home-divider span { font-size: 0.84rem; }
 }
 
 /* =============================================================
