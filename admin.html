@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778919275" />
+  <link rel="stylesheet" href="css/style.css?v=1778919785" />
 </head>
 <body class="admin-body">
 
@@ -232,9 +232,9 @@
               <span class="admin-form-field-help" id="generateDescHelp">Remplissez d'abord les caractéristiques techniques, puis cliquez sur <strong>Générer auto</strong> pour obtenir une description prête à éditer.</span>
             </div>
             <div class="admin-form-field full">
-              <label>Équipements remarquables (un par ligne)</label>
-              <textarea name="features" placeholder="Pack performance complet&#10;Sièges sport en cuir&#10;Caméra 360°&#10;Toit ouvrant panoramique"></textarea>
-              <span class="admin-form-field-help">Apparaîtront en liste avec une coche sur la page produit.</span>
+              <label>Équipements remarquables</label>
+              <div class="features-picker" id="featuresPickerVente"></div>
+              <span class="admin-form-field-help">Cliquez pour sélectionner. Ajoutez votre propre équipement en bas si besoin.</span>
             </div>
             <div class="admin-form-field">
               <label>Badge / Étiquette</label>
@@ -435,8 +435,9 @@
               <textarea name="description" placeholder="Décrivez le véhicule, son équipement, ses points forts pour la location..." required></textarea>
             </div>
             <div class="admin-form-field full">
-              <label>Équipements remarquables (un par ligne)</label>
-              <textarea name="features" placeholder="GPS intégré&#10;Sièges chauffants&#10;Carplay / Android Auto&#10;Toit ouvrant"></textarea>
+              <label>Équipements remarquables</label>
+              <div class="features-picker" id="featuresPickerRental"></div>
+              <span class="admin-form-field-help">Cliquez pour sélectionner. Ajoutez votre propre équipement en bas si besoin.</span>
             </div>
             <div class="admin-form-field">
               <label>Tag (étiquette)</label>
@@ -557,6 +558,122 @@
     }
     function saveVehicles(vehicles) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(vehicles));
+    }
+
+    // ============ FEATURES PICKER (chips groupés par catégorie + custom) ============
+    const FEATURES_PRESETS = {
+      'Confort':    ['Sièges chauffants', 'Sièges ventilés', 'Sièges électriques', 'Sièges massants', 'Climatisation automatique', 'Volant chauffant', 'Régulateur adaptatif', 'Aide au stationnement', 'Caméra 360°', 'Caméra de recul', 'Vitres surteintées'],
+      'Multimédia': ['GPS intégré', 'Carplay / Android Auto', 'Audio premium Burmester', 'Audio premium B&O', 'Chargeur sans fil', 'Affichage tête haute (HUD)', 'Cockpit numérique', 'Wi-Fi embarqué'],
+      'Sécurité':   ['Phares LED Matrix', 'Détecteur d\'angle mort', 'Freinage automatique d\'urgence', 'Lane assist (maintien de voie)', 'Pré-collision', 'Reconnaissance des panneaux', 'Pack assistance autoroute'],
+      'Sport':      ['Sièges sport', 'Volant sport', 'Échappement sport', 'Suspension sport adaptative', 'Freins carbo-céramique', 'Pack carbone intérieur', 'Pack carbone extérieur', 'Mode Sport+', 'Différentiel sport'],
+      'Sellerie':   ['Cuir pleine fleur', 'Alcantara', 'Sellerie sport', 'Sièges bicolores', 'Sellerie tissu / cuir', 'Surpiqûres contrastées'],
+      'Extérieur':  ['Toit panoramique', 'Toit ouvrant', 'Jantes alliage premium', 'Becquet arrière', 'Diffuseur sport', 'Phares laser', 'Rétroviseurs rabattables', 'Hayon électrique'],
+    };
+
+    // featureKey: clé unique pour identifier le picker (vente / rental)
+    // Stocke les valeurs custom ajoutées par l'utilisateur
+    const customFeatures = { vente: new Set(), rental: new Set() };
+
+    function renderFeaturesPicker(containerId, pickerKey, selectedFeatures = []) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      const selected = new Set(selectedFeatures);
+
+      // Détecter les customs (features pas dans les presets)
+      const allPresets = new Set(Object.values(FEATURES_PRESETS).flat());
+      customFeatures[pickerKey] = new Set([...selected].filter(f => !allPresets.has(f)));
+
+      let html = '';
+      Object.entries(FEATURES_PRESETS).forEach(([cat, items]) => {
+        html += `
+          <div class="features-cat">
+            <div class="features-cat-title">${cat}</div>
+            <div class="features-chips">
+              ${items.map(item => `
+                <button type="button" class="feat-chip${selected.has(item) ? ' is-active' : ''}" data-feat="${item.replace(/"/g, '&quot;')}">${item}</button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      // Section custom (équipements personnalisés ajoutés)
+      html += `
+        <div class="features-cat features-cat-custom">
+          <div class="features-cat-title">Équipements personnalisés</div>
+          <div class="features-chips features-chips-custom" id="featCustomList-${pickerKey}">
+            ${[...customFeatures[pickerKey]].map(item => `
+              <span class="feat-chip is-active is-custom" data-feat="${item.replace(/"/g, '&quot;')}">${item}<button type="button" class="feat-chip-remove" aria-label="Retirer">×</button></span>
+            `).join('')}
+          </div>
+          <div class="feat-custom-add">
+            <input type="text" id="featCustomInput-${pickerKey}" placeholder="Autre équipement (ex: Sellerie cuir Nappa)" />
+            <button type="button" id="featCustomBtn-${pickerKey}" class="feat-custom-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Ajouter
+            </button>
+          </div>
+        </div>
+      `;
+
+      container.innerHTML = html;
+
+      // Toggle chips presets
+      container.querySelectorAll('.feat-chip:not(.is-custom)').forEach(chip => {
+        chip.addEventListener('click', () => {
+          chip.classList.toggle('is-active');
+        });
+      });
+
+      // Remove custom chips
+      bindCustomRemoveButtons(pickerKey);
+
+      // Add custom feature
+      const input = document.getElementById(`featCustomInput-${pickerKey}`);
+      const btn = document.getElementById(`featCustomBtn-${pickerKey}`);
+      const addCustom = () => {
+        const val = input.value.trim();
+        if (!val) return;
+        // Éviter doublons
+        if (customFeatures[pickerKey].has(val)) {
+          input.value = '';
+          return;
+        }
+        customFeatures[pickerKey].add(val);
+        const list = document.getElementById(`featCustomList-${pickerKey}`);
+        const chip = document.createElement('span');
+        chip.className = 'feat-chip is-active is-custom';
+        chip.dataset.feat = val;
+        chip.innerHTML = `${val}<button type="button" class="feat-chip-remove" aria-label="Retirer">×</button>`;
+        list.appendChild(chip);
+        input.value = '';
+        bindCustomRemoveButtons(pickerKey);
+      };
+      btn.addEventListener('click', addCustom);
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); addCustom(); }
+      });
+    }
+
+    function bindCustomRemoveButtons(pickerKey) {
+      const list = document.getElementById(`featCustomList-${pickerKey}`);
+      if (!list) return;
+      list.querySelectorAll('.feat-chip-remove').forEach(btn => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          const chip = btn.closest('.feat-chip');
+          const val = chip.dataset.feat;
+          customFeatures[pickerKey].delete(val);
+          chip.remove();
+        };
+      });
+    }
+
+    function getFeaturesPickerValues(containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return [];
+      return Array.from(container.querySelectorAll('.feat-chip.is-active')).map(c => c.dataset.feat);
     }
 
     // ============ TABS ============
@@ -706,6 +823,8 @@
       renderPhotos();
       // Auto-attribue la prochaine référence pour un nouveau véhicule
       form.reference.value = nextReference();
+      // Reset features picker
+      renderFeaturesPicker('featuresPickerVente', 'vente', []);
     }
 
     function fillForm(v) {
@@ -731,7 +850,8 @@
       form.garantie.value = v.garantie || '';
       form.localisation.value = v.localisation || 'Annecy';
       form.description.value = v.description || '';
-      form.features.value = (v.features || []).join('\n');
+      // Features picker : restore selected features
+      renderFeaturesPicker('featuresPickerVente', 'vente', v.features || []);
       form.badge.value = v.badge || 'Disponible';
       form.status.value = v.status || 'published';
       currentPhotos = v.photos ? [...v.photos] : [];
@@ -758,7 +878,7 @@
       e.preventDefault();
       const fd = new FormData(form);
       const id = vehicleIdInput.value || ('v_' + Date.now());
-      const features = (fd.get('features') || '').split('\n').map(s => s.trim()).filter(Boolean);
+      const features = getFeaturesPickerValues('featuresPickerVente');
 
       const vehicle = {
         id,
@@ -1478,6 +1598,7 @@ L'équipe BK Alpes Motors`
       currentRentalPhotos = [];
       renderRentalPhotos();
       rentalForm.reference.value = nextRentalReference();
+      renderFeaturesPicker('featuresPickerRental', 'rental', []);
     }
 
     function fillRentalForm(v) {
@@ -1497,7 +1618,7 @@ L'équipe BK Alpes Motors`
       rentalForm.kmIncluded.value = v.kmIncluded || '';
       rentalForm.minAge.value = v.minAge || 25;
       rentalForm.description.value = v.description || '';
-      rentalForm.features.value = (v.features || []).join('\n');
+      renderFeaturesPicker('featuresPickerRental', 'rental', v.features || []);
       rentalForm.tag.value = v.tag || '';
       rentalForm.status.value = v.status || 'published';
       currentRentalPhotos = v.photos ? [...v.photos] : [];
@@ -1532,7 +1653,7 @@ L'équipe BK Alpes Motors`
     rentalForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const fd = new FormData(rentalForm);
-      const features = (fd.get('features') || '').split('\n').map(s => s.trim()).filter(Boolean);
+      const features = getFeaturesPickerValues('featuresPickerRental');
       const id = rentalIdInput.value || ('rental-' + Date.now());
 
       const v = {
@@ -2159,6 +2280,9 @@ L'équipe BK Alpes Motors`
     renderReservations();
     renderRentalList();
     renderTradeins();
+    // Init des features pickers (vide au démarrage)
+    renderFeaturesPicker('featuresPickerVente', 'vente', []);
+    renderFeaturesPicker('featuresPickerRental', 'rental', []);
   </script>
 </body>
 </html>

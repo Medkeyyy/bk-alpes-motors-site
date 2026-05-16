@@ -17474,3 +17474,149 @@ html .nav-burger {
   25%  { opacity: 1; }
   100% { opacity: 0; transform: translate(var(--bx, 30px), var(--by, -40px)) scale(1.1); }
 }
+
+/* =============================================================
+   ADMIN — Features picker (chips groupés + ajout custom)
+   ============================================================= */
+.features-picker {
+  background: #FAFAFA;
+  border: 1px solid #E5E5E7;
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.features-cat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.features-cat-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7A7670;
+}
+
+.features-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.feat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: #FFFFFF;
+  border: 1px solid #E5E5E7;
+  border-radius: 100px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: #14141A;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.18s ease;
+  line-height: 1;
+}
+.feat-chip:hover {
+  border-color: #14141A;
+  transform: translateY(-1px);
+}
+.feat-chip.is-active {
+  background: #14141A;
+  border-color: #14141A;
+  color: #FFFFFF;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.feat-chip.is-active:hover {
+  background: #2A2A33;
+  border-color: #2A2A33;
+}
+
+/* Custom chip avec bouton remove */
+.feat-chip.is-custom {
+  background: #A89668; /* doré moutarde DA */
+  border-color: #A89668;
+  color: #FFFFFF;
+}
+.feat-chip.is-custom:hover {
+  background: #8C7C53;
+  border-color: #8C7C53;
+}
+.feat-chip-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.25);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  margin-left: 2px;
+  transition: background 0.18s ease;
+}
+.feat-chip-remove:hover {
+  background: rgba(255,255,255,0.4);
+}
+
+/* Section custom : input + bouton ajouter */
+.features-cat-custom {
+  padding-top: 14px;
+  border-top: 1px dashed #D8D8DA;
+}
+.feat-custom-add {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+.feat-custom-add input {
+  flex: 1;
+  border: 1px solid #E5E5E7;
+  border-radius: 100px;
+  padding: 9px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: #14141A;
+  background: #FFFFFF;
+  outline: none;
+  transition: border-color 0.18s ease;
+}
+.feat-custom-add input:focus {
+  border-color: #14141A;
+}
+.feat-custom-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  background: #14141A;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 100px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+  white-space: nowrap;
+}
+.feat-custom-btn:hover {
+  background: #2A2A33;
+  transform: translateY(-1px);
+}
+.features-chips-custom:empty + .feat-custom-add {
+  margin-top: 0;
+}
