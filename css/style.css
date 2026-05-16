@@ -18925,13 +18925,13 @@ html .nav-burger {
   justify-content: center;
   gap: 28px;
   margin-top: 12px;
-  padding: 32px 24px 0;
+  padding: 16px 24px 0;
   text-align: center;
 }
 .home-lavage-foot .home-pillar-cta {
   justify-content: center;
-  min-width: 280px;
-  padding: 18px 40px;
+  padding: 13px 28px;
+  font-size: 0.88rem;
 }
 .home-lavage-stats {
   display: flex;
