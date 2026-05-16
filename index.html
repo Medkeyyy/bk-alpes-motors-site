@@ -102,22 +102,7 @@
         </div>
       </div>
 
-      <!-- Slide 3 : Achat / Reprise -->
-      <div class="home-slide">
-        <div class="home-slide-media">
-          <img src="images/branding/facade-vide.png" alt="Achat et reprise" />
-        </div>
-        <div class="home-slide-content">
-          <h2 class="home-slide-title">Vendez en toute sérénité.</h2>
-          <p class="home-slide-sub">Offre ferme sous 24 h. Paiement sous 48 h.</p>
-          <div class="home-slide-actions">
-            <a href="achat.html" class="home-slide-btn home-slide-btn-primary">Faire estimer</a>
-            <a href="contact.html" class="home-slide-btn home-slide-btn-ghost">En savoir plus</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 4 : Lavage -->
+      <!-- Slide 3 : Lavage -->
       <div class="home-slide">
         <div class="home-slide-media">
           <img src="images/branding/AdobeStock_539555468.webp" alt="Lavage et detailing" />
@@ -147,7 +132,6 @@
       <button class="home-slider-dot active" data-slide="0" aria-label="Slide 1"></button>
       <button class="home-slider-dot" data-slide="1" aria-label="Slide 2"></button>
       <button class="home-slider-dot" data-slide="2" aria-label="Slide 3"></button>
-      <button class="home-slider-dot" data-slide="3" aria-label="Slide 4"></button>
     </div>
 
   </section>
@@ -1060,14 +1044,14 @@
       const counter = document.getElementById('sliderCounter');
       if (!slides) return;
 
-      const TOTAL = 4;
+      const TOTAL = 3;
       let current = 0;
       let autoplayTimer = null;
       const AUTOPLAY_MS = 6500;
 
       function go(idx) {
         current = (idx + TOTAL) % TOTAL;
-        slides.style.transform = `translateX(-${current * 25}%)`;
+        slides.style.transform = `translateX(-${current * (100 / TOTAL)}%)`;
         dots.forEach((d, i) => d.classList.toggle('active', i === current));
         if (counter) {
           counter.textContent = String(current + 1).padStart(2, '0') + ' / ' + String(TOTAL).padStart(2, '0');
