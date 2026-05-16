@@ -14900,6 +14900,247 @@ html .nav-burger {
 }
 
 /* =============================================================
+   HOME - PILLAR sections (Reprise / Lavage - style magazine premium)
+   ============================================================= */
+.home-pillar {
+  position: relative;
+  padding: 96px 24px 104px;
+  overflow: hidden;
+}
+.home-pillar-dark {
+  background: #0A0A0A;
+  color: #FFFFFF;
+}
+.home-pillar-dark::before {
+  content: '';
+  position: absolute;
+  top: -10%; left: -10%;
+  width: 540px; height: 540px;
+  background: radial-gradient(circle, rgba(168, 150, 104, 0.14), transparent 65%);
+  pointer-events: none;
+}
+.home-pillar-light {
+  background: #FAFAFA;
+  color: #14141A;
+}
+.home-pillar-light::before {
+  content: '';
+  position: absolute;
+  bottom: -10%; right: -10%;
+  width: 540px; height: 540px;
+  background: radial-gradient(circle, rgba(168, 150, 104, 0.18), transparent 65%);
+  pointer-events: none;
+}
+.home-pillar-bg-num {
+  position: absolute;
+  top: 32px;
+  right: 6%;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(10rem, 18vw, 18rem);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  line-height: 0.85;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+.home-pillar-dark .home-pillar-bg-num { color: rgba(168, 150, 104, 0.06); }
+.home-pillar-light .home-pillar-bg-num { color: rgba(20, 20, 26, 0.04); }
+.home-pillar-reverse .home-pillar-bg-num {
+  right: auto;
+  left: 6%;
+}
+
+.home-pillar-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 64px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.home-pillar-reverse .home-pillar-inner {
+  grid-template-columns: 1.1fr 1fr;
+}
+@media (max-width: 900px) {
+  .home-pillar { padding: 64px 20px 72px; }
+  .home-pillar-inner,
+  .home-pillar-reverse .home-pillar-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .home-pillar-reverse .home-pillar-media { order: 2; }
+  .home-pillar-bg-num { font-size: 8rem; top: 20px; }
+}
+
+.home-pillar-eyebrow {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #A89668;
+  margin-bottom: 22px;
+  padding-left: 36px;
+  position: relative;
+}
+.home-pillar-eyebrow::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  width: 26px; height: 1px;
+  background: #A89668;
+}
+.home-pillar-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  margin: 0 0 22px;
+}
+.home-pillar-dark .home-pillar-title { color: #FFFFFF; }
+.home-pillar-light .home-pillar-title { color: #14141A; }
+.home-pillar-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: #A89668;
+  letter-spacing: -0.02em;
+}
+.home-pillar-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.02rem;
+  line-height: 1.6;
+  margin: 0 0 36px;
+  max-width: 480px;
+}
+.home-pillar-dark .home-pillar-desc { color: rgba(255,255,255,0.62); }
+.home-pillar-light .home-pillar-desc { color: #5A554F; }
+
+.home-pillar-stats {
+  display: flex;
+  gap: 32px;
+  margin: 0 0 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid;
+  flex-wrap: wrap;
+}
+.home-pillar-dark .home-pillar-stats { border-color: rgba(255,255,255,0.08); }
+.home-pillar-light .home-pillar-stats { border-color: rgba(20,20,26,0.08); }
+.home-pillar-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.home-pillar-stat .num {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+.home-pillar-dark .home-pillar-stat .num { color: #FFFFFF; }
+.home-pillar-light .home-pillar-stat .num { color: #14141A; }
+.home-pillar-stat .lbl {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.home-pillar-dark .home-pillar-stat .lbl { color: rgba(255,255,255,0.5); }
+.home-pillar-light .home-pillar-stat .lbl { color: rgba(20,20,26,0.45); }
+
+.home-pillar-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background: #A89668;
+  color: #0A0A0A;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.94rem;
+  letter-spacing: 0.01em;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: gap 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 12px 24px rgba(168, 150, 104, 0.28);
+}
+.home-pillar-cta:hover {
+  gap: 18px;
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(168, 150, 104, 0.36);
+}
+.home-pillar-cta svg {
+  width: 16px;
+  height: 16px;
+}
+
+.home-pillar-media {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+}
+.home-pillar-light .home-pillar-media {
+  box-shadow: 0 30px 60px rgba(20, 20, 26, 0.18);
+}
+.home-pillar-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 50%, rgba(168, 150, 104, 0.12));
+  pointer-events: none;
+}
+.home-pillar-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s ease;
+}
+.home-pillar:hover .home-pillar-media img {
+  transform: scale(1.04);
+}
+.home-pillar-media-badge {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 100px;
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  z-index: 2;
+}
+.home-pillar-media-badge .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #A89668;
+  box-shadow: 0 0 12px #A89668;
+  animation: home-pillar-pulse 1.8s ease-in-out infinite;
+}
+@keyframes home-pillar-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* =============================================================
    HOME - CTA blocks (Reprise / Lavage)
    ============================================================= */
 .home-cta-block {
