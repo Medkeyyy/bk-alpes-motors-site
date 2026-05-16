@@ -8567,7 +8567,7 @@ body, html {
 
 /* Sections plates alternées clair/sombre (PAS de photo background répétée) */
 .tesla-flat {
-  padding: 90px 24px;
+  padding: 60px 24px;
 }
 .tesla-flat.dark {
   background: var(--bg-dark);
@@ -11684,7 +11684,7 @@ html .nav-burger {
    ============================================================= */
 .reprise-section {
   background: #FFFFFF;
-  padding: 32px 64px 64px;
+  padding: 24px 64px 40px;
 }
 @media (max-width: 880px) {
   .reprise-section { padding: 20px 24px 40px; }
@@ -12947,7 +12947,7 @@ html .nav-burger {
    ============================================================= */
 .vehicle-similar {
   background: #FFFFFF;
-  padding: 70px 24px 90px;
+  padding: 50px 24px 60px;
 }
 .vehicle-similar-inner {
   max-width: 1340px;
@@ -14367,7 +14367,7 @@ html .nav-burger {
    ============================================================= */
 .home-steps {
   background: #FFFFFF;
-  padding: 100px 24px;
+  padding: 64px 24px;
 }
 .home-steps-inner {
   max-width: 1280px;
@@ -14460,7 +14460,7 @@ html .nav-burger {
    ============================================================= */
 .reprise-page-section {
   background: #FFFFFF;
-  padding: 80px 24px 100px;
+  padding: 56px 24px 64px;
 }
 .reprise-page-inner {
   max-width: 980px;
@@ -15903,54 +15903,53 @@ html .nav-burger {
 /* ----- HERO ----- */
 .lav-hero {
   background: linear-gradient(180deg, #FAFAFA 0%, #FFFFFF 100%);
-  padding: 140px 24px 60px;
+  padding: 120px 24px 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+/* Lueurs externes dorées sur les côtés (style cleanned, mais doré moutarde DA) */
+.lav-hero-glow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 45%;
+  pointer-events: none;
+  z-index: 0;
+}
+.lav-hero-glow-left {
+  left: 0;
+  background: radial-gradient(ellipse 60% 80% at 0% 50%,
+    rgba(168,150,104,0.55) 0%,
+    rgba(168,150,104,0.25) 25%,
+    rgba(168,150,104,0.08) 50%,
+    transparent 75%);
+}
+.lav-hero-glow-right {
+  right: 0;
+  background: radial-gradient(ellipse 60% 80% at 100% 50%,
+    rgba(168,150,104,0.55) 0%,
+    rgba(168,150,104,0.25) 25%,
+    rgba(168,150,104,0.08) 50%,
+    transparent 75%);
 }
 .lav-hero-inner {
-  max-width: 920px;
+  max-width: 1100px;
   width: 100%;
   text-align: center;
-}
-.lav-hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: #FFFFFF;
-  border: 1px solid var(--lav-border);
-  padding: 8px 18px;
-  border-radius: 100px;
-  margin-bottom: 32px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: var(--lav-text-soft);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-}
-.lav-hero-badge-main { color: var(--lav-text); font-weight: 600; }
-.lav-hero-badge-main::after { content: '·'; margin: 0 10px; color: #CFCFCF; }
-.lav-hero-badge-loc { color: var(--lav-text-soft); }
-.lav-hero-badge-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--lav-success);
-  box-shadow: 0 0 0 3px rgba(45,142,71,0.2);
-  flex-shrink: 0;
-  animation: lav-pulse 2s ease infinite;
-}
-@keyframes lav-pulse {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(45,142,71,0.2); }
-  50% { box-shadow: 0 0 0 6px rgba(45,142,71,0.1); }
+  position: relative;
+  z-index: 1;
 }
 .lav-hero-title {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(2.5rem, 5vw, 4.4rem);
-  line-height: 1.05;
+  font-size: clamp(2.2rem, 4.6vw, 4rem);
+  line-height: 1.08;
   letter-spacing: -0.025em;
   color: var(--lav-text);
   font-weight: 800;
-  margin: 0 0 22px;
+  margin: 0 0 20px;
 }
 .lav-hero-title-line {
   display: block;
@@ -16064,7 +16063,7 @@ html .nav-burger {
 /* ----- KPI ----- */
 .lav-kpi {
   background: var(--lav-bg);
-  padding: 80px 24px 60px;
+  padding: 56px 24px 40px;
 }
 .lav-kpi-card {
   max-width: 1080px;
@@ -16115,7 +16114,7 @@ html .nav-burger {
 .lav-onsite {
   background: var(--lav-text);
   color: #FFFFFF;
-  padding: 100px 24px;
+  padding: 64px 24px;
 }
 .lav-onsite-inner {
   max-width: 1180px;
@@ -16212,9 +16211,8 @@ html .nav-burger {
 }
 
 /* ----- SECTION HEADER (réutilisable) ----- */
-.lav-section-header {
-  max-width: 880px;
-  margin: 0 auto 48px;
+.lav-section-header {max-width: 880px;
+  margin: 0 auto 32px;
   text-align: center;
   padding: 0 24px;
 }
@@ -16244,7 +16242,7 @@ html .nav-burger {
 /* ----- PRESTATIONS / CARDS ----- */
 .lav-prestations {
   background: var(--lav-bg);
-  padding: 100px 24px 100px;
+  padding: 64px 24px 64px;
 }
 .lav-vehicle-filter {
   display: flex;
@@ -16421,7 +16419,7 @@ html .nav-burger {
 /* ----- BEFORE / AFTER ----- */
 .lav-ba {
   background: var(--lav-bg-alt);
-  padding: 100px 24px;
+  padding: 64px 24px;
 }
 .lav-ba-grid {
   display: grid;
@@ -16506,7 +16504,7 @@ html .nav-burger {
 /* ----- REVIEWS ----- */
 .lav-reviews {
   background: var(--lav-bg);
-  padding: 100px 0;
+  padding: 64px 0;
 }
 .lav-reviews-wrap {
   overflow: hidden;
@@ -16585,7 +16583,7 @@ html .nav-burger {
 /* ----- FAQ ----- */
 .lav-faq {
   background: var(--lav-bg-alt);
-  padding: 100px 24px;
+  padding: 64px 24px;
 }
 .lav-faq-list {
   max-width: 800px;
@@ -16645,7 +16643,7 @@ html .nav-burger {
 /* ----- ZONE ----- */
 .lav-zone {
   background: var(--lav-bg);
-  padding: 100px 24px;
+  padding: 64px 24px;
 }
 .lav-zone-grid {
   max-width: 1180px;
@@ -16714,7 +16712,7 @@ html .nav-burger {
 .lav-contact {
   background: var(--lav-text);
   color: #FFFFFF;
-  padding: 100px 24px;
+  padding: 64px 24px;
 }
 .lav-contact-inner {
   max-width: 800px;
@@ -17347,7 +17345,7 @@ html .nav-burger {
    ============================================================= */
 .lav-vidcaro {
   background: #14141A;
-  padding: 70px 0 30px;
+  padding: 50px 0 24px;
   overflow: hidden;
 }
 .lav-vidcaro-header {
