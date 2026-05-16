@@ -11832,9 +11832,6 @@ html .nav-burger {
   width: max-content;
   animation: brands-scroll 40s linear infinite;
 }
-.brands-marquee:hover .brands-marquee-track {
-  animation-play-state: paused;
-}
 
 .brands-marquee-item {
   display: inline-flex;
