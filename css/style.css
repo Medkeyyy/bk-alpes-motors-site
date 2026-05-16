@@ -18879,7 +18879,7 @@ html .nav-burger {
    HOME - Section Lavage avec carousel vidéos (variante de .lav-vidcaro)
    ============================================================= */
 .lav-vidcaro.home-lavage-vidcaro {
-  padding: 48px 0 72px;
+  padding: 48px 0 36px;
 }
 .lav-vidcaro.home-lavage-vidcaro .lav-vidcaro-header {
   max-width: 760px;
@@ -18924,8 +18924,8 @@ html .nav-burger {
   align-items: center;
   justify-content: center;
   gap: 28px;
-  margin-top: 12px;
-  padding: 16px 24px 0;
+  margin-top: 0;
+  padding: 4px 24px 0;
   text-align: center;
 }
 .home-lavage-foot .home-pillar-cta {
