@@ -16947,26 +16947,52 @@ html .nav-burger {
   background: var(--lav-text);
   color: #FFFFFF;
   padding: 64px 24px;
+  position: relative;
+  overflow: hidden;
+}
+/* Petites lueurs dorées subtiles sur les côtés */
+.lav-contact::before,
+.lav-contact::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 30%;
+  pointer-events: none;
+  opacity: 0.35;
+}
+.lav-contact::before {
+  left: 0;
+  background: radial-gradient(ellipse 70% 80% at 0% 50%,
+    rgba(168,150,104,0.45) 0%, rgba(168,150,104,0.12) 35%, transparent 70%);
+}
+.lav-contact::after {
+  right: 0;
+  background: radial-gradient(ellipse 70% 80% at 100% 50%,
+    rgba(168,150,104,0.45) 0%, rgba(168,150,104,0.12) 35%, transparent 70%);
 }
 .lav-contact-inner {
-  max-width: 800px;
+  max-width: 880px;
   margin: 0 auto;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 .lav-contact h2 {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(2rem, 3.6vw, 3rem);
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
   font-weight: 800;
   letter-spacing: -0.02em;
-  margin: 0 0 16px;
+  line-height: 1.15;
+  margin: 12px 0 14px;
   color: #FFFFFF;
 }
 .lav-contact p {
   font-family: 'Inter', sans-serif;
-  font-size: 1.05rem;
-  color: rgba(255,255,255,0.7);
-  line-height: 1.65;
-  margin: 0 0 28px;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.6;
+  margin: 0 auto 24px;
+  max-width: 620px;
 }
 .lav-contact-actions {
   display: flex;
@@ -16996,7 +17022,12 @@ html .nav-burger {
   flex-direction: column;
   gap: 4px;
   font-family: 'Inter', sans-serif;
-  margin-top: 14px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .lav-contact-availability strong {
   font-size: 0.95rem;
