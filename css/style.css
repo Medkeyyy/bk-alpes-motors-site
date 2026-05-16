@@ -9489,6 +9489,43 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-links a.active {
   background: linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.25) 40%, rgba(10,10,10,0.85) 100%);
 }
 
+/* --- Variante Tesla-style : texte épuré au-dessus, sans bandeau sombre --- */
+.home-slide--clean { justify-content: flex-start; padding-top: 130px; padding-bottom: 100px; }
+.home-slide--clean .home-slide-media::after {
+  background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 70%, rgba(10,10,10,0.25) 100%);
+}
+.home-slide--clean .home-slide-content {
+  margin-top: 0;
+  gap: 8px;
+}
+.home-slide--clean .home-slide-eyebrow {
+  color: rgba(20, 20, 26, 0.65);
+  text-shadow: 0 1px 6px rgba(255,255,255,0.4);
+}
+.home-slide--clean .home-slide-title {
+  color: #14141A;
+  font-weight: 500;
+  text-shadow: 0 2px 12px rgba(255,255,255,0.35);
+  letter-spacing: -0.02em;
+}
+.home-slide--clean .home-slide-sub {
+  color: rgba(20, 20, 26, 0.75);
+  text-shadow: 0 1px 8px rgba(255,255,255,0.35);
+  margin-bottom: 28px;
+}
+.home-slide--clean .home-slide-actions {
+  margin-top: 4px;
+}
+.home-slide--clean .home-slide-btn-primary {
+  background: rgba(20,20,26,0.92);
+  color: #FFFFFF;
+}
+.home-slide--clean .home-slide-btn-ghost {
+  background: rgba(255,255,255,0.92);
+  color: #14141A;
+  border-color: rgba(255,255,255,0.5);
+}
+
 .home-slide-content {
   position: relative;
   z-index: 2;
