@@ -12946,7 +12946,7 @@ html .nav-burger {
    SECTION "VOUS AIMERIEZ AUSSI" sur pages véhicule
    ============================================================= */
 .vehicle-similar {
-  background: #F4F4F5;
+  background: #FFFFFF;
   padding: 70px 24px 90px;
 }
 .vehicle-similar-inner {
@@ -12956,17 +12956,133 @@ html .nav-burger {
 .vehicle-similar-title {
   font-family: 'Inter', sans-serif;
   font-weight: 700;
-  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
   color: #14141A;
-  margin: 0 0 28px;
+  margin: 0 0 36px;
+  letter-spacing: -0.01em;
 }
 .vehicle-similar-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  gap: 16px;
 }
 @media (max-width: 980px) { .vehicle-similar-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .vehicle-similar-grid { grid-template-columns: 1fr; } }
+
+/* === Override style des cards dans 'Vous aimeriez aussi' === */
+/* Style Tesla-feature card : fond gris clair, icône brand top, titre, meta, prix === */
+.vehicle-similar .vente-car {
+  background: #F4F4F5 !important;
+  border: none !important;
+  border-radius: 18px !important;
+  padding: 36px 32px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  text-decoration: none;
+  transition: background 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease !important;
+}
+.vehicle-similar .vente-car:hover {
+  background: #ECECEE !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.06) !important;
+}
+
+/* Icône silhouette voiture en haut (à la place de la photo) */
+.vehicle-similar .vente-car-photo {
+  order: 1;
+  width: 56px !important;
+  height: 56px !important;
+  aspect-ratio: 1 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  margin: 0 0 24px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+}
+.vehicle-similar .vente-car-photo svg {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  fill: #14141A !important;
+}
+.vehicle-similar .vente-car-photo img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+}
+
+/* Header (eyebrow brand + année) */
+.vehicle-similar .vente-car-header {
+  order: 2 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 10px !important;
+}
+.vehicle-similar .vente-car-brand {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: #7A7670 !important;
+  background: rgba(20,20,26,0.06);
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+.vehicle-similar .vente-car-year {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.78rem !important;
+  font-weight: 500 !important;
+  color: #7A7670 !important;
+  letter-spacing: 0 !important;
+}
+.vehicle-similar .vente-car-year::before {
+  content: '· ';
+}
+
+/* Titre */
+.vehicle-similar .vente-car-name {
+  order: 3 !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  color: #14141A !important;
+  margin: 0 0 12px !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Footer (km + prix) */
+.vehicle-similar .vente-car-footer {
+  order: 4 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: baseline !important;
+  margin-top: auto !important;
+  padding-top: 18px !important;
+  border-top: 1px solid rgba(20,20,26,0.08) !important;
+}
+.vehicle-similar .vente-car-km {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.86rem !important;
+  font-weight: 500 !important;
+  color: #7A7670 !important;
+  letter-spacing: 0 !important;
+}
+.vehicle-similar .vente-car-price {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 1.15rem !important;
+  font-weight: 800 !important;
+  color: #14141A !important;
+  letter-spacing: -0.01em !important;
+}
 
 
 /* =============================================================
@@ -16772,14 +16888,12 @@ html .nav-burger {
 .rdt-gallery {
   display: grid;
   grid-template-columns: 1.85fr 1fr;
-  gap: 10px;
+  gap: 6px;
   margin-bottom: 24px;
-  max-height: 360px;
 }
 .rdt-gallery-main {
   position: relative;
   aspect-ratio: 16/9;
-  max-height: 360px;
   background: linear-gradient(135deg, #F4F4F5 0%, #E9E9EA 100%);
   border-radius: 12px;
   overflow: hidden;
@@ -16820,7 +16934,8 @@ html .nav-burger {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 10px;
+  gap: 6px;
+  align-self: stretch;
 }
 .rdt-thumb {
   position: relative;
