@@ -15531,6 +15531,103 @@ html .nav-burger {
   gap: 12px;
   position: relative;
 }
+
+/* --- Variante horizontale style Pourquoi nous --- */
+.reprise-why-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+.reprise-why-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 28px;
+  background: #14141A;
+  color: #FFFFFF;
+  border-radius: 14px;
+  padding: 26px 96px 26px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease;
+}
+.reprise-why-row.light {
+  background: #FFFFFF;
+  color: #14141A;
+  box-shadow: 0 8px 24px rgba(20, 20, 26, 0.06);
+}
+.reprise-why-row:hover {
+  transform: translateY(-2px);
+}
+.reprise-why-row-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+.reprise-why-row-title span {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.55);
+}
+.reprise-why-row.light .reprise-why-row-title span {
+  color: rgba(20, 20, 26, 0.45);
+}
+.reprise-why-row p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.62);
+  margin: 0;
+  max-width: 720px;
+}
+.reprise-why-row.light p { color: rgba(20, 20, 26, 0.65); }
+.reprise-why-row-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #A89668;
+  padding: 9px 18px;
+  border-radius: 100px;
+  border: 1px solid rgba(168, 150, 104, 0.35);
+  background: rgba(168, 150, 104, 0.08);
+  white-space: nowrap;
+}
+.reprise-why-row.light .reprise-why-row-meta {
+  border-color: rgba(168, 150, 104, 0.5);
+  background: rgba(168, 150, 104, 0.12);
+}
+.reprise-why-row-arrow {
+  position: absolute;
+  bottom: 18px;
+  right: 22px;
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+.reprise-why-row.light .reprise-why-row-arrow {
+  background: rgba(20, 20, 26, 0.06);
+  color: #14141A;
+}
+@media (max-width: 720px) {
+  .reprise-why-row {
+    grid-template-columns: 1fr;
+    padding: 22px 22px 56px;
+  }
+  .reprise-why-row-meta { justify-self: start; }
+}
 .reprise-step {
   background: #FFFFFF;
   border: 1px solid #EEEEF0;
