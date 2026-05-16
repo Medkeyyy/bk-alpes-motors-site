@@ -10476,6 +10476,81 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-links a.active {
 }
 .vlx-form button:hover { background: var(--bg-alt); }
 
+/* --- Bloc "Où nous trouver" (remplace le formulaire) --- */
+.vlx-final-eyebrow {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #A89668;
+  margin-bottom: 14px;
+}
+.vlx-contact-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 28px 30px;
+  backdrop-filter: blur(6px);
+}
+.vlx-contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 10px 0;
+}
+.vlx-contact-row + .vlx-contact-row {
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.vlx-contact-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: rgba(168, 150, 104, 0.12);
+  border: 1px solid rgba(168, 150, 104, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #A89668;
+  flex-shrink: 0;
+}
+.vlx-contact-icon svg {
+  width: 18px;
+  height: 18px;
+}
+.vlx-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 2px;
+}
+.vlx-contact-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+.vlx-contact-value {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  text-decoration: none;
+  line-height: 1.45;
+  transition: color 0.2s ease;
+}
+a.vlx-contact-value:hover { color: #A89668; }
+@media (max-width: 720px) {
+  .vlx-contact-card { padding: 22px 20px; }
+  .vlx-contact-value { font-size: 0.95rem; }
+}
+
 /* =============================================================
    Adapt slider Tesla : on enlève les nuances dorées agressives
    ============================================================= */
