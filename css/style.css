@@ -10476,37 +10476,75 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-links a.active {
 }
 .vlx-form button:hover { background: var(--bg-alt); }
 
-/* --- Bloc "Où nous trouver" (remplace le formulaire) --- */
+/* --- Bloc "Passez nous voir" (centré + tuiles) --- */
+.vlx-final-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 70px 24px 90px;
+}
+.vlx-final-head {
+  text-align: center;
+  margin-bottom: 44px;
+}
 .vlx-final-eyebrow {
   display: inline-block;
   font-family: 'Inter', sans-serif;
-  font-size: 0.74rem;
+  font-size: 0.76rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: #A89668;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 }
-.vlx-contact-card {
+.vlx-final-head h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin: 0 0 16px;
+  color: #FFFFFF;
+}
+.vlx-final-head p {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.55;
+  margin: 0 auto;
+  max-width: 580px;
+}
+
+.vlx-final-tiles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+@media (max-width: 900px) {
+  .vlx-final-tiles { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 540px) {
+  .vlx-final-tiles { grid-template-columns: 1fr; }
+}
+.vlx-final-tile {
+  position: relative;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 22px 22px 24px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 20px;
-  padding: 28px 30px;
-  backdrop-filter: blur(6px);
+  gap: 8px;
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
 }
-.vlx-contact-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 10px 0;
+.vlx-final-tile:hover:not(.vlx-final-tile-static) {
+  border-color: rgba(168, 150, 104, 0.5);
+  background: rgba(168, 150, 104, 0.06);
+  transform: translateY(-2px);
 }
-.vlx-contact-row + .vlx-contact-row {
-  border-top: 1px solid rgba(255,255,255,0.06);
-}
-.vlx-contact-icon {
+.vlx-final-tile-icon {
   width: 42px;
   height: 42px;
   border-radius: 12px;
@@ -10516,39 +10554,81 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-links a.active {
   align-items: center;
   justify-content: center;
   color: #A89668;
-  flex-shrink: 0;
+  margin-bottom: 6px;
 }
-.vlx-contact-icon svg {
+.vlx-final-tile-icon svg {
   width: 18px;
   height: 18px;
 }
-.vlx-contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding-top: 2px;
-}
-.vlx-contact-label {
+.vlx-final-tile-label {
   font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.5);
 }
-.vlx-contact-value {
+.vlx-final-tile-value {
   font-family: 'Inter', sans-serif;
-  font-size: 1rem;
+  font-size: 0.98rem;
   font-weight: 500;
   color: #FFFFFF;
-  text-decoration: none;
   line-height: 1.45;
-  transition: color 0.2s ease;
 }
-a.vlx-contact-value:hover { color: #A89668; }
-@media (max-width: 720px) {
-  .vlx-contact-card { padding: 22px 20px; }
-  .vlx-contact-value { font-size: 0.95rem; }
+.vlx-final-tile-arrow {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.vlx-final-tile:hover .vlx-final-tile-arrow {
+  background: #A89668;
+  color: #14141A;
+}
+
+.vlx-final-foot {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+.vlx-final-social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 100px;
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+.vlx-final-social-btn:hover {
+  border-color: #A89668;
+  background: rgba(168, 150, 104, 0.08);
+  color: #A89668;
+}
+.vlx-final-social-btn svg {
+  width: 16px;
+  height: 16px;
+}
+@media (max-width: 540px) {
+  .vlx-final-inner { padding: 50px 20px 64px; }
+  .vlx-final-head { margin-bottom: 32px; }
 }
 
 /* =============================================================
