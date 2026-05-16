@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778917796" />
+  <link rel="stylesheet" href="css/style.css?v=1778919053" />
 </head>
 <body>
 
@@ -405,135 +405,9 @@
   </a>
 
   <script>
-    // ============ DEMOS HARDCODÉS (10 véhicules statiques de la page location) ============
+    // ============ HELPERS ============
     const PLACEHOLDER_SVG = '<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><path d="M10 55 C 10 50, 14 47, 20 47 L 30 47 C 32 36, 40 28, 55 28 L 130 28 C 145 28, 155 36, 162 47 L 180 47 C 186 47, 190 50, 190 55 L 190 60 C 190 64, 186 67, 182 67 L 168 67 C 165 73, 160 76, 154 76 C 148 76, 143 73, 140 67 L 60 67 C 57 73, 52 76, 46 76 C 40 76, 35 73, 32 67 L 18 67 C 14 67, 10 64, 10 60 Z M 46 55 C 50 55, 53 58, 53 62 C 53 66, 50 69, 46 69 C 42 69, 39 66, 39 62 C 39 58, 42 55, 46 55 Z M 154 55 C 158 55, 161 58, 161 62 C 161 66, 158 69, 154 69 C 150 69, 147 66, 147 62 C 147 58, 150 55, 154 55 Z M 55 35 L 70 47 L 130 47 L 145 35 Z"/></svg>';
 
-    const STATIC_RENTALS = {
-      "porsche-911-turbo-s": {
-        brand: "Porsche", name: "911 Turbo S", year: "2023", places: "2 places", type: "Sport",
-        basePrice: 1200, deposit: 8000, kmIncluded: "200 km / jour", minAge: 25,
-        puissance: "650 ch", carburant: "Essence", boite: "DCT 8 rapports", couleur: "Gris GT Argenté",
-        acceleration: "2,7 s (0-100)", consoMixte: "11,1 L/100km",
-        description: "La référence absolue des sportives. Cette 911 Turbo S combine une transmission intégrale, un boxer 6 cylindres biturbo de 650 ch et des sensations qui n'existent nulle part ailleurs. Préparation impeccable, intérieur cuir bicolore, options Sport Chrono et toit ouvrant panoramique.",
-        features: ["Pack Sport Chrono", "Sièges sport adaptatifs 18 voies", "Audio Burmester 855W", "Carbon Ceramic Brakes (PCCB)", "Suspension PASM Sport", "Toit ouvrant panoramique", "Caméra 360°", "Phares LED Matrix"]
-      },
-      "audi-rs6-avant-performance": {
-        brand: "Audi", name: "RS6 Avant Performance", year: "2022", places: "5 places", type: "Berline",
-        basePrice: 850, deposit: 6000, kmIncluded: "200 km / jour", minAge: 25,
-        puissance: "630 ch", carburant: "Essence Mild Hybrid", boite: "Tiptronic 8 rapports", couleur: "Nardo Grey",
-        acceleration: "3,4 s (0-100)", consoMixte: "12,1 L/100km",
-        description: "Le break sportif ultime. Le V8 4.0 TFSI Performance de 630 ch transforme cette familiale en supercar. Quattro permanent, suspension pneumatique, son APR sport. Idéal pour avaler les kilomètres en famille ou attaquer un col alpin.",
-        features: ["Pack Dynamic Plus", "Sièges RS sport en cuir Valcona", "Bang & Olufsen 1820W", "Carbon Ceramic Brakes optionnels", "Quattro Sport Differential", "Suspension pneumatique adaptative", "Pack carbone intérieur", "Phares Matrix LED HD"]
-      },
-      "mercedes-amg-gt-63s": {
-        brand: "Mercedes-AMG", name: "GT 63 S 4-Door", year: "2023", places: "5 places", type: "GT 4 portes",
-        basePrice: 950, deposit: 7000, kmIncluded: "200 km / jour", minAge: 28,
-        puissance: "639 ch", carburant: "Essence", boite: "AMG Speedshift MCT 9G", couleur: "Noir Obsidian",
-        acceleration: "3,2 s (0-100)", consoMixte: "11,8 L/100km",
-        description: "La GT 4 portes la plus performante de Stuttgart. Bi-turbo V8 4.0L de 639 ch, 4Matic+, direction intégrale, ambiance grand tourisme moderne avec écrans MBUX géants. Le compromis parfait entre performance et confort.",
-        features: ["AMG Dynamic Plus", "Direction intégrale", "Sièges AMG performance ventilés", "Burmester 3D Surround", "MBUX double écran 12.3''", "Toit panoramique", "Pack Night Edition", "Echappement AMG Performance"]
-      },
-      "bmw-m5-competition": {
-        brand: "BMW", name: "M5 Competition", year: "2022", places: "5 places", type: "Berline",
-        basePrice: 650, deposit: 5000, kmIncluded: "200 km / jour", minAge: 25,
-        puissance: "625 ch", carburant: "Essence", boite: "M Steptronic 8 rapports", couleur: "Brands Hatch Grey",
-        acceleration: "3,3 s (0-100)", consoMixte: "10,8 L/100km",
-        description: "Une icône M-Power dans sa déclinaison la plus aboutie. V8 4.4L bi-turbo de 625 ch, M xDrive avec mode 2WD pour les vrais. Sellerie cuir Merino, freins carbone-céramique, M Driver's Package pour les circuits.",
-        features: ["M Driver's Package (305 km/h)", "Carbon Ceramic Brakes", "M xDrive (mode 2WD)", "Sièges M Sport en cuir Merino", "Bowers & Wilkins Diamond", "Pack carbone extérieur", "Affichage tête haute couleur", "Caméra Surround"]
-      },
-      "range-rover-sport-svr": {
-        brand: "Range Rover", name: "Sport SVR", year: "2023", places: "5 places", type: "SUV",
-        basePrice: 780, deposit: 6000, kmIncluded: "200 km / jour", minAge: 25,
-        puissance: "575 ch", carburant: "Essence", boite: "ZF 8 rapports", couleur: "SVO Premium Black",
-        acceleration: "4,5 s (0-100)", consoMixte: "13,5 L/100km",
-        description: "Le SUV de luxe le plus rapide jamais conçu par Land Rover. V8 5.0L supercharged, son d'échappement orchestré, capacités tout-terrain Range Rover intactes. Idéal Annecy-Megève en hiver.",
-        features: ["Sport SVR Specification", "Sièges en cuir Windsor", "Meridian Reference 1700W", "Suspension pneumatique adaptative", "Terrain Response 2", "Mode tout-terrain", "Caméra ClearSight 360°", "Toit panoramique"]
-      },
-      "lamborghini-urus": {
-        brand: "Lamborghini", name: "Urus", year: "2022", places: "5 places", type: "Super SUV",
-        basePrice: 1400, deposit: 12000, kmIncluded: "150 km / jour", minAge: 30,
-        puissance: "650 ch", carburant: "Essence", boite: "ZF 8 rapports", couleur: "Giallo Auge",
-        acceleration: "3,6 s (0-100)", consoMixte: "12,7 L/100km",
-        description: "Le Super SUV qui a redéfini la catégorie. V8 4.0L bi-turbo de 650 ch partagé avec la RS6 mais avec l'ADN Lamborghini. 6 modes de conduite, freins carbo-céramique de série. L'expérience SUV la plus radicale.",
-        features: ["Mode Strada/Sport/Corsa/Neve/Terra/Sabbia", "Carbon Ceramic Brakes", "Sièges Q-Citura", "Bang & Olufsen 3D", "Echappement Akrapovic", "Pack Black Style", "Suspension pneumatique active", "Direction intégrale"]
-      },
-      "aston-martin-vantage": {
-        brand: "Aston Martin", name: "Vantage", year: "2023", places: "2 places", type: "Sport",
-        basePrice: 950, deposit: 8000, kmIncluded: "200 km / jour", minAge: 28,
-        puissance: "510 ch", carburant: "Essence", boite: "ZF 8 rapports", couleur: "Skyfall Silver",
-        acceleration: "3,6 s (0-100)", consoMixte: "11,4 L/100km",
-        description: "L'âme James Bond, l'élégance britannique pure. V8 4.0L AMG préparé par Aston Martin, châssis taillé pour la conduite engagée. Habitacle cuir cousu main, console centrale carbone. Le grand tourisme à l'anglaise.",
-        features: ["Sport Plus Pack", "Sièges sport en cuir Caithness", "Bang & Olufsen BeoSound", "Echappement sport titane", "Suspension adaptative", "Différentiel sport électronique", "Carbon Pack intérieur", "Phares LED matriciels"]
-      },
-      "ferrari-296-gtb": {
-        brand: "Ferrari", name: "296 GTB", year: "2023", places: "2 places", type: "Sport",
-        basePrice: 1800, deposit: 15000, kmIncluded: "150 km / jour", minAge: 30,
-        puissance: "830 ch", carburant: "Hybride essence", boite: "F1 DCT 8 rapports", couleur: "Rosso Corsa",
-        acceleration: "2,9 s (0-100)", consoMixte: "8,7 L/100km",
-        description: "Le manifeste Ferrari moderne. V6 3.0L bi-turbo hybride totalisant 830 ch, mode 100% électrique sur 25 km. Châssis affiné, son sublimé. La nouvelle référence des supercars de route. Préparation Ferrari Approved.",
-        features: ["Assetto Fiorano (pack circuit)", "Carbon Ceramic Brakes Brembo", "Sièges Daytona en cuir et alcantara", "JBL Pro Audio", "Mode 100% électrique (25 km)", "Manettino + eManettino", "Side Slip Control 8.0", "Suspension SCM-Frs"]
-      },
-      "bentley-continental-gt": {
-        brand: "Bentley", name: "Continental GT V8", year: "2022", places: "4 places", type: "GT",
-        basePrice: 1200, deposit: 10000, kmIncluded: "200 km / jour", minAge: 28,
-        puissance: "550 ch", carburant: "Essence", boite: "DCT 8 rapports", couleur: "Glacier White",
-        acceleration: "4,0 s (0-100)", consoMixte: "12,2 L/100km",
-        description: "Le grand tourisme à l'état pur. V8 4.0L bi-turbo de 550 ch, traction intégrale, habitacle entièrement cuir cousu main. 4 places de configuration grand luxe. Le voyage devient une destination en soi.",
-        features: ["Mulliner Driving Specification", "Sièges 20 voies cuir Linen", "Bang & Olufsen for Bentley", "Bois de marqueterie au choix", "Suspension pneumatique 3 chambres", "Direction active toutes roues", "Toit panoramique", "Phares LED Matrix"]
-      },
-      "porsche-cayenne-turbo-gt": {
-        brand: "Porsche", name: "Cayenne Turbo GT", year: "2023", places: "5 places", type: "Super SUV",
-        basePrice: 780, deposit: 6500, kmIncluded: "200 km / jour", minAge: 25,
-        puissance: "640 ch", carburant: "Essence", boite: "Tiptronic S 8 rapports", couleur: "Arctic Grey",
-        acceleration: "3,3 s (0-100)", consoMixte: "13,1 L/100km",
-        description: "Le SUV le plus rapide du Nürburgring. V8 4.0L bi-turbo de 640 ch, châssis surbaissé, freins PCCB de 440 mm. Carbone partout, audio Burmester, l'esprit GT3 dans un format familial. Pour les amateurs éclairés.",
-        features: ["Pack Turbo GT Sport", "Carbon Ceramic Brakes (PCCB) 440mm", "Sièges sport adaptatifs 18 voies cuir/alcantara", "Burmester 3D 21 HP", "Suspension PASM avec mode Sport Plus", "Mode Sport Response", "Pack carbone extérieur", "Echappement sport titane"]
-      }
-    };
-
-    const OPT_PRICES = { driver2: 25, unlimitedKm: 60, insurancePlus: 45, childSeat: 8 };
-    const DURATION_TIERS = [
-      { d: 1, pct: 0 }, { d: 3, pct: 0.10 }, { d: 7, pct: 0.18 },
-      { d: 14, pct: 0.25 }, { d: 30, pct: 0.35 },
-    ];
-    function getDiscountFor(days) {
-      if (days <= 1) return 0;
-      for (let i = 0; i < DURATION_TIERS.length - 1; i++) {
-        const a = DURATION_TIERS[i], b = DURATION_TIERS[i + 1];
-        if (days >= a.d && days <= b.d) {
-          const t = (days - a.d) / (b.d - a.d);
-          return a.pct + (b.pct - a.pct) * t;
-        }
-      }
-      return DURATION_TIERS[DURATION_TIERS.length - 1].pct;
-    }
-    function daysBetween(d1, t1, d2, t2) {
-      if (!d1 || !d2) return 0;
-      const a = new Date(`${d1}T${t1 || '00:00'}`);
-      const b = new Date(`${d2}T${t2 || '00:00'}`);
-      const ms = b.getTime() - a.getTime();
-      if (isNaN(ms) || ms <= 0) return 0;
-      return Math.max(1, Math.ceil(ms / (1000 * 60 * 60 * 24)));
-    }
-    function fmtPrice(n) {
-      return Math.round(n).toLocaleString('fr-FR').replace(/,/g, ' ');
-    }
-
-    // ============ NAV ============
-    const navbar = document.getElementById('navbar');
-    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 30);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    const burger = document.getElementById('navBurger');
-    const navMobile = document.getElementById('navMobile');
-    if (burger && navMobile) {
-      burger.addEventListener('click', () => {
-        burger.classList.toggle('open');
-        navMobile.classList.toggle('open');
-      });
-    }
-
-    // ============ LOAD VEHICLE FROM URL ============
     const params = new URLSearchParams(window.location.search);
     const vehicleId = params.get('id');
 
@@ -543,11 +417,6 @@
     }
 
     function findVehicle(id) {
-      // 1. Static demos
-      if (STATIC_RENTALS[id]) {
-        return { ...STATIC_RENTALS[id], id, source: 'demo' };
-      }
-      // 2. Admin
       const admin = loadAdminRentals().find(v => v.id === id);
       if (admin) {
         return {

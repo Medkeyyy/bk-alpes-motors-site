@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778917796" />
+  <link rel="stylesheet" href="css/style.css?v=1778919053" />
 </head>
 <body>
 
@@ -160,27 +160,13 @@
 
       const CAR_SVG = '<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><path d="M10 55 C 10 50, 14 47, 20 47 L 30 47 C 32 36, 40 28, 55 28 L 130 28 C 145 28, 155 36, 162 47 L 180 47 C 186 47, 190 50, 190 55 L 190 60 C 190 64, 186 67, 182 67 L 168 67 C 165 73, 160 76, 154 76 C 148 76, 143 73, 140 67 L 60 67 C 57 73, 52 76, 46 76 C 40 76, 35 73, 32 67 L 18 67 C 14 67, 10 64, 10 60 Z M 46 55 C 50 55, 53 58, 53 62 C 53 66, 50 69, 46 69 C 42 69, 39 66, 39 62 C 39 58, 42 55, 46 55 Z M 154 55 C 158 55, 161 58, 161 62 C 161 66, 158 69, 154 69 C 150 69, 147 66, 147 62 C 147 58, 150 55, 154 55 Z M 55 35 L 70 47 L 130 47 L 145 35 Z"/></svg>';
 
-      // Fallback : véhicules statiques pour la section 'Vous aimeriez aussi'
-      const STATIC_SIMILAR = [
-        { slug: 'porsche-911-turbo-s',         brand: 'Porsche',      name: '911 Turbo S',          year: '2023', km: '18 500 km', price: 215000, type: 'sport',   typeLabel: 'Sport' },
-        { slug: 'audi-rs6-avant-performance',  brand: 'Audi',         name: 'RS6 Avant Performance',year: '2022', km: '25 000 km', price: 145000, type: 'berline', typeLabel: 'Berline' },
-        { slug: 'mercedes-amg-gt-63s',         brand: 'Mercedes-AMG', name: 'GT 63 S 4-Door',       year: '2023', km: '12 000 km', price: 175000, type: 'berline', typeLabel: 'Berline' },
-        { slug: 'bmw-m5-competition',          brand: 'BMW',          name: 'M5 Competition',       year: '2022', km: '30 000 km', price: 110000, type: 'berline', typeLabel: 'Berline' },
-        { slug: 'range-rover-sport-svr',       brand: 'Range Rover',  name: 'Sport SVR',            year: '2023', km: '18 000 km', price: 165000, type: 'suv',     typeLabel: 'SUV' },
-        { slug: 'lamborghini-urus',            brand: 'Lamborghini',  name: 'Urus',                 year: '2022', km: '22 000 km', price: 245000, type: 'suv',     typeLabel: 'SUV' },
-        { slug: 'aston-martin-vantage',        brand: 'Aston Martin', name: 'Vantage',              year: '2023', km: '8 500 km',  price: 175000, type: 'sport',   typeLabel: 'Sport' },
-        { slug: 'ferrari-296-gtb',             brand: 'Ferrari',      name: '296 GTB',              year: '2023', km: '4 500 km',  price: 295000, type: 'sport',   typeLabel: 'Sport' },
-        { slug: 'bentley-continental-gt',      brand: 'Bentley',      name: 'Continental GT V8',    year: '2022', km: '16 000 km', price: 235000, type: 'gt',      typeLabel: 'GT' },
-        { slug: 'porsche-cayenne-turbo-gt',    brand: 'Porsche',      name: 'Cayenne Turbo GT',     year: '2023', km: '14 000 km', price: 195000, type: 'suv',     typeLabel: 'SUV' },
-      ];
-
       function buildSimilarSection(currentVehicle) {
-        // 1. Récupère autres véhicules admin (sauf l'actuel)
+        // Récupère autres véhicules admin publiés (sauf l'actuel)
         const allAdmin = loadVehicles().filter(x => x.id !== currentVehicle.id && (!x.status || x.status === 'published'));
 
-        // 2. Convertit format admin -> format card
-        const adminCards = allAdmin.map(x => ({
-          slug: 'detail?id=' + x.id,
+        // Convertit format admin -> format card
+        const pool = allAdmin.map(x => ({
+          slug: x.id,
           isAdmin: true,
           brand: x.brand,
           name: x.model,
@@ -192,10 +178,7 @@
           photo: (x.photos && x.photos.length) ? x.photos[0] : null,
         }));
 
-        // 3. Combine avec statiques (statiques en fallback si pas assez d'admin)
-        const pool = [...adminCards, ...STATIC_SIMILAR];
-
-        // 4. Trie : priorité même type que current
+        // Trie : priorité même type que current
         const sameType = pool.filter(x => x.type === currentVehicle.type);
         const others   = pool.filter(x => x.type !== currentVehicle.type);
         const selection = (sameType.concat(others)).slice(0, 3);
@@ -203,7 +186,7 @@
         if (selection.length === 0) return '';
 
         const cardHTML = (c) => {
-          const href = c.isAdmin ? ('vehicle-detail.html?id=' + c.slug.replace('detail?id=', '')) : ('vehicle-' + c.slug + '.html');
+          const href = 'vehicle-detail.html?id=' + c.slug;
           const photo = c.photo
             ? `<img src="${c.photo}" alt="${c.brand} ${c.name}" style="width:100%;height:100%;object-fit:cover;" />`
             : `<svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;padding:14px;fill:rgba(20,20,26,0.18);"><path d="M10 55 C 10 50, 14 47, 20 47 L 30 47 C 32 36, 40 28, 55 28 L 130 28 C 145 28, 155 36, 162 47 L 180 47 C 186 47, 190 50, 190 55 L 190 60 C 190 64, 186 67, 182 67 L 168 67 C 165 73, 160 76, 154 76 C 148 76, 143 73, 140 67 L 60 67 C 57 73, 52 76, 46 76 C 40 76, 35 73, 32 67 L 18 67 C 14 67, 10 64, 10 60 Z M 46 55 C 50 55, 53 58, 53 62 C 53 66, 50 69, 46 69 C 42 69, 39 66, 39 62 C 39 58, 42 55, 46 55 Z M 154 55 C 158 55, 161 58, 161 62 C 161 66, 158 69, 154 69 C 150 69, 147 66, 147 62 C 147 58, 150 55, 154 55 Z M 55 35 L 70 47 L 130 47 L 145 35 Z"/></svg>`;
