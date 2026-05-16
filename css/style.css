@@ -19603,11 +19603,17 @@ html .nav-burger {
    ============================================================= */
 .home-reprise-tesla {
   background: #FFFFFF;
-  padding: 24px 12px;
+  padding: 32px 56px;
 }
 .home-reprise-tesla-inner {
-  max-width: 1640px;
+  max-width: 1340px;
   margin: 0 auto;
+}
+@media (max-width: 1024px) {
+  .home-reprise-tesla { padding: 24px 32px; }
+}
+@media (max-width: 640px) {
+  .home-reprise-tesla { padding: 20px 16px; }
 }
 .home-reprise-tesla-card {
   display: grid;
