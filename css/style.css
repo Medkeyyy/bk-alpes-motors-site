@@ -18931,9 +18931,16 @@ html .nav-burger {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 28px;
   margin-top: 12px;
-  padding: 0 24px;
+  padding: 32px 24px 0;
+  text-align: center;
+}
+.home-lavage-foot .home-pillar-cta {
+  justify-content: center;
+  min-width: 280px;
+  padding: 18px 40px;
 }
 .home-lavage-stats {
   display: flex;
