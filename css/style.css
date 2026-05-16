@@ -10111,6 +10111,25 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-links a.active {
   background: rgba(20,20,26,0.06);
   color: var(--text);
 }
+.vlx-why-card-meta {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #A89668;
+  padding: 5px 12px;
+  border-radius: 100px;
+  border: 1px solid rgba(168, 150, 104, 0.35);
+  background: rgba(168, 150, 104, 0.08);
+}
+.vlx-why-card.light .vlx-why-card-meta {
+  border-color: rgba(168, 150, 104, 0.5);
+  background: rgba(168, 150, 104, 0.12);
+}
 
 /* =============================================================
    SECTION 3 ÉTAPES - Photo voiture + accordion numéroté
