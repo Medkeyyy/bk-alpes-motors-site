@@ -16526,7 +16526,7 @@ html .nav-burger {
   animation: lav-reviews-scroll 60s linear infinite;
   padding: 8px 0;
 }
-.lav-reviews-track:hover { animation-play-state: paused; }
+/* Le marquee continue de défiler au hover (pas de pause) */
 .lav-review {
   flex: 0 0 340px;
   background: #FFFFFF;
