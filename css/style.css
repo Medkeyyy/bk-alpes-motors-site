@@ -16427,7 +16427,7 @@ html .nav-burger {
   scroll-margin-top: 80px;
 }
 .lav-formulaire-inner {
-  max-width: 760px;
+  max-width: 1180px;
   margin: 0 auto;
 }
 .lav-formulaire-head {
@@ -16453,8 +16453,25 @@ html .nav-burger {
   background: #FFFFFF;
   border: 1px solid var(--lav-border);
   border-radius: 16px;
-  padding: 32px 36px;
+  padding: 36px 44px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+}
+
+/* Grid à 3 colonnes pour profiter de la largeur sur grand écran */
+.lav-formulaire-form .loc-form-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+/* Sur écran moyen : 2 colonnes */
+@media (max-width: 1024px) {
+  .lav-formulaire-form .loc-form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+/* Sur mobile : 1 colonne */
+@media (max-width: 600px) {
+  .lav-formulaire-form .loc-form-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 720px) {
