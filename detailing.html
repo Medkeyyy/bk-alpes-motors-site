@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778926131" />
+  <link rel="stylesheet" href="css/style.css?v=1778926313" />
 </head>
 <body>
 
@@ -265,6 +265,138 @@
     </div>
   </section>
 
+  <!-- ========== FORMULAIRE DEMANDE LAVAGE (inline) ========== -->
+  <section class="lav-formulaire-section" id="lavForm-anchor">
+    <div class="lav-formulaire-inner">
+      <div class="lav-formulaire-head">
+        <h2 class="lav-section-title">Réservez votre <span class="lav-title-em">prestation</span></h2>
+        <p class="lav-formulaire-summary" id="lavModalSummary">Confort · Citadine</p>
+      </div>
+
+      <form class="loc-form lav-formulaire-form" id="lavForm" novalidate>
+
+        <fieldset class="loc-form-section">
+          <legend>Votre prestation</legend>
+          <div class="loc-form-grid">
+            <div class="loc-form-field">
+              <label>Formule <span class="req">*</span></label>
+              <select id="lavFormula" required>
+                <option value="confort">Confort</option>
+                <option value="prestige">Prestige</option>
+                <option value="perso">Sur mesure (devis)</option>
+              </select>
+            </div>
+            <div class="loc-form-field">
+              <label>Type de véhicule <span class="req">*</span></label>
+              <select id="lavVehicleType" required>
+                <option value="citadine">Citadine</option>
+                <option value="berline">Berline</option>
+                <option value="suv">SUV</option>
+                <option value="sport">Sport / GT</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="loc-form-section">
+          <legend>Lieu d'intervention</legend>
+          <div class="loc-form-options">
+            <label class="loc-opt-row">
+              <input type="radio" name="lavLocType" value="agence" checked />
+              <span><strong>À l'agence BK Annecy</strong> <em>gratuit</em></span>
+            </label>
+            <label class="loc-opt-row">
+              <input type="radio" name="lavLocType" value="domicile" />
+              <span><strong>À mon domicile</strong> <em>selon zone</em></span>
+            </label>
+            <label class="loc-opt-row">
+              <input type="radio" name="lavLocType" value="bureau" />
+              <span><strong>À mon bureau / entreprise</strong> <em>selon zone</em></span>
+            </label>
+          </div>
+
+          <div id="lavAddressBlock" style="display:none; margin-top:14px;">
+            <div class="loc-form-grid">
+              <div class="loc-form-field full">
+                <label>Adresse complète <span class="req">*</span></label>
+                <input type="text" id="lavAddress" placeholder="Ex: 15 rue de la Préfecture" />
+              </div>
+              <div class="loc-form-field">
+                <label>Ville <span class="req">*</span></label>
+                <input type="text" id="lavCity" placeholder="Ex: Annecy" />
+              </div>
+              <div class="loc-form-field">
+                <label>Code postal <span class="req">*</span></label>
+                <input type="text" id="lavPostal" placeholder="74000" />
+              </div>
+              <div class="loc-form-field full">
+                <label>Zone d'intervention <span class="req">*</span></label>
+                <select id="lavZone" required>
+                  <option value="free">Bassin annécien (Annecy + 15 km) - gratuit</option>
+                  <option value="mid">Haute-Savoie élargie (15 à 30 km) - +30 €</option>
+                  <option value="far">Au-delà de 30 km / Suisse / Savoie - +60 €</option>
+                </select>
+                <span class="loc-form-help">Si vous n'êtes pas sûr, sélectionnez selon votre estimation. Nous confirmerons.</span>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="loc-form-section">
+          <legend>Vos coordonnées</legend>
+          <div class="loc-form-grid">
+            <div class="loc-form-field">
+              <label>Civilité</label>
+              <select id="lavCivility">
+                <option>M.</option><option>Mme</option><option>Autre</option>
+              </select>
+            </div>
+            <div class="loc-form-field"></div>
+            <div class="loc-form-field">
+              <label>Prénom <span class="req">*</span></label>
+              <input type="text" id="lavFirstName" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Nom <span class="req">*</span></label>
+              <input type="text" id="lavLastName" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" id="lavEmail" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Téléphone <span class="req">*</span></label>
+              <input type="tel" id="lavPhone" required placeholder="+33 6 12 34 56 78" />
+            </div>
+            <div class="loc-form-field full">
+              <label>Notes (facultatif)</label>
+              <textarea id="lavNotes" rows="2" placeholder="Type de véhicule précis, état particulier, contraintes horaires..."></textarea>
+            </div>
+          </div>
+          <label class="loc-form-checkbox">
+            <input type="checkbox" id="lavTerms" required />
+            <span>J'accepte que BK Alpes Motors me contacte au sujet de ma demande.</span>
+          </label>
+        </fieldset>
+
+        <!-- DEVIS LIVE -->
+        <div class="loc-quote">
+          <div class="loc-quote-title">Récapitulatif</div>
+          <div class="loc-quote-lines" id="lavQuoteLines"></div>
+          <div class="loc-quote-total">
+            <span>Total estimé</span>
+            <strong id="lavQuoteTotal">— €</strong>
+          </div>
+          <p class="loc-quote-note">Devis indicatif. Réponse sous 30 minutes pendant nos heures d'ouverture (lundi au samedi, 9h à 19h). Pas de paiement à cette étape.</p>
+        </div>
+
+        <div class="loc-form-actions" style="justify-content: center;">
+          <button type="submit" class="loc-btn-primary">Envoyer ma demande</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
   <!-- ========== AVIS CLIENTS ========== -->
   <section class="lav-reviews" id="avis">
     <div class="lav-section-header">
@@ -472,142 +604,6 @@
     </div>
   </footer>
 
-  <!-- ============ MODAL DEMANDE LAVAGE ============ -->
-  <div class="loc-modal" id="lavReserveModal" aria-hidden="true">
-    <div class="loc-modal-backdrop" data-lav-close></div>
-    <div class="loc-modal-dialog" role="dialog">
-      <button type="button" class="loc-modal-close" data-lav-close aria-label="Fermer">×</button>
-      <div class="loc-modal-header">
-        <span class="loc-modal-eyebrow">Demande de prestation</span>
-        <h2>Réservez votre lavage</h2>
-        <p class="loc-modal-vehicle" id="lavModalSummary">Confort · Citadine</p>
-      </div>
-
-      <form class="loc-form" id="lavForm" novalidate>
-
-        <fieldset class="loc-form-section">
-          <legend>Votre prestation</legend>
-          <div class="loc-form-grid">
-            <div class="loc-form-field">
-              <label>Formule <span class="req">*</span></label>
-              <select id="lavFormula" required>
-                <option value="confort">Confort</option>
-                <option value="prestige">Prestige</option>
-                <option value="perso">Sur mesure (devis)</option>
-              </select>
-            </div>
-            <div class="loc-form-field">
-              <label>Type de véhicule <span class="req">*</span></label>
-              <select id="lavVehicleType" required>
-                <option value="citadine">Citadine</option>
-                <option value="berline">Berline</option>
-                <option value="suv">SUV</option>
-                <option value="sport">Sport / GT</option>
-              </select>
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset class="loc-form-section">
-          <legend>Lieu d'intervention</legend>
-          <div class="loc-form-options">
-            <label class="loc-opt-row">
-              <input type="radio" name="lavLocType" value="agence" checked />
-              <span><strong>À l'agence BK Annecy</strong> <em>gratuit</em></span>
-            </label>
-            <label class="loc-opt-row">
-              <input type="radio" name="lavLocType" value="domicile" />
-              <span><strong>À mon domicile</strong> <em>selon zone</em></span>
-            </label>
-            <label class="loc-opt-row">
-              <input type="radio" name="lavLocType" value="bureau" />
-              <span><strong>À mon bureau / entreprise</strong> <em>selon zone</em></span>
-            </label>
-          </div>
-
-          <div id="lavAddressBlock" style="display:none; margin-top:14px;">
-            <div class="loc-form-grid">
-              <div class="loc-form-field full">
-                <label>Adresse complète <span class="req">*</span></label>
-                <input type="text" id="lavAddress" placeholder="Ex: 15 rue de la Préfecture" />
-              </div>
-              <div class="loc-form-field">
-                <label>Ville <span class="req">*</span></label>
-                <input type="text" id="lavCity" placeholder="Ex: Annecy" />
-              </div>
-              <div class="loc-form-field">
-                <label>Code postal <span class="req">*</span></label>
-                <input type="text" id="lavPostal" placeholder="74000" />
-              </div>
-              <div class="loc-form-field full">
-                <label>Zone d'intervention <span class="req">*</span></label>
-                <select id="lavZone" required>
-                  <option value="free">Bassin annécien (Annecy + 15 km) — gratuit</option>
-                  <option value="mid">Haute-Savoie élargie (15 à 30 km) — +30 €</option>
-                  <option value="far">Au-delà de 30 km / Suisse / Savoie — +60 €</option>
-                </select>
-                <span class="loc-form-help">Si vous n'êtes pas sûr, sélectionnez selon votre estimation. Nous confirmerons.</span>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset class="loc-form-section">
-          <legend>Vos coordonnées</legend>
-          <div class="loc-form-grid">
-            <div class="loc-form-field">
-              <label>Civilité</label>
-              <select id="lavCivility">
-                <option>M.</option><option>Mme</option><option>Autre</option>
-              </select>
-            </div>
-            <div class="loc-form-field"></div>
-            <div class="loc-form-field">
-              <label>Prénom <span class="req">*</span></label>
-              <input type="text" id="lavFirstName" required />
-            </div>
-            <div class="loc-form-field">
-              <label>Nom <span class="req">*</span></label>
-              <input type="text" id="lavLastName" required />
-            </div>
-            <div class="loc-form-field">
-              <label>Email <span class="req">*</span></label>
-              <input type="email" id="lavEmail" required />
-            </div>
-            <div class="loc-form-field">
-              <label>Téléphone <span class="req">*</span></label>
-              <input type="tel" id="lavPhone" required placeholder="+33 6 12 34 56 78" />
-            </div>
-            <div class="loc-form-field full">
-              <label>Notes (facultatif)</label>
-              <textarea id="lavNotes" rows="2" placeholder="Type de véhicule précis, état particulier, contraintes horaires..."></textarea>
-            </div>
-          </div>
-          <label class="loc-form-checkbox">
-            <input type="checkbox" id="lavTerms" required />
-            <span>J'accepte que BK Alpes Motors me contacte au sujet de ma demande.</span>
-          </label>
-        </fieldset>
-
-        <!-- DEVIS LIVE -->
-        <div class="loc-quote">
-          <div class="loc-quote-title">Récapitulatif</div>
-          <div class="loc-quote-lines" id="lavQuoteLines"></div>
-          <div class="loc-quote-total">
-            <span>Total estimé</span>
-            <strong id="lavQuoteTotal">— €</strong>
-          </div>
-          <p class="loc-quote-note">Devis indicatif. Réponse sous 30 minutes pendant nos heures d'ouverture (lundi au samedi, 9h à 19h). Pas de paiement à cette étape.</p>
-        </div>
-
-        <div class="loc-form-actions">
-          <button type="button" class="loc-btn-ghost" data-lav-close>Annuler</button>
-          <button type="submit" class="loc-btn-primary">Envoyer ma demande</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
   <!-- MODAL CONFIRMATION LAVAGE -->
   <div class="loc-modal" id="lavConfirmModal" aria-hidden="true">
     <div class="loc-modal-backdrop" data-lav-confirm-close></div>
@@ -809,51 +805,46 @@
       return Math.round(n).toLocaleString('fr-FR').replace(/,/g, ' ');
     }
 
-    const lavModal = document.getElementById('lavReserveModal');
     const lavConfirm = document.getElementById('lavConfirmModal');
     const lavForm = document.getElementById('lavForm');
     const lavFormula = document.getElementById('lavFormula');
     const lavVehicleType = document.getElementById('lavVehicleType');
     const lavAddressBlock = document.getElementById('lavAddressBlock');
     const lavSummary = document.getElementById('lavModalSummary');
+    const lavFormAnchor = document.getElementById('lavForm-anchor');
 
-    function openLavModal(formula, vehicleType) {
+    function prefillLavForm(formula, vehicleType) {
       lavFormula.value = formula || 'confort';
       lavVehicleType.value = vehicleType || 'citadine';
-      // Reset radio "agence" par défaut
-      document.querySelectorAll('input[name="lavLocType"]').forEach(r => {
-        r.checked = (r.value === 'agence');
-      });
-      lavAddressBlock.style.display = 'none';
       updateLavQuote();
-      lavModal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
     }
-    function closeLavModal() {
-      lavModal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
+
+    function scrollToLavForm() {
+      const offset = 80; // hauteur navbar
+      const top = lavFormAnchor.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
     }
+
     function closeLavConfirm() {
       lavConfirm.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
     }
 
-    // Click sur "Choisir cette formule" ou "Obtenir un devis"
+    // Click sur "Choisir cette formule" ou "Obtenir un devis" -> pré-remplit + scroll
     document.querySelectorAll('[data-lav-formula]').forEach(btn => {
       btn.addEventListener('click', () => {
         const formula = btn.dataset.lavFormula;
-        // Récupère le type de véhicule actif dans le filtre
         const activeBtn = document.querySelector('.lav-vf-btn.active');
         const vType = activeBtn ? activeBtn.dataset.vehicle : 'citadine';
-        openLavModal(formula, vType);
+        prefillLavForm(formula, vType);
+        scrollToLavForm();
       });
     });
 
-    // Close handlers
-    document.querySelectorAll('[data-lav-close]').forEach(el => el.addEventListener('click', closeLavModal));
+    // Close confirm handlers
     document.querySelectorAll('[data-lav-confirm-close]').forEach(el => el.addEventListener('click', closeLavConfirm));
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') { closeLavModal(); closeLavConfirm(); }
+      if (e.key === 'Escape') closeLavConfirm();
     });
 
     // Toggle address fields selon type de lieu
@@ -977,10 +968,12 @@
       }
 
       document.getElementById('lavConfirmRef').textContent = ref;
-      closeLavModal();
       lavConfirm.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
       lavForm.reset();
+      // Reset les radios à 'agence' + masque l'adresse
+      document.querySelector('input[name="lavLocType"][value="agence"]').checked = true;
+      lavAddressBlock.style.display = 'none';
     });
 
     // ============ SMOOTH SCROLL ============
