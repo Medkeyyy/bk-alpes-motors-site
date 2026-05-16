@@ -18887,13 +18887,14 @@ html .nav-burger {
 /* =============================================================
    HOME - Section Lavage avec carousel vidéos (variante de .lav-vidcaro)
    ============================================================= */
-.home-lavage-vidcaro {
-  padding: 96px 0 80px;
+.lav-vidcaro.home-lavage-vidcaro {
+  padding: 48px 0 72px;
 }
-.home-lavage-vidcaro .lav-vidcaro-header {
+.lav-vidcaro.home-lavage-vidcaro .lav-vidcaro-header {
   max-width: 760px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 32px;
 }
 .home-lavage-eyebrow {
   display: inline-flex;
