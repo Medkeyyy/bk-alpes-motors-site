@@ -14712,11 +14712,11 @@ html .nav-burger {
 }
 
 /* =============================================================
-   HOME - 3 étapes reprise
+   HOME - 3 étapes reprise (compact + numéros premium)
    ============================================================= */
 .home-steps {
   background: #FFFFFF;
-  padding: 64px 24px;
+  padding: 48px 24px 56px;
 }
 .home-steps-inner {
   max-width: 1280px;
@@ -14724,30 +14724,30 @@ html .nav-burger {
 }
 .home-steps-header {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 32px;
 }
 .home-steps-eyebrow {
   display: inline-block;
   font-family: 'Inter', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #A89668;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 .home-steps-header h2 {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
-  font-weight: 700;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  font-weight: 800;
   color: #14141A;
-  margin: 0 0 14px;
+  margin: 0 0 10px;
   line-height: 1.15;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 .home-steps-lead {
   font-family: 'Inter', sans-serif;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #7A7670;
   max-width: 540px;
   margin: 0 auto;
@@ -14755,39 +14755,53 @@ html .nav-burger {
 .home-steps-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+  gap: 16px;
 }
 .home-step {
   background: #FAFAFA;
-  border: 1px solid #F0F0F2;
+  border: 1px solid #EFEFF1;
   border-radius: 14px;
-  padding: 32px 28px;
+  padding: 24px 26px 26px;
   transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+  position: relative;
 }
 .home-step:hover {
   border-color: #14141A;
   box-shadow: 0 12px 30px rgba(0,0,0,0.06);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 .home-step-num {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.home-step-num span {
   font-family: 'Inter', sans-serif;
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #A89668;
-  margin-bottom: 16px;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #14141A;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.home-step-num i {
+  display: block;
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, #A89668, transparent);
+  opacity: 0.55;
 }
 .home-step h3 {
   font-family: 'Inter', sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: #14141A;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
+  letter-spacing: -0.015em;
 }
 .home-step p {
   font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   line-height: 1.55;
   color: #5A554F;
   margin: 0;
@@ -14795,13 +14809,14 @@ html .nav-burger {
 .home-steps-cta {
   display: flex;
   justify-content: center;
-  margin-top: 44px;
+  margin-top: 28px;
 }
 
 @media (max-width: 800px) {
-  .home-steps { padding: 60px 20px; }
-  .home-steps-grid { grid-template-columns: 1fr; gap: 14px; }
-  .home-step { padding: 24px 22px; }
+  .home-steps { padding: 40px 20px 48px; }
+  .home-steps-grid { grid-template-columns: 1fr; gap: 12px; }
+  .home-step { padding: 20px 22px 22px; }
+  .home-step-num span { font-size: 1.7rem; }
 }
 
 /* =============================================================
