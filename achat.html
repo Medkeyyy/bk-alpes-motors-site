@@ -284,13 +284,6 @@
 
           <div class="reprise-form-grid">
             <div class="reprise-form-field">
-              <label>Civilité</label>
-              <select id="contactCivility">
-                <option>M.</option><option>Mme</option><option>Autre</option>
-              </select>
-            </div>
-            <div class="reprise-form-field"></div>
-            <div class="reprise-form-field">
               <label>Prénom <span class="req">*</span></label>
               <input type="text" id="contactFirstName" required />
             </div>
@@ -541,7 +534,6 @@
           notes:    document.getElementById('projectNotes').value.trim(),
         },
         contact: {
-          civility:  document.getElementById('contactCivility').value,
           firstName: document.getElementById('contactFirstName').value.trim(),
           lastName:  document.getElementById('contactLastName').value.trim(),
           email:     document.getElementById('contactEmail').value.trim(),

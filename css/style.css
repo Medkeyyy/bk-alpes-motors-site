@@ -15497,6 +15497,11 @@ html .nav-burger {
   overflow: hidden;
 }
 .reprise-steps::before { content: none; }
+/* Sur fond blanc de la page, la card light doit être grise pour ressortir */
+.reprise-steps .vlx-why-card.light {
+  background: #F2F2F4;
+  border: 1px solid rgba(20, 20, 26, 0.04);
+}
 .reprise-steps-inner {
   max-width: 1180px;
   margin: 0 auto;
