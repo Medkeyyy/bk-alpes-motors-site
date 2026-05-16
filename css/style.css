@@ -14950,10 +14950,8 @@ html .nav-burger {
    HOME - Divider de réassurance (marquee animé)
    ============================================================= */
 .home-divider {
-  background: #F4F4F5;
+  background: transparent;
   padding: 20px 0;
-  border-top: 1px solid #E5E5E7;
-  border-bottom: 1px solid #E5E5E7;
   overflow: hidden;
   mask-image: linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%);
@@ -14986,6 +14984,9 @@ html .nav-burger {
 @keyframes home-divider-scroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
+}
+.home-divider--reverse .home-divider-track {
+  animation-direction: reverse;
 }
 @media (max-width: 720px) {
   .home-divider { padding: 16px 0; }
