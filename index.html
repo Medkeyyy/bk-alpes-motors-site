@@ -421,12 +421,35 @@
     </div>
   </section>
 
+  <!-- ========== DIVIDER - bandeau de réassurance (sous Reprise) ========== -->
+  <section class="home-divider">
+    <div class="home-divider-track">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Service personnalisé</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Garantie incluse</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Préparation atelier</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Livraison Annecy &amp; Haute-Savoie</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Reprise possible</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Paiement sécurisé</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Sans frais cachés</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Assistance 7j/7</span>
+      <!-- Duplicate pour boucle infinie -->
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Service personnalisé</span>
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Garantie incluse</span>
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Préparation atelier</span>
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Livraison Annecy &amp; Haute-Savoie</span>
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Reprise possible</span>
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Paiement sécurisé</span>
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Sans frais cachés</span>
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Assistance 7j/7</span>
+    </div>
+  </section>
+
   <!-- ========== SECTION LOCATION - feature card + 6 voitures ========== -->
   <section class="home-svc home-svc-alt">
     <div class="home-svc-inner">
       <div class="home-svc-grid-feature">
 
-        <article class="home-svc-feature">
+        <article class="home-svc-feature" style="background-image:url('images/branding/alex-mares-HNIykmIJDzg-unsplash.webp');">
           <span class="home-svc-feature-tag">Location</span>
           <h3 class="home-svc-feature-title">Hits de<br>location.</h3>
           <p class="home-svc-feature-sub">Les modèles les plus demandés - réservez votre créneau tôt, ils partent vite. Livraison Annecy &amp; Haute-Savoie.</p>
@@ -533,7 +556,7 @@
     <div class="home-pillar-bg-num" aria-hidden="true">02</div>
     <div class="home-pillar-inner">
       <div class="home-pillar-media">
-        <img src="images/branding/facade-sportives.png" alt="Lavage et detailing BK Alpes Motors" />
+        <video src="videos/video-2.webm" muted loop playsinline autoplay preload="metadata" aria-label="Lavage et detailing BK Alpes Motors"></video>
         <div class="home-pillar-media-badge">
           <span class="dot"></span>
           Réponse 30 min
@@ -683,9 +706,17 @@
         <h2>FAQ</h2>
       </div>
 
+      <div class="vlx-faq-tabs" id="faqTabs" role="tablist">
+        <button class="vlx-faq-tab active" data-cat="location" role="tab" aria-selected="true">FAQ Location</button>
+        <button class="vlx-faq-tab" data-cat="vente" role="tab" aria-selected="false">FAQ Vente</button>
+        <button class="vlx-faq-tab" data-cat="reprise" role="tab" aria-selected="false">FAQ Reprise</button>
+        <button class="vlx-faq-tab" data-cat="lavage" role="tab" aria-selected="false">FAQ Lavage</button>
+      </div>
+
       <div class="vlx-faq-list" id="faqList">
 
-        <div class="vlx-faq-item open">
+        <!-- ========== LOCATION ========== -->
+        <div class="vlx-faq-item open" data-cat="location">
           <div class="vlx-faq-head">
             <div class="vlx-faq-num">01</div>
             <div class="vlx-faq-q">Quels <strong>documents sont nécessaires</strong> pour louer ?</div>
@@ -701,7 +732,7 @@
           </div>
         </div>
 
-        <div class="vlx-faq-item">
+        <div class="vlx-faq-item" data-cat="location">
           <div class="vlx-faq-head">
             <div class="vlx-faq-num">02</div>
             <div class="vlx-faq-q">Y a-t-il une <strong>limite d'âge</strong> pour louer ?</div>
@@ -712,7 +743,7 @@
           </div>
         </div>
 
-        <div class="vlx-faq-item">
+        <div class="vlx-faq-item" data-cat="location">
           <div class="vlx-faq-head">
             <div class="vlx-faq-num">03</div>
             <div class="vlx-faq-q">L'<strong>assurance est-elle incluse</strong> dans le tarif ?</div>
@@ -723,7 +754,7 @@
           </div>
         </div>
 
-        <div class="vlx-faq-item">
+        <div class="vlx-faq-item" data-cat="location">
           <div class="vlx-faq-head">
             <div class="vlx-faq-num">04</div>
             <div class="vlx-faq-q">Pouvez-vous me <strong>livrer la voiture</strong> à mon adresse ?</div>
@@ -731,6 +762,141 @@
           </div>
           <div class="vlx-faq-body">
             Oui, livraison gratuite à Annecy et dans un rayon de 20 km. Au-delà, supplément kilométrique sur devis.
+          </div>
+        </div>
+
+        <!-- ========== VENTE ========== -->
+        <div class="vlx-faq-item" data-cat="vente">
+          <div class="vlx-faq-head">
+            <div class="vlx-faq-num">01</div>
+            <div class="vlx-faq-q">Puis-je <strong>essayer le véhicule</strong> avant d'acheter ?</div>
+            <button class="vlx-faq-toggle" aria-label="Toggle">+</button>
+          </div>
+          <div class="vlx-faq-body">
+            Oui, essai routier sur rendez-vous pour chaque véhicule en stock. Sur présentation d'un permis valide.
+          </div>
+        </div>
+
+        <div class="vlx-faq-item" data-cat="vente">
+          <div class="vlx-faq-head">
+            <div class="vlx-faq-num">02</div>
+            <div class="vlx-faq-q">Proposez-vous un <strong>financement</strong> ou un crédit ?</div>
+            <button class="vlx-faq-toggle" aria-label="Toggle">+</button>
+          </div>
+          <div class="vlx-faq-body">
+            Oui, nous travaillons avec plusieurs partenaires financiers pour vous proposer un crédit auto sur mesure, réponse sous 48h.
+          </div>
+        </div>
+
+        <div class="vlx-faq-item" data-cat="vente">
+          <div class="vlx-faq-head">
+            <div class="vlx-faq-num">03</div>
+            <div class="vlx-faq-q">Y a-t-il une <strong>garantie incluse</strong> à l'achat ?</div>
+            <button class="vlx-faq-toggle" aria-label="Toggle">+</button>
+          </div>
+          <div class="vlx-faq-body">
+            Chaque véhicule est livré avec une garantie 12 mois minimum (extensible jusqu'à 36 mois). Préparation complète et contrôle technique à jour.
+          </div>
+        </div>
+
+        <div class="vlx-faq-item" data-cat="vente">
+          <div class="vlx-faq-head">
+            <div class="vlx-faq-num">04</div>
+            <div class="vlx-faq-q">Pouvez-vous <strong>livrer la voiture</strong> partout en France ?</div>
+            <button class="vlx-faq-toggle" aria-label="Toggle">+</button>
+          </div>
+          <div class="vlx-faq-body">
+            Oui, livraison à domicile partout en France métropolitaine, devis personnalisé selon la distance.
+          </div>
+        </div>
+
+        <!-- ========== REPRISE ========== -->
+        <div class="vlx-faq-item" data-cat="reprise">
+          <div class="vlx-faq-head">
+            <div class="vlx-faq-num">01</div>
+            <div class="vlx-faq-q">Comment se passe l'<strong>estimation</strong> de mon véhicule ?</div>
+            <button class="vlx-faq-toggle" aria-label="Toggle">+</button>
+          </div>
+          <div class="vlx-faq-body">
+            Estimation gratuite en ligne ou sur RDV à Annecy. Offre ferme et écrite sous 24h, sans engagement.
+          </div>
+        </div>
+
+        <div class="vlx-faq-item" data-cat="reprise">
+          <div class="vlx-faq-head">
+            <div class="vlx-faq-num">02</div>
+            <div class="vlx-faq-q">Sous quel délai serai-je <strong>payé</strong> ?</div>
+            <button class="vlx-faq-toggle" aria-label="Toggle">+</button>
+          </div>
+          <div class="vlx-faq-body">
+            Paiement par virement sous 48h ouvrées dès la remise du véhicule et des papiers.
+          </div>
+        </div>
+
+        <div class="vlx-faq-item" data-cat="reprise">
+          <div class="vlx-faq-head">
+            <div class="vlx-faq-num">03</div>
+            <div class="vlx-faq-q">Reprenez-vous <strong>tous les types de véhicules</strong> ?</div>
+            <button class="vlx-faq-toggle" aria-label="Toggle">+</button>
+          </div>
+          <div class="vlx-faq-body">
+            Nous reprenons toutes les marques et tous les âges : voitures premium, citadines, utilitaires, même avec un fort kilométrage ou un crédit en cours.
+          </div>
+        </div>
+
+        <div class="vlx-faq-item" data-cat="reprise">
+          <div class="vlx-faq-head">
+            <div class="vlx-faq-num">04</div>
+            <div class="vlx-faq-q">Qui s'occupe des <strong>démarches administratives</strong> ?</div>
+            <button class="vlx-faq-toggle" aria-label="Toggle">+</button>
+          </div>
+          <div class="vlx-faq-body">
+            Nous gérons tout : carte grise, certificat de cession, déclaration de vente. Vous n'avez qu'à signer.
+          </div>
+        </div>
+
+        <!-- ========== LAVAGE ========== -->
+        <div class="vlx-faq-item" data-cat="lavage">
+          <div class="vlx-faq-head">
+            <div class="vlx-faq-num">01</div>
+            <div class="vlx-faq-q">À partir de quel <strong>tarif</strong> commence le lavage ?</div>
+            <button class="vlx-faq-toggle" aria-label="Toggle">+</button>
+          </div>
+          <div class="vlx-faq-body">
+            Dès 50 € pour un lavage main extérieur. Detailing intérieur, polissage et traitement céramique sur devis.
+          </div>
+        </div>
+
+        <div class="vlx-faq-item" data-cat="lavage">
+          <div class="vlx-faq-head">
+            <div class="vlx-faq-num">02</div>
+            <div class="vlx-faq-q">Pouvez-vous venir laver ma voiture <strong>à domicile ou au bureau</strong> ?</div>
+            <button class="vlx-faq-toggle" aria-label="Toggle">+</button>
+          </div>
+          <div class="vlx-faq-body">
+            Oui, service mobile à Annecy et alentours. On vient avec tout l'équipement, vous n'avez besoin de rien.
+          </div>
+        </div>
+
+        <div class="vlx-faq-item" data-cat="lavage">
+          <div class="vlx-faq-head">
+            <div class="vlx-faq-num">03</div>
+            <div class="vlx-faq-q">Combien de temps dure un <strong>traitement céramique</strong> ?</div>
+            <button class="vlx-faq-toggle" aria-label="Toggle">+</button>
+          </div>
+          <div class="vlx-faq-body">
+            Selon le produit appliqué, la protection céramique dure de 2 à 5 ans. Pose à l'atelier sur 1 à 2 jours après préparation.
+          </div>
+        </div>
+
+        <div class="vlx-faq-item" data-cat="lavage">
+          <div class="vlx-faq-head">
+            <div class="vlx-faq-num">04</div>
+            <div class="vlx-faq-q">Quelle est la <strong>durée d'un lavage</strong> standard ?</div>
+            <button class="vlx-faq-toggle" aria-label="Toggle">+</button>
+          </div>
+          <div class="vlx-faq-body">
+            Comptez 1h pour un lavage main extérieur, 2 à 3h pour un detailing intérieur complet. Réponse sous 30 min pour toute demande.
           </div>
         </div>
 
@@ -975,14 +1141,48 @@
       window.addEventListener('resize', updateArrows);
     })();
 
-    // ========== FAQ ACCORDION ==========
+    // ========== FAQ ACCORDION + TABS ==========
     (function() {
       const list = document.getElementById('faqList');
+      const tabs = document.getElementById('faqTabs');
       if (!list) return;
+
+      function setCategory(cat) {
+        const items = list.querySelectorAll('.vlx-faq-item');
+        items.forEach(i => {
+          const match = i.dataset.cat === cat;
+          i.style.display = match ? '' : 'none';
+          i.classList.remove('open');
+          const tgl = i.querySelector('.vlx-faq-toggle');
+          if (tgl) tgl.textContent = '+';
+        });
+        const firstVisible = list.querySelector(`.vlx-faq-item[data-cat="${cat}"]`);
+        if (firstVisible) {
+          firstVisible.classList.add('open');
+          const tgl = firstVisible.querySelector('.vlx-faq-toggle');
+          if (tgl) tgl.textContent = '−';
+        }
+        if (tabs) {
+          tabs.querySelectorAll('.vlx-faq-tab').forEach(t => {
+            const active = t.dataset.cat === cat;
+            t.classList.toggle('active', active);
+            t.setAttribute('aria-selected', active ? 'true' : 'false');
+          });
+        }
+      }
+
+      if (tabs) {
+        tabs.querySelectorAll('.vlx-faq-tab').forEach(tab => {
+          tab.addEventListener('click', () => setCategory(tab.dataset.cat));
+        });
+        setCategory('location');
+      }
+
       list.querySelectorAll('.vlx-faq-item').forEach(item => {
         item.querySelector('.vlx-faq-head').addEventListener('click', () => {
           const wasOpen = item.classList.contains('open');
-          list.querySelectorAll('.vlx-faq-item').forEach(i => {
+          const cat = item.dataset.cat;
+          list.querySelectorAll(`.vlx-faq-item[data-cat="${cat}"]`).forEach(i => {
             i.classList.remove('open');
             i.querySelector('.vlx-faq-toggle').textContent = '+';
           });
