@@ -19,7 +19,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="css/style.css?v=1778928331" />
+  <link rel="stylesheet" href="css/style.css?v=1778928859" />
 </head>
 <body>
 
@@ -295,6 +295,7 @@
                 <option value="berline">Berline</option>
                 <option value="suv">SUV</option>
                 <option value="sport">Sport / GT</option>
+                <option value="autre">Autre / À préciser</option>
               </select>
             </div>
           </div>
@@ -783,7 +784,7 @@
       sport:    { confort: 160, prestige: 249 },
     };
     const LAV_ZONE_FEES = { free: 0, mid: 30, far: 60 };
-    const LAV_VEHICLE_LABELS = { citadine: 'Citadine', berline: 'Berline', suv: 'SUV', sport: 'Sport / GT' };
+    const LAV_VEHICLE_LABELS = { citadine: 'Citadine', berline: 'Berline', suv: 'SUV', sport: 'Sport / GT', autre: 'Autre' };
     const LAV_FORMULA_LABELS = { confort: 'Confort', prestige: 'Prestige', perso: 'Sur mesure' };
     const LAV_LOCATION_LABELS = { agence: 'Agence BK Annecy', domicile: 'À domicile', bureau: 'Au bureau' };
     const LAV_ZONE_LABELS = {
@@ -818,11 +819,46 @@
     const lavSummary = document.getElementById('lavModalSummary');
     const lavFormAnchor = document.getElementById('lavForm-anchor');
 
+    // Mémorise le dernier type de véhicule "réel" choisi (pour le restaurer
+    // quand on quitte 'Sur mesure')
+    let lastRealVehicleType = 'citadine';
+
     function prefillLavForm(formula, vehicleType) {
       lavFormula.value = formula || 'confort';
-      lavVehicleType.value = vehicleType || 'citadine';
+      if (formula === 'perso') {
+        // Mémorise l'ancien type avant de forcer 'autre'
+        if (vehicleType && vehicleType !== 'autre') lastRealVehicleType = vehicleType;
+        lavVehicleType.value = 'autre';
+      } else {
+        lavVehicleType.value = vehicleType || lastRealVehicleType || 'citadine';
+        if (vehicleType && vehicleType !== 'autre') lastRealVehicleType = vehicleType;
+      }
       updateLavQuote();
     }
+
+    // Quand la formule change manuellement : si perso -> 'autre', sinon retour au type réel
+    lavFormula.addEventListener('change', () => {
+      if (lavFormula.value === 'perso') {
+        if (lavVehicleType.value !== 'autre') lastRealVehicleType = lavVehicleType.value;
+        lavVehicleType.value = 'autre';
+      } else {
+        // Si on quitte 'perso' et qu'on est sur 'autre', restaure
+        if (lavVehicleType.value === 'autre') {
+          lavVehicleType.value = lastRealVehicleType;
+        }
+      }
+      updateLavQuote();
+    });
+
+    // Si l'utilisateur sélectionne manuellement 'autre' : passe la formule en 'perso'
+    lavVehicleType.addEventListener('change', () => {
+      if (lavVehicleType.value === 'autre' && lavFormula.value !== 'perso') {
+        lavFormula.value = 'perso';
+      } else if (lavVehicleType.value !== 'autre') {
+        lastRealVehicleType = lavVehicleType.value;
+      }
+      updateLavQuote();
+    });
 
     function scrollToLavForm() {
       const offset = 80; // hauteur navbar
