@@ -12,7 +12,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778927591" />
+  <link rel="stylesheet" href="css/style.css?v=1778928331" />
+  <!-- jsPDF pour génération PDF brandée -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body class="admin-body">
 
@@ -122,7 +125,7 @@
       <div class="admin-list-header">
         <div class="admin-list-count"><strong id="countLabel">0</strong> véhicule(s) publié(s)</div>
         <div style="display:flex;gap:8px;">
-          <button class="admin-btn-ghost" id="exportBtn">Exporter en JSON</button>
+          <button class="admin-btn-ghost" id="exportBtn">Exporter</button>
           <button class="admin-btn-primary" id="addBtn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Ajouter un véhicule
@@ -361,7 +364,7 @@
       <div class="admin-list-header">
         <div class="admin-list-count"><strong id="rentalCountLabel">0</strong> véhicule(s) de location</div>
         <div style="display:flex;gap:8px;">
-          <button class="admin-btn-ghost" id="exportRentalBtn">Exporter en JSON</button>
+          <button class="admin-btn-ghost" id="exportRentalBtn">Exporter</button>
           <button class="admin-btn-primary" id="addRentalBtn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             Ajouter un véhicule
@@ -561,7 +564,7 @@
       <div class="admin-list-header">
         <div class="admin-list-count"><strong id="resCountLabel">0</strong> demande(s) de location</div>
         <div style="display:flex;gap:8px;">
-          <button class="admin-btn-ghost" id="exportResBtn">Exporter en JSON</button>
+          <button class="admin-btn-ghost" id="exportResBtn">Exporter</button>
         </div>
       </div>
 
@@ -578,7 +581,7 @@
       <div class="admin-list-header">
         <div class="admin-list-count"><strong id="tradeinCountLabel">0</strong> demande(s) de reprise</div>
         <div style="display:flex;gap:8px;">
-          <button class="admin-btn-ghost" id="exportTradeinBtn">Exporter en JSON</button>
+          <button class="admin-btn-ghost" id="exportTradeinBtn">Exporter</button>
         </div>
       </div>
 
@@ -597,7 +600,7 @@
           <strong id="lavageCountLabel">0</strong> demande(s) de lavage
         </div>
         <div style="display:flex;gap:8px;">
-          <button class="admin-btn-ghost" id="exportLavageBtn">Exporter en JSON</button>
+          <button class="admin-btn-ghost" id="exportLavageBtn">Exporter</button>
         </div>
       </div>
 
@@ -618,6 +621,56 @@
     <div class="admin-res-modal-dialog" role="dialog">
       <button type="button" class="loc-modal-close" data-close-lavage aria-label="Fermer">×</button>
       <div id="lavageDetailContent"></div>
+    </div>
+  </div>
+
+  <!-- ============ MODAL EXPORT ============ -->
+  <div class="admin-res-modal" id="exportModal" aria-hidden="true">
+    <div class="admin-res-modal-backdrop" data-close-export></div>
+    <div class="admin-res-modal-dialog" role="dialog" style="max-width: 540px;">
+      <button type="button" class="loc-modal-close" data-close-export aria-label="Fermer">×</button>
+      <div class="export-modal-content">
+        <div class="export-modal-head">
+          <span class="export-modal-eyebrow">Export</span>
+          <h2 id="exportModalTitle">Exporter les véhicules</h2>
+          <p id="exportModalSub">Choisissez ce que vous voulez exporter et le format de fichier.</p>
+        </div>
+
+        <div class="export-modal-section">
+          <div class="export-modal-label">Que voulez-vous exporter ?</div>
+          <div class="export-modal-options" id="exportStatusOptions">
+            <!-- Rempli par JS selon le contexte -->
+          </div>
+        </div>
+
+        <div class="export-modal-section">
+          <div class="export-modal-label">Format de fichier</div>
+          <div class="export-modal-options">
+            <label class="export-modal-radio">
+              <input type="radio" name="exportFormat" value="pdf" checked />
+              <span>
+                <strong>PDF</strong>
+                <em>Document brandé BK, prêt à imprimer ou envoyer</em>
+              </span>
+            </label>
+            <label class="export-modal-radio">
+              <input type="radio" name="exportFormat" value="json" />
+              <span>
+                <strong>JSON</strong>
+                <em>Données brutes (réimport, traitement automatique)</em>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="export-modal-footer">
+          <button type="button" class="admin-btn-ghost" data-close-export>Annuler</button>
+          <button type="button" class="admin-btn-primary" id="doExportBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Télécharger
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1323,18 +1376,8 @@
       }, 350);
     });
 
-    // ============ EXPORT ============
-    document.getElementById('exportBtn').addEventListener('click', () => {
-      const data = loadVehicles();
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `bk-vehicules-${new Date().toISOString().slice(0,10)}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-      showToast('Export JSON téléchargé');
-    });
+    // ============ EXPORT (vehicules vente) - via modal ============
+    document.getElementById('exportBtn').addEventListener('click', () => openExportModal('vente'));
 
     // ============ TOAST ============
     const toast = document.getElementById('toast');
@@ -1690,17 +1733,7 @@ L'équipe BK Alpes Motors`
       document.body.style.overflow = '';
     }));
 
-    document.getElementById('exportResBtn').addEventListener('click', () => {
-      const data = loadReservations();
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `bk-reservations-${new Date().toISOString().slice(0,10)}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-      showToast('Export JSON téléchargé');
-    });
+    document.getElementById('exportResBtn').addEventListener('click', () => openExportModal('reservations'));
 
     // Quand on switche sur certains tabs, on re-render
     document.querySelectorAll('.admin-tab').forEach(tab => {
@@ -2005,17 +2038,7 @@ L'équipe BK Alpes Motors`
       });
     }
 
-    document.getElementById('exportRentalBtn').addEventListener('click', () => {
-      const data = loadRentals();
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `bk-vehicules-location-${new Date().toISOString().slice(0,10)}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-      showToast('Export JSON téléchargé');
-    });
+    document.getElementById('exportRentalBtn').addEventListener('click', () => openExportModal('location'));
 
     // Générateur description pour rental (réutilise la même fonction)
     document.getElementById('generateRentalDescBtn').addEventListener('click', () => {
@@ -2403,17 +2426,7 @@ L'équipe BK Alpes Motors`
       document.body.style.overflow = '';
     }));
 
-    document.getElementById('exportTradeinBtn').addEventListener('click', () => {
-      const data = loadTradeins();
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `bk-reprises-${new Date().toISOString().slice(0,10)}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-      showToast('Export JSON téléchargé');
-    });
+    document.getElementById('exportTradeinBtn').addEventListener('click', () => openExportModal('reprises'));
 
     // Refresh quand on switche sur l'onglet
     document.querySelectorAll('.admin-tab').forEach(tab => {
@@ -2797,17 +2810,7 @@ L'équipe BK Alpes Motors`
       document.body.style.overflow = '';
     }));
 
-    document.getElementById('exportLavageBtn').addEventListener('click', () => {
-      const data = loadLavageRequests();
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `bk-lavages-${new Date().toISOString().slice(0,10)}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-      showToast('Export JSON téléchargé');
-    });
+    document.getElementById('exportLavageBtn').addEventListener('click', () => openExportModal('lavage'));
 
     // ============ INIT ============
     renderList();
@@ -2818,6 +2821,311 @@ L'équipe BK Alpes Motors`
     // Init des features pickers (vide au démarrage)
     renderFeaturesPicker('featuresPickerVente', 'vente', []);
     renderFeaturesPicker('featuresPickerRental', 'rental', []);
+
+    // ============================================================
+    // ============ EXPORT MODAL UNIFIÉ (PDF / JSON) =================
+    // ============================================================
+    const exportModalEl = document.getElementById('exportModal');
+    const exportStatusOptionsEl = document.getElementById('exportStatusOptions');
+    const exportModalTitleEl = document.getElementById('exportModalTitle');
+    const exportModalSubEl = document.getElementById('exportModalSub');
+    let currentExportContext = null;
+
+    // Configs par contexte : titre, source data, statuts dispo, colonnes PDF
+    const EXPORT_CONFIGS = {
+      vente: {
+        title: 'Exporter les véhicules de vente',
+        sub: 'Choisissez ce que vous voulez exporter et le format.',
+        loader: () => loadVehicles(),
+        statusGroups: [
+          { value: 'all',       label: 'Tous les véhicules',              filter: () => true },
+          { value: 'published', label: 'Uniquement publiés (en ligne)',   filter: v => normalizeStatus(v.status) === 'published' },
+          { value: 'draft',     label: 'Uniquement brouillons',           filter: v => normalizeStatus(v.status) === 'draft' },
+          { value: 'archived',  label: 'Uniquement archivés',             filter: v => normalizeStatus(v.status) === 'archived' },
+        ],
+        pdfHeading: 'Stock véhicules vente',
+        pdfColumns: [
+          { header: 'Réf', key: 'reference' },
+          { header: 'Marque', key: 'brand' },
+          { header: 'Modèle', key: 'model' },
+          { header: 'Année', key: 'year' },
+          { header: 'KM', key: 'km', format: v => v ? Number(v).toLocaleString('fr-FR').replace(/,/g, ' ') : '' },
+          { header: 'Prix', key: 'price', format: v => v ? fmtPrice(v) : '' },
+          { header: 'Statut', key: 'status', format: v => STATUS_LABELS[normalizeStatus(v)] || v },
+        ],
+        filenameBase: 'bk-vehicules-vente',
+      },
+      location: {
+        title: 'Exporter les véhicules de location',
+        sub: 'Choisissez ce que vous voulez exporter et le format.',
+        loader: () => loadRentals(),
+        statusGroups: [
+          { value: 'all',       label: 'Tous les véhicules',              filter: () => true },
+          { value: 'published', label: 'Uniquement publiés (en ligne)',   filter: v => normalizeStatus(v.status) === 'published' },
+          { value: 'draft',     label: 'Uniquement brouillons',           filter: v => normalizeStatus(v.status) === 'draft' },
+          { value: 'archived',  label: 'Uniquement archivés',             filter: v => normalizeStatus(v.status) === 'archived' },
+        ],
+        pdfHeading: 'Flotte véhicules location',
+        pdfColumns: [
+          { header: 'Réf', key: 'reference' },
+          { header: 'Marque', key: 'brand' },
+          { header: 'Modèle', key: 'model' },
+          { header: 'Année', key: 'year' },
+          { header: 'Places', key: 'places' },
+          { header: 'Type', key: 'type' },
+          { header: '€/jour', key: 'basePrice', format: v => v ? fmtPrice(v) : '' },
+          { header: 'Statut', key: 'status', format: v => STATUS_LABELS[normalizeStatus(v)] || v },
+        ],
+        filenameBase: 'bk-vehicules-location',
+      },
+      reservations: {
+        title: 'Exporter les réservations',
+        sub: 'Choisissez le statut des réservations à exporter.',
+        loader: () => loadReservations(),
+        statusGroups: [
+          { value: 'all',       label: 'Toutes les demandes',           filter: () => true },
+          { value: 'pending',   label: 'En attente',                    filter: r => r.status === 'pending' },
+          { value: 'accepted',  label: 'Acceptées',                     filter: r => r.status === 'accepted' },
+          { value: 'paid',      label: 'Payées',                        filter: r => r.status === 'paid' },
+          { value: 'refused',   label: 'Refusées',                      filter: r => r.status === 'refused' },
+        ],
+        pdfHeading: 'Réservations location',
+        pdfColumns: [
+          { header: 'Réf', key: 'ref' },
+          { header: 'Date', key: 'createdAt', format: fmtDateFr },
+          { header: 'Client', key: '_client', format: (_, r) => `${r.customer?.firstName || ''} ${r.customer?.lastName || ''}`.trim() },
+          { header: 'Véhicule', key: '_vehicle', format: (_, r) => `${r.vehicle?.brand || ''} ${r.vehicle?.name || ''}`.trim() },
+          { header: 'Période', key: '_period', format: (_, r) => `${fmtDateFr(r.period?.pickupDate)} → ${fmtDateFr(r.period?.returnDate)}` },
+          { header: 'Total', key: '_total', format: (_, r) => r.quote?.total ? fmtMoney(r.quote.total) : '' },
+          { header: 'Statut', key: 'status', format: v => RES_STATUS_LABELS[v] || v },
+        ],
+        filenameBase: 'bk-reservations',
+      },
+      reprises: {
+        title: 'Exporter les demandes de reprise',
+        sub: 'Choisissez le statut des demandes à exporter.',
+        loader: () => loadTradeins(),
+        statusGroups: [
+          { value: 'all',       label: 'Toutes les demandes',           filter: () => true },
+          { value: 'pending',   label: 'En attente',                    filter: r => r.status === 'pending' },
+          { value: 'contacted', label: 'Contactés',                     filter: r => r.status === 'contacted' },
+          { value: 'quoted',    label: 'Offre envoyée',                 filter: r => r.status === 'quoted' },
+          { value: 'accepted',  label: 'Acceptées',                     filter: r => r.status === 'accepted' },
+          { value: 'completed', label: 'Conclues',                      filter: r => r.status === 'completed' },
+          { value: 'refused',   label: 'Refusées',                      filter: r => r.status === 'refused' },
+        ],
+        pdfHeading: 'Demandes de reprise',
+        pdfColumns: [
+          { header: 'Réf', key: 'ref' },
+          { header: 'Date', key: 'createdAt', format: fmtDateFr },
+          { header: 'Client', key: '_client', format: (_, r) => `${r.contact?.firstName || ''} ${r.contact?.lastName || ''}`.trim() },
+          { header: 'Véhicule', key: '_vehicle', format: (_, r) => `${r.vehicle?.brand || ''} ${r.vehicle?.model || ''}`.trim() },
+          { header: 'Année', key: '_year', format: (_, r) => r.vehicle?.year || '' },
+          { header: 'KM', key: '_km', format: (_, r) => r.vehicle?.km || '' },
+          { header: 'Offre', key: '_quote', format: (_, r) => r.quote?.amount ? fmtMoney(r.quote.amount) : '' },
+          { header: 'Statut', key: 'status', format: v => TRADEIN_STATUS_LABELS[v] || v },
+        ],
+        filenameBase: 'bk-reprises',
+      },
+      lavage: {
+        title: 'Exporter les demandes de lavage',
+        sub: 'Choisissez le statut des demandes à exporter.',
+        loader: () => loadLavageRequests(),
+        statusGroups: [
+          { value: 'all',       label: 'Toutes les demandes',           filter: () => true },
+          { value: 'pending',   label: 'À traiter',                     filter: r => r.status === 'pending' },
+          { value: 'contacted', label: 'Contactés',                     filter: r => r.status === 'contacted' },
+          { value: 'quoted',    label: 'Devis envoyés',                 filter: r => r.status === 'quoted' },
+          { value: 'confirmed', label: 'Confirmées (RDV planifié)',     filter: r => r.status === 'confirmed' },
+          { value: 'completed', label: 'Terminées',                     filter: r => r.status === 'completed' },
+          { value: 'refused',   label: 'Refusées',                      filter: r => r.status === 'refused' },
+        ],
+        pdfHeading: 'Demandes BK Cleanned',
+        pdfColumns: [
+          { header: 'Réf', key: 'ref' },
+          { header: 'Date', key: 'createdAt', format: fmtDateFr },
+          { header: 'Client', key: '_client', format: (_, r) => `${r.customer?.firstName || ''} ${r.customer?.lastName || ''}`.trim() },
+          { header: 'Téléphone', key: '_phone', format: (_, r) => r.customer?.phone || '' },
+          { header: 'Prestation', key: '_presta', format: (_, r) => `${r.prestation?.formulaLabel || ''} (${r.prestation?.vehicleLabel || ''})` },
+          { header: 'Lieu', key: '_lieu', format: (_, r) => r.location?.typeLabel || '' },
+          { header: 'Total', key: '_total', format: (_, r) => r.total !== null ? fmtMoney(r.total) : 'Sur devis' },
+          { header: 'RDV', key: 'rdvSlot', format: v => v || '' },
+          { header: 'Statut', key: 'status', format: v => LAVAGE_STATUS_LABELS[v] || v },
+        ],
+        filenameBase: 'bk-lavages',
+      },
+    };
+
+    function openExportModal(contextKey) {
+      const cfg = EXPORT_CONFIGS[contextKey];
+      if (!cfg) return;
+      currentExportContext = contextKey;
+
+      exportModalTitleEl.textContent = cfg.title;
+      exportModalSubEl.textContent = cfg.sub;
+
+      // Compte les items par statut
+      const allData = cfg.loader();
+      exportStatusOptionsEl.innerHTML = cfg.statusGroups.map((g, i) => {
+        const count = allData.filter(g.filter).length;
+        return `
+          <label class="export-modal-radio">
+            <input type="radio" name="exportStatus" value="${g.value}" ${i === 0 ? 'checked' : ''} />
+            <span>
+              <strong>${g.label}</strong>
+              <em>${count} élément${count > 1 ? 's' : ''}</em>
+            </span>
+          </label>
+        `;
+      }).join('');
+
+      exportModalEl.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeExportModal() {
+      exportModalEl.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('[data-close-export]').forEach(el => el.addEventListener('click', closeExportModal));
+
+    document.getElementById('doExportBtn').addEventListener('click', () => {
+      if (!currentExportContext) return;
+      const cfg = EXPORT_CONFIGS[currentExportContext];
+      const statusValue = (document.querySelector('input[name="exportStatus"]:checked') || {}).value || 'all';
+      const formatValue = (document.querySelector('input[name="exportFormat"]:checked') || {}).value || 'pdf';
+
+      const group = cfg.statusGroups.find(g => g.value === statusValue) || cfg.statusGroups[0];
+      const data = cfg.loader().filter(group.filter);
+
+      if (data.length === 0) {
+        alert('Aucun élément à exporter pour cette sélection.');
+        return;
+      }
+
+      const today = new Date().toISOString().slice(0, 10);
+      const filename = `${cfg.filenameBase}-${statusValue}-${today}`;
+
+      if (formatValue === 'json') {
+        // Export JSON
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename + '.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('Export JSON téléchargé');
+      } else {
+        // Export PDF brandé BK
+        generatePDFReport(cfg, group, data, filename);
+        showToast('PDF généré');
+      }
+
+      closeExportModal();
+    });
+
+    function generatePDFReport(cfg, group, data, filename) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+      const pageWidth = doc.internal.pageSize.getWidth();
+
+      // ===== HEADER avec branding BK =====
+      // Bandeau noir top
+      doc.setFillColor(20, 20, 26);
+      doc.rect(0, 0, pageWidth, 26, 'F');
+
+      // Logo "BK" en doré moutarde
+      doc.setTextColor(168, 150, 104); // #A89668
+      doc.setFontSize(20);
+      doc.setFont('helvetica', 'bold');
+      doc.text('BK', 14, 17);
+
+      // "Alpes Motors" en blanc
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(14);
+      doc.setFont('helvetica', 'normal');
+      doc.text('Alpes Motors', 26, 17);
+
+      // Tag "ADMIN" à droite
+      doc.setFontSize(8);
+      doc.setTextColor(168, 150, 104);
+      doc.text('ESPACE ADMIN', pageWidth - 14, 12, { align: 'right' });
+      doc.setTextColor(180, 180, 180);
+      doc.setFontSize(8);
+      doc.text(new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' }), pageWidth - 14, 18, { align: 'right' });
+
+      // ===== TITRE DU RAPPORT =====
+      doc.setTextColor(20, 20, 26);
+      doc.setFontSize(18);
+      doc.setFont('helvetica', 'bold');
+      doc.text(cfg.pdfHeading, 14, 40);
+
+      // Sous-titre : filtre + nombre
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(120, 120, 120);
+      doc.text(`${group.label} · ${data.length} élément${data.length > 1 ? 's' : ''}`, 14, 47);
+
+      // ===== TABLE =====
+      const tableHeaders = cfg.pdfColumns.map(c => c.header);
+      const tableRows = data.map(item => {
+        return cfg.pdfColumns.map(col => {
+          let value = col.key.startsWith('_') ? '' : item[col.key];
+          if (col.format) {
+            value = col.format(value, item);
+          }
+          return value !== undefined && value !== null ? String(value) : '';
+        });
+      });
+
+      doc.autoTable({
+        head: [tableHeaders],
+        body: tableRows,
+        startY: 54,
+        theme: 'grid',
+        headStyles: {
+          fillColor: [20, 20, 26],
+          textColor: [255, 255, 255],
+          fontStyle: 'bold',
+          fontSize: 9,
+          cellPadding: 4,
+        },
+        bodyStyles: {
+          fontSize: 8.5,
+          cellPadding: 3,
+          textColor: [40, 40, 50],
+        },
+        alternateRowStyles: {
+          fillColor: [248, 248, 249],
+        },
+        styles: {
+          font: 'helvetica',
+          lineColor: [220, 220, 222],
+          lineWidth: 0.1,
+        },
+        margin: { left: 14, right: 14 },
+      });
+
+      // ===== FOOTER sur chaque page =====
+      const pageCount = doc.internal.getNumberOfPages();
+      for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        const pageHeight = doc.internal.pageSize.getHeight();
+        // Ligne séparatrice
+        doc.setDrawColor(220, 220, 222);
+        doc.setLineWidth(0.2);
+        doc.line(14, pageHeight - 14, pageWidth - 14, pageHeight - 14);
+        // Texte footer
+        doc.setFontSize(8);
+        doc.setTextColor(150, 150, 150);
+        doc.text('BK Alpes Motors · Annecy · contact@bkalpesmotors.fr · 07 56 85 90 26', 14, pageHeight - 8);
+        doc.text(`Page ${i} / ${pageCount}`, pageWidth - 14, pageHeight - 8, { align: 'right' });
+      }
+
+      doc.save(filename + '.pdf');
+    }
   </script>
 </body>
 </html>

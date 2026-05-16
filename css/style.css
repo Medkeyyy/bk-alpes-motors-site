@@ -18011,3 +18011,108 @@ html .nav-burger {
 .features-chips-custom:empty + .feat-custom-add {
   margin-top: 0;
 }
+
+/* =============================================================
+   ADMIN - Modal d'export (PDF / JSON avec filtres)
+   ============================================================= */
+.export-modal-content {
+  padding: 8px 0;
+}
+.export-modal-head {
+  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #F0F0F2;
+}
+.export-modal-eyebrow {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #A89668;
+  margin-bottom: 6px;
+}
+.export-modal-head h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #14141A;
+  margin: 0 0 6px;
+}
+.export-modal-head p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.86rem;
+  color: #7A7670;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.export-modal-section {
+  margin-bottom: 20px;
+}
+.export-modal-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #14141A;
+  margin-bottom: 10px;
+}
+
+.export-modal-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.export-modal-radio {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 11px 14px;
+  border: 1px solid #E5E5E7;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.export-modal-radio:hover { border-color: #14141A; }
+.export-modal-radio input { accent-color: #A89668; cursor: pointer; flex-shrink: 0; }
+.export-modal-radio span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  font-family: 'Inter', sans-serif;
+}
+.export-modal-radio span strong {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #14141A;
+}
+.export-modal-radio span em {
+  font-style: normal;
+  font-size: 0.78rem;
+  color: #7A7670;
+}
+.export-modal-radio:has(input:checked) {
+  background: rgba(168,150,104,0.06);
+  border-color: #A89668;
+}
+.export-modal-radio:has(input:checked) span strong {
+  color: #14141A;
+}
+
+.export-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid #F0F0F2;
+}
+.export-modal-footer .admin-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
