@@ -12,36 +12,110 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778926313" />
+  <link rel="stylesheet" href="css/style.css?v=1778926608" />
 </head>
 <body class="admin-body">
 
-  <header class="admin-header">
-    <div class="admin-header-brand">
-      <h1 class="admin-header-title">BK Alpes Motors</h1>
-      <span class="admin-header-tag">ADMIN</span>
-    </div>
-    <div class="admin-header-actions">
-      <a href="index.html" class="admin-btn-ghost" target="_blank">Voir le site</a>
-      <button class="admin-header-logout" id="logoutBtn">Déconnexion</button>
-    </div>
-  </header>
+  <button class="admin-sidebar-toggle" id="sidebarToggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
 
-  <main class="admin-container">
+  <div class="admin-layout">
 
-    <h2 class="admin-page-title">Gestion des véhicules</h2>
-    <p class="admin-page-sub">Ajoutez, modifiez ou retirez les voitures de votre stock en vente.</p>
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="admin-sidebar" id="adminSidebar">
 
-    <!-- Tabs -->
-    <div class="admin-tabs">
-      <button class="admin-tab active" data-tab="list">Véhicules vente</button>
-      <button class="admin-tab" data-tab="form">+ Nouveau véhicule (vente)</button>
-      <button class="admin-tab" data-tab="rental-list">Véhicules location</button>
-      <button class="admin-tab" data-tab="rental-form">+ Nouveau véhicule (location)</button>
-      <button class="admin-tab" data-tab="reservations">Réservations <span class="admin-tab-badge" id="reservationsBadge" hidden>0</span></button>
-      <button class="admin-tab" data-tab="tradeins">Demandes de reprise <span class="admin-tab-badge" id="tradeinsBadge" hidden>0</span></button>
-      <button class="admin-tab" data-tab="lavage">BK Cleanned <span class="admin-tab-badge" id="lavageBadge" hidden>0</span></button>
-    </div>
+      <div class="admin-sidebar-header">
+        <div class="admin-sidebar-logo">
+          <img src="favicon-48x48.png?v=1778926313" alt="BK" />
+          <div>
+            <h1 class="admin-sidebar-brand">BK Alpes Motors</h1>
+            <span class="admin-sidebar-tag">Admin</span>
+          </div>
+        </div>
+      </div>
+
+      <nav class="admin-sidebar-nav">
+
+        <div class="admin-sidebar-group">
+          <span class="admin-sidebar-label">Vente</span>
+          <button class="admin-sidebar-item active" data-tab="list">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V15c0 .55.45 1 1 1h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>
+            <span>Mes véhicules</span>
+          </button>
+          <button class="admin-sidebar-item" data-tab="form">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Nouveau véhicule</span>
+          </button>
+        </div>
+
+        <div class="admin-sidebar-group">
+          <span class="admin-sidebar-label">Location</span>
+          <button class="admin-sidebar-item" data-tab="rental-list">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V15c0 .55.45 1 1 1h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>
+            <span>Mes véhicules</span>
+          </button>
+          <button class="admin-sidebar-item" data-tab="rental-form">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Nouveau véhicule</span>
+          </button>
+          <button class="admin-sidebar-item" data-tab="reservations">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>Réservations</span>
+            <span class="admin-tab-badge" id="reservationsBadge" hidden>0</span>
+          </button>
+        </div>
+
+        <div class="admin-sidebar-group">
+          <span class="admin-sidebar-label">Services</span>
+          <button class="admin-sidebar-item" data-tab="tradeins">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+            <span>Reprises</span>
+            <span class="admin-tab-badge" id="tradeinsBadge" hidden>0</span>
+          </button>
+          <button class="admin-sidebar-item" data-tab="lavage">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l2.5 6L22 12l-6.5 3-2.5 6-2.5-6L4 12l6.5-3z"/></svg>
+            <span>BK Cleanned</span>
+            <span class="admin-tab-badge" id="lavageBadge" hidden>0</span>
+          </button>
+        </div>
+
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        <a href="index.html" target="_blank" rel="noopener noreferrer" class="admin-sidebar-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Voir le site
+        </a>
+        <button class="admin-sidebar-link admin-sidebar-logout" id="logoutBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Déconnexion
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- Overlay mobile pour fermer le menu en cliquant à côté -->
+    <div class="admin-sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ===================== MAIN ===================== -->
+    <main class="admin-main">
+
+      <header class="admin-page-head">
+        <h2 class="admin-page-title" id="adminPageTitle">Mes véhicules — Vente</h2>
+        <p class="admin-page-sub" id="adminPageSub">Ajoutez, modifiez ou retirez les voitures de votre stock en vente.</p>
+      </header>
+
+      <!-- Tabs cachés mais conservés pour compat JS existant -->
+      <div class="admin-tabs" style="display:none;">
+        <button class="admin-tab active" data-tab="list">Véhicules vente</button>
+        <button class="admin-tab" data-tab="form">+ Nouveau véhicule (vente)</button>
+        <button class="admin-tab" data-tab="rental-list">Véhicules location</button>
+        <button class="admin-tab" data-tab="rental-form">+ Nouveau véhicule (location)</button>
+        <button class="admin-tab" data-tab="reservations">Réservations</button>
+        <button class="admin-tab" data-tab="tradeins">Demandes de reprise</button>
+        <button class="admin-tab" data-tab="lavage">BK Cleanned</button>
+      </div>
 
     <!-- ===== TAB : Liste ===== -->
     <section class="admin-tab-pane active" id="tab-list">
@@ -535,7 +609,8 @@
       <div id="lavageList"></div>
     </section>
 
-  </main>
+    </main>
+  </div>
 
   <!-- MODAL DÉTAIL LAVAGE -->
   <div class="admin-res-modal" id="lavageDetailModal" aria-hidden="true">
@@ -705,13 +780,56 @@
       return Array.from(container.querySelectorAll('.feat-chip.is-active')).map(c => c.dataset.feat);
     }
 
-    // ============ TABS ============
+    // ============ TABS + SIDEBAR ============
     const tabs = document.querySelectorAll('.admin-tab');
+    const sidebarItems = document.querySelectorAll('.admin-sidebar-item');
     const panes = document.querySelectorAll('.admin-tab-pane');
+    const adminPageTitle = document.getElementById('adminPageTitle');
+    const adminPageSub = document.getElementById('adminPageSub');
+
+    const TAB_META = {
+      'list':         { title: 'Mes véhicules - Vente',           sub: 'Ajoutez, modifiez ou retirez les voitures de votre stock en vente.' },
+      'form':         { title: 'Nouveau véhicule - Vente',        sub: 'Publiez un nouveau véhicule sur la page Vente du site.' },
+      'rental-list':  { title: 'Mes véhicules - Location',        sub: 'Gérez votre flotte de véhicules de location.' },
+      'rental-form':  { title: 'Nouveau véhicule - Location',     sub: 'Publiez un nouveau véhicule sur la page Location du site.' },
+      'reservations': { title: 'Réservations - Location',         sub: 'Demandes de réservation envoyées via la page Location.' },
+      'tradeins':     { title: 'Demandes de reprise',             sub: 'Estimations envoyées via la page Reprise. Répondez sous 24h.' },
+      'lavage':       { title: 'BK Cleanned - Demandes de lavage', sub: 'Planning des demandes de lavage et detailing.' },
+    };
+
     tabs.forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.tab)));
+    sidebarItems.forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.tab)));
+
     function activateTab(name) {
       tabs.forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+      sidebarItems.forEach(b => b.classList.toggle('active', b.dataset.tab === name));
       panes.forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
+      // Met à jour le titre de page
+      const meta = TAB_META[name];
+      if (meta && adminPageTitle && adminPageSub) {
+        adminPageTitle.textContent = meta.title;
+        adminPageSub.textContent = meta.sub;
+      }
+      // Ferme le menu mobile
+      document.getElementById('adminSidebar').classList.remove('is-open');
+      document.getElementById('sidebarOverlay').classList.remove('is-active');
+    }
+
+    // Mobile sidebar toggle
+    const sidebarToggleBtn = document.getElementById('sidebarToggle');
+    const adminSidebarEl = document.getElementById('adminSidebar');
+    const sidebarOverlayEl = document.getElementById('sidebarOverlay');
+    if (sidebarToggleBtn) {
+      sidebarToggleBtn.addEventListener('click', () => {
+        adminSidebarEl.classList.toggle('is-open');
+        sidebarOverlayEl.classList.toggle('is-active');
+      });
+    }
+    if (sidebarOverlayEl) {
+      sidebarOverlayEl.addEventListener('click', () => {
+        adminSidebarEl.classList.remove('is-open');
+        sidebarOverlayEl.classList.remove('is-active');
+      });
     }
 
     document.getElementById('addBtn').addEventListener('click', () => {
