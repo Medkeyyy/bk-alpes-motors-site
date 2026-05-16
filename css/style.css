@@ -19259,39 +19259,37 @@ html .nav-burger {
 }
 
 /* =============================================================
-   HOME SLIDER - OVERRIDE FINAL (style Tesla, texte blanc sur photo)
-   Texte + boutons groupés en haut du slide, ne chevauchent pas l'image.
+   HOME SLIDER - OVERRIDE FINAL (style Tesla, texte blanc centré)
+   Titre + sous-titre + boutons groupés et centrés verticalement au milieu du slide.
    ============================================================= */
 .home-slider .home-slide {
-  justify-content: flex-start !important;
+  justify-content: center !important;
   padding-top: 90px !important;
   padding-bottom: 90px !important;
 }
 
-/* Overlay : un voile sombre dégradé sur la zone du texte (haut), puis transparent — laisse l'image respirer */
+/* Overlay : voile sombre centré derrière le bloc texte, plus léger sur les bords pour laisser respirer la photo */
 .home-slider .home-slide .home-slide-media::after {
   background: linear-gradient(180deg,
-    rgba(10,10,15,0.62) 0%,
-    rgba(10,10,15,0.5) 20%,
-    rgba(10,10,15,0.3) 38%,
-    rgba(10,10,15,0.08) 50%,
-    rgba(0,0,0,0) 62%,
-    rgba(0,0,0,0) 80%,
-    rgba(10,10,15,0.4) 100%) !important;
+    rgba(10,10,15,0.3) 0%,
+    rgba(10,10,15,0.45) 35%,
+    rgba(10,10,15,0.5) 50%,
+    rgba(10,10,15,0.35) 65%,
+    rgba(10,10,15,0.25) 100%) !important;
 }
 
-/* Petit voile localisé directement derrière le bloc texte+boutons (lecture garantie) */
+/* Halo radial discret derrière le bloc texte+boutons pour garantir la lisibilité */
 .home-slider .home-slide .home-slide-content {
   position: relative !important;
 }
 .home-slider .home-slide .home-slide-content::before {
   content: '';
   position: absolute;
-  inset: -28px -40px 0;
-  background: radial-gradient(ellipse at center top, rgba(10,10,15,0.35) 0%, rgba(10,10,15,0.18) 45%, rgba(0,0,0,0) 75%);
+  inset: -32px -48px;
+  background: radial-gradient(ellipse at center, rgba(10,10,15,0.45) 0%, rgba(10,10,15,0.22) 50%, rgba(0,0,0,0) 80%);
   z-index: -1;
   pointer-events: none;
-  border-radius: 24px;
+  border-radius: 32px;
 }
 
 .home-slider .home-slide .home-slide-content {
