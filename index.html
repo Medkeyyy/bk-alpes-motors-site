@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/style.css?v=1778929274" />
+  <link rel="stylesheet" href="css/style.css?v=1778929670" />
 </head>
 <body>
 
@@ -486,46 +486,60 @@
     <div class="vlx-inner">
       <div class="vlx-testimonials-header">
         <h2>Avis réels<br>de nos clients</h2>
-        <div class="vlx-testimonials-arrows">
-          <button class="vlx-arrow-btn" aria-label="Précédent">←</button>
-          <button class="vlx-arrow-btn" aria-label="Suivant">→</button>
-        </div>
       </div>
 
-      <div class="vlx-testimonials-grid">
-        <article class="vlx-testimonial">
-          <div class="vlx-testimonial-head">
-            <div class="vlx-avatar">SM</div>
-            <div>
-              <div class="vlx-testimonial-name">Sophie M.</div>
-              <span class="vlx-testimonial-stars">★★★★★</span>
-            </div>
-          </div>
-          <p>« Voiture impeccable, propre, prête au rendez-vous. Équipe sympa et pro. Je reviendrai pour ma prochaine vente. »</p>
-        </article>
-
-        <article class="vlx-testimonial featured">
-          <a class="vlx-testimonial-arrow" href="#">↗</a>
-          <div class="vlx-testimonial-head">
-            <div class="vlx-avatar">KB</div>
-            <div>
-              <div class="vlx-testimonial-name">Karim B.</div>
-              <span class="vlx-testimonial-stars">★★★★★</span>
-            </div>
-          </div>
-          <p>« J'ai loué une Range Rover pour le week-end de mon mariage. Voiture parfaite, livrée propre devant l'hôtel. Merci à toute l'équipe - service impeccable. »</p>
-        </article>
-
-        <article class="vlx-testimonial">
-          <div class="vlx-testimonial-head">
-            <div class="vlx-avatar">TD</div>
-            <div>
-              <div class="vlx-testimonial-name">Thomas D.</div>
-              <span class="vlx-testimonial-stars">★★★★★</span>
-            </div>
-          </div>
-          <p>« BK a repris ma Mercedes en 48h, prix correct, sans négociation pénible. Démarche fluide, je recommande. »</p>
-        </article>
+      <div class="vlx-testimonials-wrap">
+        <div class="vlx-testimonials-track">
+          <article class="vlx-testimonial">
+            <div class="vlx-testimonial-head"><div class="vlx-avatar">SM</div><div><div class="vlx-testimonial-name">Sophie M.</div><span class="vlx-testimonial-stars">★★★★★</span></div></div>
+            <p>« Voiture impeccable, propre, prête au rendez-vous. Équipe sympa et pro. Je reviendrai pour ma prochaine vente. »</p>
+          </article>
+          <article class="vlx-testimonial featured">
+            <div class="vlx-testimonial-head"><div class="vlx-avatar">KB</div><div><div class="vlx-testimonial-name">Karim B.</div><span class="vlx-testimonial-stars">★★★★★</span></div></div>
+            <p>« J'ai loué une Range Rover pour le week-end de mon mariage. Voiture parfaite, livrée propre devant l'hôtel. Service impeccable. »</p>
+          </article>
+          <article class="vlx-testimonial">
+            <div class="vlx-testimonial-head"><div class="vlx-avatar">TD</div><div><div class="vlx-testimonial-name">Thomas D.</div><span class="vlx-testimonial-stars">★★★★★</span></div></div>
+            <p>« BK a repris ma Mercedes en 48h, prix correct, sans négociation pénible. Démarche fluide, je recommande. »</p>
+          </article>
+          <article class="vlx-testimonial">
+            <div class="vlx-testimonial-head"><div class="vlx-avatar">JL</div><div><div class="vlx-testimonial-name">Julie L.</div><span class="vlx-testimonial-stars">★★★★★</span></div></div>
+            <p>« Achat d'un Q5 avec reprise de mon ancienne voiture. Le tout en une visite. Conseillers très pros, transparents sur tout. »</p>
+          </article>
+          <article class="vlx-testimonial featured">
+            <div class="vlx-testimonial-head"><div class="vlx-avatar">AR</div><div><div class="vlx-testimonial-name">Antoine R.</div><span class="vlx-testimonial-stars">★★★★★</span></div></div>
+            <p>« Location longue durée sur 3 mois d'une Classe E. Service de livraison parfait, voiture nickel à chaque retour atelier. »</p>
+          </article>
+          <article class="vlx-testimonial">
+            <div class="vlx-testimonial-head"><div class="vlx-avatar">NB</div><div><div class="vlx-testimonial-name">Nadia B.</div><span class="vlx-testimonial-stars">★★★★★</span></div></div>
+            <p>« Très bonne expérience pour l'achat d'une 911. Aucun détail laissé au hasard, voiture livrée prête, papiers en règle. »</p>
+          </article>
+          <!-- Duplicate pour boucle infinie -->
+          <article class="vlx-testimonial" aria-hidden="true">
+            <div class="vlx-testimonial-head"><div class="vlx-avatar">SM</div><div><div class="vlx-testimonial-name">Sophie M.</div><span class="vlx-testimonial-stars">★★★★★</span></div></div>
+            <p>« Voiture impeccable, propre, prête au rendez-vous. Équipe sympa et pro. Je reviendrai pour ma prochaine vente. »</p>
+          </article>
+          <article class="vlx-testimonial featured" aria-hidden="true">
+            <div class="vlx-testimonial-head"><div class="vlx-avatar">KB</div><div><div class="vlx-testimonial-name">Karim B.</div><span class="vlx-testimonial-stars">★★★★★</span></div></div>
+            <p>« J'ai loué une Range Rover pour le week-end de mon mariage. Voiture parfaite, livrée propre devant l'hôtel. Service impeccable. »</p>
+          </article>
+          <article class="vlx-testimonial" aria-hidden="true">
+            <div class="vlx-testimonial-head"><div class="vlx-avatar">TD</div><div><div class="vlx-testimonial-name">Thomas D.</div><span class="vlx-testimonial-stars">★★★★★</span></div></div>
+            <p>« BK a repris ma Mercedes en 48h, prix correct, sans négociation pénible. Démarche fluide, je recommande. »</p>
+          </article>
+          <article class="vlx-testimonial" aria-hidden="true">
+            <div class="vlx-testimonial-head"><div class="vlx-avatar">JL</div><div><div class="vlx-testimonial-name">Julie L.</div><span class="vlx-testimonial-stars">★★★★★</span></div></div>
+            <p>« Achat d'un Q5 avec reprise de mon ancienne voiture. Le tout en une visite. Conseillers très pros, transparents sur tout. »</p>
+          </article>
+          <article class="vlx-testimonial featured" aria-hidden="true">
+            <div class="vlx-testimonial-head"><div class="vlx-avatar">AR</div><div><div class="vlx-testimonial-name">Antoine R.</div><span class="vlx-testimonial-stars">★★★★★</span></div></div>
+            <p>« Location longue durée sur 3 mois d'une Classe E. Service de livraison parfait, voiture nickel à chaque retour atelier. »</p>
+          </article>
+          <article class="vlx-testimonial" aria-hidden="true">
+            <div class="vlx-testimonial-head"><div class="vlx-avatar">NB</div><div><div class="vlx-testimonial-name">Nadia B.</div><span class="vlx-testimonial-stars">★★★★★</span></div></div>
+            <p>« Très bonne expérience pour l'achat d'une 911. Aucun détail laissé au hasard, voiture livrée prête, papiers en règle. »</p>
+          </article>
+        </div>
       </div>
     </div>
   </section>

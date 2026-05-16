@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778929274" />
+  <link rel="stylesheet" href="css/style.css?v=1778929670" />
   <!-- jsPDF pour génération PDF brandée -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
@@ -78,7 +78,7 @@
           </button>
           <button class="admin-sidebar-item" data-tab="lavage">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v4M3 5h4M6 17v4M4 19h4M13 3l2.5 6L22 12l-6.5 3-2.5 6-2.5-6L4 12l6.5-3z"/></svg>
-            <span>BK Cleanned</span>
+            <span>BK Clean</span>
             <span class="admin-tab-badge" id="lavageBadge" hidden>0</span>
           </button>
         </div>
@@ -117,7 +117,7 @@
         <button class="admin-tab" data-tab="rental-form">+ Nouveau véhicule (location)</button>
         <button class="admin-tab" data-tab="reservations">Réservations</button>
         <button class="admin-tab" data-tab="tradeins">Demandes de reprise</button>
-        <button class="admin-tab" data-tab="lavage">BK Cleanned</button>
+        <button class="admin-tab" data-tab="lavage">BK Clean</button>
       </div>
 
     <!-- ===== TAB : Liste ===== -->
@@ -593,7 +593,7 @@
       <div id="tradeinList"></div>
     </section>
 
-    <!-- ===== TAB : BK Cleanned (Demandes lavage) ===== -->
+    <!-- ===== TAB : BK Clean (Demandes lavage) ===== -->
     <section class="admin-tab-pane" id="tab-lavage">
       <div class="admin-list-header">
         <div class="admin-list-count">
@@ -847,7 +847,7 @@
       'rental-form':  { title: 'Nouveau véhicule - Location',     sub: 'Publiez un nouveau véhicule sur la page Location du site.' },
       'reservations': { title: 'Réservations - Location',         sub: 'Demandes de réservation envoyées via la page Location.' },
       'tradeins':     { title: 'Demandes de reprise',             sub: 'Estimations envoyées via la page Reprise. Répondez sous 24h.' },
-      'lavage':       { title: 'BK Cleanned - Demandes de lavage', sub: 'Planning des demandes de lavage et detailing.' },
+      'lavage':       { title: 'BK Clean - Demandes de lavage', sub: 'Planning des demandes de lavage et detailing.' },
     };
 
     tabs.forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.tab)));
@@ -2437,7 +2437,7 @@ L'équipe BK Alpes Motors`
     });
 
     // ============================================================
-    // ============ BK CLEANNED — Demandes de lavage =================
+    // ============ BK CLEAN — Demandes de lavage =================
     // ============================================================
     const LAVAGE_STATUS_LABELS = {
       pending:    'À traiter',
@@ -2940,7 +2940,7 @@ L'équipe BK Alpes Motors`
           { value: 'completed', label: 'Terminées',                     filter: r => r.status === 'completed' },
           { value: 'refused',   label: 'Refusées',                      filter: r => r.status === 'refused' },
         ],
-        pdfHeading: 'Demandes BK Cleanned',
+        pdfHeading: 'Demandes BK Clean',
         pdfColumns: [
           { header: 'Réf', key: 'ref' },
           { header: 'Date', key: 'createdAt', format: fmtDateFr },

@@ -10173,6 +10173,40 @@ body:has(.page-tesla-hero) .navbar:not(.scrolled) .nav-links a.active {
   flex-wrap: wrap;
   gap: 20px;
 }
+
+/* Marquee animé (auto-scroll, pause au survol) */
+.vlx-testimonials-wrap {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%);
+  padding: 10px 0 14px;
+}
+.vlx-testimonials-track {
+  display: flex;
+  gap: 18px;
+  width: max-content;
+  animation: vlx-testimonials-scroll 60s linear infinite;
+  will-change: transform;
+}
+.vlx-testimonials-wrap:hover .vlx-testimonials-track,
+.vlx-testimonials-track:focus-within {
+  animation-play-state: paused;
+}
+.vlx-testimonials-track .vlx-testimonial {
+  flex: 0 0 360px;
+  margin: 0;
+}
+.vlx-testimonials-track .vlx-testimonial.featured {
+  transform: none;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.18);
+}
+@keyframes vlx-testimonials-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (max-width: 720px) {
+  .vlx-testimonials-track .vlx-testimonial { flex: 0 0 84vw; }
+}
 .vlx-testimonials-arrows {
   display: flex;
   gap: 10px;
