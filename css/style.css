@@ -19268,14 +19268,30 @@ html .nav-burger {
   padding-bottom: 90px !important;
 }
 
-/* Overlay : un voile sombre subtil sur la zone titre, puis transparent — laisse l'image respirer */
+/* Overlay : un voile sombre dégradé sur la zone du texte (haut), puis transparent — laisse l'image respirer */
 .home-slider .home-slide .home-slide-media::after {
   background: linear-gradient(180deg,
-    rgba(10,10,15,0.45) 0%,
-    rgba(10,10,15,0.18) 30%,
-    rgba(0,0,0,0) 55%,
+    rgba(10,10,15,0.62) 0%,
+    rgba(10,10,15,0.5) 20%,
+    rgba(10,10,15,0.3) 38%,
+    rgba(10,10,15,0.08) 50%,
+    rgba(0,0,0,0) 62%,
     rgba(0,0,0,0) 80%,
-    rgba(10,10,15,0.35) 100%) !important;
+    rgba(10,10,15,0.4) 100%) !important;
+}
+
+/* Petit voile localisé directement derrière le bloc texte+boutons (lecture garantie) */
+.home-slider .home-slide .home-slide-content {
+  position: relative !important;
+}
+.home-slider .home-slide .home-slide-content::before {
+  content: '';
+  position: absolute;
+  inset: -28px -40px 0;
+  background: radial-gradient(ellipse at center top, rgba(10,10,15,0.35) 0%, rgba(10,10,15,0.18) 45%, rgba(0,0,0,0) 75%);
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 24px;
 }
 
 .home-slider .home-slide .home-slide-content {
