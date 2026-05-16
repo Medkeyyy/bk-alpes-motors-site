@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778920213" />
+  <link rel="stylesheet" href="css/style.css?v=1778920577" />
 </head>
 <body>
 
@@ -461,51 +461,75 @@
       document.getElementById('rdtDescriptionBlock').style.display = 'none';
     }
 
-    // Photos gallery
-    const photos = (vehicle.photos && vehicle.photos.length) ? vehicle.photos : null;
+    // Photos gallery (bulletproof)
     const mainEl = document.getElementById('rdtGalleryMain');
     const thumbsEl = document.getElementById('rdtGalleryThumbs');
-
-    if (photos) {
-      mainEl.innerHTML = `<img src="${photos[0]}" alt="${vehicle.brand} ${vehicle.name}" id="rdtMainImg" />`;
-
-      // 2 thumbs : photo 2 + photo 3 (avec overlay "+N photos" sur la 2e si plus de photos)
-      const thumb1 = photos[1] || null;
-      const thumb2 = photos[2] || null;
-      const extraCount = photos.length - 3; // photos restantes après les 2 thumbs
-
-      let thumbsHTML = '';
-      if (thumb1) {
-        thumbsHTML += `<div class="rdt-thumb" data-idx="1"><img src="${thumb1}" alt="Photo 2" /></div>`;
-      } else {
-        thumbsHTML += `<div class="rdt-thumb"><div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div></div>`;
+    let photos = null;
+    try {
+      if (Array.isArray(vehicle.photos) && vehicle.photos.length > 0) {
+        // Filtre les entrées vides/null
+        photos = vehicle.photos.filter(p => p && typeof p === 'string' && p.length > 0);
+        if (photos.length === 0) photos = null;
       }
-      if (extraCount > 0) {
-        // overlay "+N photos" sur la 2e thumb (au-dessus de la photo 3)
-        thumbsHTML += `<div class="rdt-thumb rdt-thumb-more">+${extraCount + 1} photos</div>`;
-      } else if (thumb2) {
-        thumbsHTML += `<div class="rdt-thumb" data-idx="2"><img src="${thumb2}" alt="Photo 3" /></div>`;
-      } else {
-        thumbsHTML += `<div class="rdt-thumb"><div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div></div>`;
-      }
-      thumbsEl.innerHTML = thumbsHTML;
+    } catch (e) {
+      console.error('Erreur photos:', e);
+      photos = null;
+    }
+    console.log('[rental-detail] vehicle:', vehicle.id, 'photos count:', photos ? photos.length : 0);
 
-      // Click n'importe où sur la galerie = ouvrir lightbox (comme vente)
-      mainEl.addEventListener('click', () => openLightbox(0));
-      thumbsEl.querySelectorAll('.rdt-thumb').forEach(t => {
-        t.addEventListener('click', () => {
-          const idx = parseInt(t.dataset.idx || '0', 10);
-          openLightbox(idx);
+    function renderGallery() {
+      if (photos && photos.length > 0) {
+        const altText = `${vehicle.brand || ''} ${vehicle.model || vehicle.name || ''}`.trim();
+        mainEl.innerHTML = `<img src="${photos[0]}" alt="${altText}" id="rdtMainImg" />`;
+
+        const thumb1 = photos[1] || null;
+        const thumb2 = photos[2] || null;
+        const extraCount = photos.length - 3;
+
+        let thumbsHTML = '';
+        if (thumb1) {
+          thumbsHTML += `<div class="rdt-thumb" data-idx="1"><img src="${thumb1}" alt="Photo 2" /></div>`;
+        } else {
+          thumbsHTML += `<div class="rdt-thumb"><div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div></div>`;
+        }
+        if (extraCount > 0) {
+          thumbsHTML += `<div class="rdt-thumb rdt-thumb-more">+${extraCount + 1} photos</div>`;
+        } else if (thumb2) {
+          thumbsHTML += `<div class="rdt-thumb" data-idx="2"><img src="${thumb2}" alt="Photo 3" /></div>`;
+        } else {
+          thumbsHTML += `<div class="rdt-thumb"><div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div></div>`;
+        }
+        thumbsEl.innerHTML = thumbsHTML;
+
+        // Click partout = lightbox
+        mainEl.addEventListener('click', () => openLightbox(0));
+        thumbsEl.querySelectorAll('.rdt-thumb').forEach(t => {
+          t.addEventListener('click', () => {
+            const idx = parseInt(t.dataset.idx || '0', 10);
+            openLightbox(idx);
+          });
         });
-      });
-    } else {
-      // Pas de photos réelles : placeholder dans la main + 2 thumbs placeholder (sans 'Photos à venir')
+      } else {
+        // Pas de photos : placeholder dans main + 2 thumbs placeholder
+        mainEl.innerHTML = `<div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div>`;
+        thumbsEl.innerHTML = `
+          <div class="rdt-thumb"><div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div></div>
+          <div class="rdt-thumb"><div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div></div>
+        `;
+        mainEl.style.cursor = 'default';
+      }
+    }
+
+    try {
+      renderGallery();
+    } catch (e) {
+      console.error('Erreur rendu galerie:', e);
+      // Fallback total : juste un placeholder
       mainEl.innerHTML = `<div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div>`;
       thumbsEl.innerHTML = `
         <div class="rdt-thumb"><div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div></div>
         <div class="rdt-thumb"><div class="rdt-gallery-placeholder">${PLACEHOLDER_SVG}</div></div>
       `;
-      mainEl.style.cursor = 'default'; // pas de zoom-in si pas de photos
     }
 
     // Specs
