@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778924707" />
+  <link rel="stylesheet" href="css/style.css?v=1778925423" />
 </head>
 <body class="admin-body">
 
@@ -40,6 +40,7 @@
       <button class="admin-tab" data-tab="rental-form">+ Nouveau véhicule (location)</button>
       <button class="admin-tab" data-tab="reservations">Réservations <span class="admin-tab-badge" id="reservationsBadge" hidden>0</span></button>
       <button class="admin-tab" data-tab="tradeins">Demandes de reprise <span class="admin-tab-badge" id="tradeinsBadge" hidden>0</span></button>
+      <button class="admin-tab" data-tab="lavage">BK Cleanned <span class="admin-tab-badge" id="lavageBadge" hidden>0</span></button>
     </div>
 
     <!-- ===== TAB : Liste ===== -->
@@ -515,7 +516,35 @@
       <div id="tradeinList"></div>
     </section>
 
+    <!-- ===== TAB : BK Cleanned (Demandes lavage) ===== -->
+    <section class="admin-tab-pane" id="tab-lavage">
+      <div class="admin-list-header">
+        <div class="admin-list-count">
+          <strong id="lavageCountLabel">0</strong> demande(s) de lavage
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="admin-btn-ghost" id="exportLavageBtn">Exporter en JSON</button>
+        </div>
+      </div>
+
+      <div id="lavageEmptyState" class="admin-empty" style="display:none;">
+        <strong>Aucune demande de lavage pour l'instant</strong>
+        <p>Les demandes envoyées via la page Lavage apparaîtront ici.</p>
+      </div>
+
+      <div id="lavageList"></div>
+    </section>
+
   </main>
+
+  <!-- MODAL DÉTAIL LAVAGE -->
+  <div class="admin-res-modal" id="lavageDetailModal" aria-hidden="true">
+    <div class="admin-res-modal-backdrop" data-close-lavage></div>
+    <div class="admin-res-modal-dialog" role="dialog">
+      <button type="button" class="loc-modal-close" data-close-lavage aria-label="Fermer">×</button>
+      <div id="lavageDetailContent"></div>
+    </div>
+  </div>
 
   <!-- ============ MODAL DÉTAIL RÉSERVATION ============ -->
   <div class="admin-res-modal" id="resDetailModal" aria-hidden="true">
@@ -2272,7 +2301,394 @@ L'équipe BK Alpes Motors`
     document.querySelectorAll('.admin-tab').forEach(tab => {
       tab.addEventListener('click', () => {
         if (tab.dataset.tab === 'tradeins') renderTradeins();
+        if (tab.dataset.tab === 'lavage') renderLavageList();
       });
+    });
+
+    // ============================================================
+    // ============ BK CLEANNED — Demandes de lavage =================
+    // ============================================================
+    const LAVAGE_STATUS_LABELS = {
+      pending:    'À traiter',
+      contacted:  'Contacté',
+      quoted:     'Devis envoyé',
+      confirmed:  'Confirmée',
+      completed:  'Terminée',
+      refused:    'Refusée',
+    };
+    const LAVAGE_GROUPS = [
+      { key: 'pending',   title: 'À traiter sous 24h',           sub: 'Nouvelles demandes' },
+      { key: 'contacted', title: 'Clients contactés',             sub: 'En cours d\'évaluation' },
+      { key: 'quoted',    title: 'Devis envoyés',                 sub: 'En attente de validation' },
+      { key: 'confirmed', title: 'Confirmées — RDV planifié',     sub: 'À effectuer' },
+      { key: 'completed', title: 'Prestations terminées',         sub: 'Archives' },
+      { key: 'refused',   title: 'Refusées',                      sub: 'Archives' },
+    ];
+
+    function loadLavageRequests() {
+      try { return JSON.parse(localStorage.getItem('bk_lavage_requests') || '[]'); }
+      catch { return []; }
+    }
+    function saveLavageRequests(arr) {
+      localStorage.setItem('bk_lavage_requests', JSON.stringify(arr));
+    }
+
+    const lavageCountLabel = document.getElementById('lavageCountLabel');
+    const lavageEmptyState = document.getElementById('lavageEmptyState');
+    const lavageListEl     = document.getElementById('lavageList');
+    const lavageBadge      = document.getElementById('lavageBadge');
+
+    function lavageCardHTML(r) {
+      const c = r.customer || {};
+      const p = r.prestation || {};
+      const l = r.location || {};
+      const total = r.total !== null ? fmtMoney(r.total) : 'Sur devis';
+      return `
+        <article class="admin-res" data-id="${r.id}">
+          <div class="admin-res-head">
+            <div>
+              <div class="admin-res-ref">${r.ref || r.id}</div>
+              <div class="admin-res-date">Reçue le ${fmtDateTimeFr(r.createdAt)}</div>
+            </div>
+            <span class="admin-res-status ${r.status}">${LAVAGE_STATUS_LABELS[r.status] || r.status}</span>
+          </div>
+          <div class="admin-res-body">
+            <div class="admin-res-row">
+              <div class="admin-res-cell">
+                <span class="admin-res-cell-label">Client</span>
+                <span class="admin-res-cell-value">${c.civility || ''} ${c.firstName || ''} ${c.lastName || ''}</span>
+                <span class="admin-res-cell-sub">${c.email || ''} · ${c.phone || ''}</span>
+              </div>
+              <div class="admin-res-cell">
+                <span class="admin-res-cell-label">Prestation</span>
+                <span class="admin-res-cell-value">${p.formulaLabel || ''}</span>
+                <span class="admin-res-cell-sub">${p.vehicleLabel || ''}</span>
+              </div>
+              <div class="admin-res-cell">
+                <span class="admin-res-cell-label">Lieu</span>
+                <span class="admin-res-cell-value">${l.typeLabel || ''}</span>
+                <span class="admin-res-cell-sub">${l.city ? (l.city + ' · ' + (l.postalCode || '')) : 'Annecy'}</span>
+              </div>
+              <div class="admin-res-cell">
+                <span class="admin-res-cell-label">Total</span>
+                <span class="admin-res-cell-value admin-res-total">${total}</span>
+                <span class="admin-res-cell-sub">${l.zoneLabel ? '+' + (l.zoneFee || 0) + ' € zone' : ''}</span>
+              </div>
+            </div>
+            <div class="admin-res-actions">
+              <button class="admin-btn-ghost" data-lavage-action="view" data-id="${r.id}">Voir détail</button>
+              ${r.status === 'pending' ? `
+                <button class="admin-btn-primary" data-lavage-action="contact" data-id="${r.id}">Contacter</button>
+                <button class="admin-btn-danger"  data-lavage-action="refuse"  data-id="${r.id}">Refuser</button>
+              ` : ''}
+              ${r.status === 'contacted' ? `
+                <button class="admin-btn-primary admin-btn-success" data-lavage-action="quote"   data-id="${r.id}">Envoyer devis</button>
+                <button class="admin-btn-danger"                    data-lavage-action="refuse"  data-id="${r.id}">Refuser</button>
+              ` : ''}
+              ${r.status === 'quoted' ? `
+                <button class="admin-btn-primary admin-btn-success" data-lavage-action="confirm" data-id="${r.id}">Confirmer RDV</button>
+                <button class="admin-btn-ghost"                     data-lavage-action="recall"  data-id="${r.id}">Rappeler</button>
+                <button class="admin-btn-danger"                    data-lavage-action="refuse"  data-id="${r.id}">Annuler</button>
+              ` : ''}
+              ${r.status === 'confirmed' ? `
+                <button class="admin-btn-primary admin-btn-success" data-lavage-action="complete" data-id="${r.id}">Marquer terminée</button>
+              ` : ''}
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderLavageList() {
+      const all = loadLavageRequests();
+      lavageCountLabel.textContent = all.length;
+      const pending = all.filter(r => r.status === 'pending').length;
+      if (pending > 0) { lavageBadge.hidden = false; lavageBadge.textContent = pending; }
+      else { lavageBadge.hidden = true; }
+
+      if (all.length === 0) {
+        lavageEmptyState.style.display = '';
+        lavageListEl.innerHTML = '';
+        return;
+      }
+      lavageEmptyState.style.display = 'none';
+
+      const groups = { pending: [], contacted: [], quoted: [], confirmed: [], completed: [], refused: [] };
+      all.forEach(r => { (groups[r.status] || groups.pending).push(r); });
+
+      lavageListEl.innerHTML = LAVAGE_GROUPS.map(g => {
+        const list = groups[g.key];
+        if (list.length === 0) return '';
+        const dotClass = { pending: 'pending', contacted: 'accepted', quoted: 'accepted', confirmed: 'paid', completed: 'paid', refused: 'refused' }[g.key] || 'pending';
+        return `
+          <section class="admin-section" data-status="lavage-${g.key}">
+            <div class="admin-section-header">
+              <div class="admin-section-title">
+                <span class="admin-section-dot admin-section-dot-${dotClass}"></span>${g.title}
+              </div>
+              <div class="admin-section-count">${list.length} demande${list.length > 1 ? 's' : ''}</div>
+            </div>
+            <div class="admin-res-list">${list.map(lavageCardHTML).join('')}</div>
+          </section>
+        `;
+      }).join('');
+
+      lavageListEl.querySelectorAll('button[data-lavage-action]').forEach(btn => {
+        btn.addEventListener('click', () => onLavageAction(btn.dataset.lavageAction, btn.dataset.id));
+      });
+    }
+
+    function onLavageAction(action, id) {
+      const all = loadLavageRequests();
+      const idx = all.findIndex(r => r.id === id);
+      if (idx === -1) return;
+      const r = all[idx];
+      const c = r.customer;
+      const p = r.prestation;
+      const l = r.location;
+
+      if (action === 'view') return openLavageDetail(r);
+
+      if (action === 'contact') {
+        all[idx].status = 'contacted';
+        all[idx].contactedAt = new Date().toISOString();
+        saveLavageRequests(all);
+        const subject = encodeURIComponent(`BK Alpes Motors - Votre demande de lavage ${r.ref}`);
+        const body = encodeURIComponent(
+`Bonjour ${c.firstName} ${c.lastName},
+
+Nous avons bien reçu votre demande de lavage pour votre ${p.vehicleLabel}.
+
+Prestation demandée : ${p.formulaLabel}
+Lieu : ${l.typeLabel}${l.city ? ' (' + l.city + ')' : ''}
+
+Notre équipe revient vers vous très prochainement avec une proposition de créneau et un devis confirmé.
+
+Bien cordialement,
+L'équipe BK Alpes Motors
+07 56 85 90 26`
+        );
+        window.location.href = `mailto:${c.email}?subject=${subject}&body=${body}`;
+        renderLavageList();
+        showToast('Email d\'accusé de réception ouvert');
+        return;
+      }
+
+      if (action === 'quote') {
+        const baseAmount = r.total || (p.basePrice || 100);
+        const amount = prompt(
+          `Montant du devis pour ${r.ref}\n${p.formulaLabel} sur ${p.vehicleLabel} (${l.typeLabel})\n\nMontant proposé (€) :`,
+          baseAmount
+        );
+        if (amount === null) return;
+        const cleanAmount = parseInt(String(amount).replace(/[^\d]/g, ''), 10);
+        if (isNaN(cleanAmount) || cleanAmount <= 0) {
+          alert('Montant invalide');
+          return;
+        }
+        all[idx].status = 'quoted';
+        all[idx].quote = { amount: cleanAmount, at: new Date().toISOString() };
+        saveLavageRequests(all);
+        const subject = encodeURIComponent(`BK Alpes Motors - Devis lavage ${r.ref}`);
+        const body = encodeURIComponent(
+`Bonjour ${c.firstName} ${c.lastName},
+
+Suite à votre demande de lavage (réf. ${r.ref}), nous avons le plaisir de vous proposer le devis suivant pour votre ${p.vehicleLabel} :
+
+Prestation : ${p.formulaLabel}
+Lieu : ${l.typeLabel}${l.city ? ' (' + l.city + ')' : ''}
+
+>>> MONTANT TOTAL : ${fmtMoney(cleanAmount)} <<<
+
+Ce devis est valable 30 jours. Le paiement s'effectue le jour de l'intervention (espèces, virement ou CB mobile).
+
+Pour valider ce devis et planifier un créneau, répondez à cet email ou contactez-nous au 07 56 85 90 26.
+
+Bien cordialement,
+L'équipe BK Alpes Motors`
+        );
+        window.location.href = `mailto:${c.email}?subject=${subject}&body=${body}`;
+        renderLavageList();
+        showToast('Devis enregistré - email ouvert');
+        return;
+      }
+
+      if (action === 'confirm') {
+        const slot = prompt(`Date et heure du RDV pour ${r.ref}\nFormat : JJ/MM/AAAA HHhMM\nEx : 25/05/2026 14h30`, '');
+        if (slot === null || !slot.trim()) return;
+        all[idx].status = 'confirmed';
+        all[idx].confirmedAt = new Date().toISOString();
+        all[idx].rdvSlot = slot.trim();
+        saveLavageRequests(all);
+        const subject = encodeURIComponent(`BK Alpes Motors - RDV confirmé ${r.ref}`);
+        const body = encodeURIComponent(
+`Bonjour ${c.firstName} ${c.lastName},
+
+Votre demande ${r.ref} est confirmée.
+
+Prestation : ${p.formulaLabel} sur ${p.vehicleLabel}
+Lieu : ${l.typeLabel}${l.city ? ' (' + l.city + ')' : ''}
+RDV : ${slot}
+
+Nous serons au RDV. Merci de vous assurer que le véhicule est accessible et que la zone d'intervention permet le travail (accès eau/électricité si à domicile).
+
+Pour toute modification, contactez-nous au 07 56 85 90 26.
+
+L'équipe BK Alpes Motors`
+        );
+        window.location.href = `mailto:${c.email}?subject=${subject}&body=${body}`;
+        renderLavageList();
+        showToast('RDV confirmé');
+        return;
+      }
+
+      if (action === 'recall') {
+        const subject = encodeURIComponent(`BK Alpes Motors - Rappel devis ${r.ref}`);
+        const body = encodeURIComponent(
+`Bonjour ${c.firstName} ${c.lastName},
+
+Nous revenons vers vous au sujet de votre devis ${r.ref} (${p.formulaLabel} sur ${p.vehicleLabel}).
+
+${r.quote ? 'Montant : ' + fmtMoney(r.quote.amount) + '\n\n' : ''}Souhaitez-vous toujours bénéficier de cette prestation ? N'hésitez pas à nous répondre ou nous appeler au 07 56 85 90 26.
+
+L'équipe BK Alpes Motors`
+        );
+        window.location.href = `mailto:${c.email}?subject=${subject}&body=${body}`;
+        showToast('Email de relance ouvert');
+        return;
+      }
+
+      if (action === 'complete') {
+        if (!confirm(`Confirmer que la prestation ${r.ref} a été effectuée ?`)) return;
+        all[idx].status = 'completed';
+        all[idx].completedAt = new Date().toISOString();
+        saveLavageRequests(all);
+        renderLavageList();
+        showToast('Prestation marquée terminée');
+        return;
+      }
+
+      if (action === 'refuse') {
+        const reason = prompt('Motif (sera inclus dans l\'email au client) :', '');
+        if (reason === null) return;
+        all[idx].status = 'refused';
+        all[idx].refusedAt = new Date().toISOString();
+        all[idx].refusalReason = reason.trim();
+        saveLavageRequests(all);
+        const subject = encodeURIComponent(`BK Alpes Motors - Demande ${r.ref}`);
+        const body = encodeURIComponent(
+`Bonjour ${c.firstName} ${c.lastName},
+
+Nous avons bien étudié votre demande de lavage (réf. ${r.ref}) pour votre ${p.vehicleLabel}.
+
+Malheureusement, nous ne pouvons donner suite à cette demande.
+
+${reason ? 'Motif : ' + reason + '\n\n' : ''}Cordialement,
+L'équipe BK Alpes Motors`
+        );
+        window.location.href = `mailto:${c.email}?subject=${subject}&body=${body}`;
+        renderLavageList();
+        showToast('Demande refusée');
+        return;
+      }
+    }
+
+    // Modal détail lavage
+    const lavageDetailModal = document.getElementById('lavageDetailModal');
+    const lavageDetailContent = document.getElementById('lavageDetailContent');
+
+    function openLavageDetail(r) {
+      const c = r.customer || {};
+      const p = r.prestation || {};
+      const l = r.location || {};
+      const total = r.total !== null ? fmtMoney(r.total) : 'Sur devis';
+
+      const quoteHTML = r.quote
+        ? `<div class="admin-res-detail-section full">
+             <h3>Devis envoyé</h3>
+             <p><strong style="font-size:1.3rem; color:#2D8E47;">${fmtMoney(r.quote.amount)}</strong></p>
+             <p class="sub">Envoyé le ${fmtDateTimeFr(r.quote.at)}</p>
+           </div>` : '';
+      const rdvHTML = r.rdvSlot
+        ? `<div class="admin-res-detail-section full">
+             <h3>RDV planifié</h3>
+             <p><strong style="font-size:1.15rem;">${r.rdvSlot}</strong></p>
+           </div>` : '';
+
+      lavageDetailContent.innerHTML = `
+        <div class="admin-res-detail">
+          <div class="admin-res-detail-head">
+            <span class="admin-res-detail-eyebrow">Demande de lavage</span>
+            <h2>${r.ref || r.id}</h2>
+            <span class="admin-res-status ${r.status}">${LAVAGE_STATUS_LABELS[r.status]}</span>
+          </div>
+
+          <div class="admin-res-detail-grid">
+            <div class="admin-res-detail-section">
+              <h3>Client</h3>
+              <p><strong>${c.civility || ''} ${c.firstName || ''} ${c.lastName || ''}</strong></p>
+              <p>${c.email || ''}</p>
+              <p>${c.phone || ''}</p>
+            </div>
+
+            <div class="admin-res-detail-section">
+              <h3>Prestation</h3>
+              <p><strong>${p.formulaLabel || ''}</strong></p>
+              <p>Véhicule : ${p.vehicleLabel || ''}</p>
+              ${p.basePrice ? `<p>Tarif de base : ${fmtMoney(p.basePrice)}</p>` : ''}
+              ${p.isCustom ? '<p><em>Sur mesure / devis personnalisé</em></p>' : ''}
+            </div>
+
+            <div class="admin-res-detail-section full">
+              <h3>Lieu d'intervention</h3>
+              <p><strong>${l.typeLabel || ''}</strong></p>
+              ${l.address ? `<p>${l.address}</p>` : ''}
+              ${l.city ? `<p>${l.city} ${l.postalCode || ''}</p>` : ''}
+              ${l.zoneLabel ? `<p>Zone : ${l.zoneLabel}</p>` : ''}
+              ${l.zoneFee ? `<p>Frais déplacement : <strong>+${l.zoneFee} €</strong></p>` : ''}
+            </div>
+
+            ${r.notes ? `
+              <div class="admin-res-detail-section full">
+                <h3>Notes du client</h3>
+                <p style="white-space:pre-wrap;">${r.notes}</p>
+              </div>` : ''}
+
+            ${quoteHTML}
+            ${rdvHTML}
+
+            <div class="admin-res-detail-section full">
+              <h3>Récapitulatif financier</h3>
+              <p>Total estimé initial : <strong>${total}</strong></p>
+            </div>
+
+            ${r.refusalReason ? `
+              <div class="admin-res-detail-section full">
+                <h3>Motif du refus</h3>
+                <p>${r.refusalReason}</p>
+              </div>` : ''}
+          </div>
+        </div>
+      `;
+      lavageDetailModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    document.querySelectorAll('[data-close-lavage]').forEach(el => el.addEventListener('click', () => {
+      lavageDetailModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }));
+
+    document.getElementById('exportLavageBtn').addEventListener('click', () => {
+      const data = loadLavageRequests();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `bk-lavages-${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Export JSON téléchargé');
     });
 
     // ============ INIT ============
@@ -2280,6 +2696,7 @@ L'équipe BK Alpes Motors`
     renderReservations();
     renderRentalList();
     renderTradeins();
+    renderLavageList();
     // Init des features pickers (vide au démarrage)
     renderFeaturesPicker('featuresPickerVente', 'vente', []);
     renderFeaturesPicker('featuresPickerRental', 'rental', []);

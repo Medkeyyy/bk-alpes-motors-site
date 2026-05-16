@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=1778924707" />
+  <link rel="stylesheet" href="css/style.css?v=1778925423" />
 </head>
 <body>
 
@@ -221,7 +221,7 @@
           <li>Shampoing tapis et moquette</li>
           <li>Lavage extérieur main</li>
         </ul>
-        <a href="#contact" class="lav-card-btn">Choisir cette formule</a>
+        <button type="button" class="lav-card-btn" data-lav-formula="confort">Choisir cette formule</button>
       </div>
 
       <div class="lav-card lav-card-prestige">
@@ -240,7 +240,7 @@
           <li>Décontamination jantes</li>
           <li>Parfum signature</li>
         </ul>
-        <a href="#contact" class="lav-card-btn lav-card-btn-primary">Choisir cette formule</a>
+        <button type="button" class="lav-card-btn lav-card-btn-primary" data-lav-formula="prestige">Choisir cette formule</button>
       </div>
 
       <div class="lav-card lav-card-perso">
@@ -259,7 +259,7 @@
           <li>Préparation revente</li>
           <li>Demande spécifique</li>
         </ul>
-        <a href="#contact" class="lav-card-btn">Obtenir un devis</a>
+        <button type="button" class="lav-card-btn" data-lav-formula="perso">Obtenir un devis</button>
       </div>
 
     </div>
@@ -475,6 +475,158 @@
     </div>
   </footer>
 
+  <!-- ============ MODAL DEMANDE LAVAGE ============ -->
+  <div class="loc-modal" id="lavReserveModal" aria-hidden="true">
+    <div class="loc-modal-backdrop" data-lav-close></div>
+    <div class="loc-modal-dialog" role="dialog">
+      <button type="button" class="loc-modal-close" data-lav-close aria-label="Fermer">×</button>
+      <div class="loc-modal-header">
+        <span class="loc-modal-eyebrow">Demande de prestation</span>
+        <h2>Réservez votre lavage</h2>
+        <p class="loc-modal-vehicle" id="lavModalSummary">Confort · Citadine</p>
+      </div>
+
+      <form class="loc-form" id="lavForm" novalidate>
+
+        <fieldset class="loc-form-section">
+          <legend>Votre prestation</legend>
+          <div class="loc-form-grid">
+            <div class="loc-form-field">
+              <label>Formule <span class="req">*</span></label>
+              <select id="lavFormula" required>
+                <option value="confort">Confort</option>
+                <option value="prestige">Prestige</option>
+                <option value="perso">Sur mesure (devis)</option>
+              </select>
+            </div>
+            <div class="loc-form-field">
+              <label>Type de véhicule <span class="req">*</span></label>
+              <select id="lavVehicleType" required>
+                <option value="citadine">Citadine</option>
+                <option value="berline">Berline</option>
+                <option value="suv">SUV</option>
+                <option value="sport">Sport / GT</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="loc-form-section">
+          <legend>Lieu d'intervention</legend>
+          <div class="loc-form-options">
+            <label class="loc-opt-row">
+              <input type="radio" name="lavLocType" value="agence" checked />
+              <span><strong>À l'agence BK Annecy</strong> <em>gratuit</em></span>
+            </label>
+            <label class="loc-opt-row">
+              <input type="radio" name="lavLocType" value="domicile" />
+              <span><strong>À mon domicile</strong> <em>selon zone</em></span>
+            </label>
+            <label class="loc-opt-row">
+              <input type="radio" name="lavLocType" value="bureau" />
+              <span><strong>À mon bureau / entreprise</strong> <em>selon zone</em></span>
+            </label>
+          </div>
+
+          <div id="lavAddressBlock" style="display:none; margin-top:14px;">
+            <div class="loc-form-grid">
+              <div class="loc-form-field full">
+                <label>Adresse complète <span class="req">*</span></label>
+                <input type="text" id="lavAddress" placeholder="Ex: 15 rue de la Préfecture" />
+              </div>
+              <div class="loc-form-field">
+                <label>Ville <span class="req">*</span></label>
+                <input type="text" id="lavCity" placeholder="Ex: Annecy" />
+              </div>
+              <div class="loc-form-field">
+                <label>Code postal <span class="req">*</span></label>
+                <input type="text" id="lavPostal" placeholder="74000" />
+              </div>
+              <div class="loc-form-field full">
+                <label>Zone d'intervention <span class="req">*</span></label>
+                <select id="lavZone" required>
+                  <option value="free">Bassin annécien (Annecy + 15 km) — gratuit</option>
+                  <option value="mid">Haute-Savoie élargie (15 à 30 km) — +30 €</option>
+                  <option value="far">Au-delà de 30 km / Suisse / Savoie — +60 €</option>
+                </select>
+                <span class="loc-form-help">Si vous n'êtes pas sûr, sélectionnez selon votre estimation. Nous confirmerons.</span>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="loc-form-section">
+          <legend>Vos coordonnées</legend>
+          <div class="loc-form-grid">
+            <div class="loc-form-field">
+              <label>Civilité</label>
+              <select id="lavCivility">
+                <option>M.</option><option>Mme</option><option>Autre</option>
+              </select>
+            </div>
+            <div class="loc-form-field"></div>
+            <div class="loc-form-field">
+              <label>Prénom <span class="req">*</span></label>
+              <input type="text" id="lavFirstName" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Nom <span class="req">*</span></label>
+              <input type="text" id="lavLastName" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" id="lavEmail" required />
+            </div>
+            <div class="loc-form-field">
+              <label>Téléphone <span class="req">*</span></label>
+              <input type="tel" id="lavPhone" required placeholder="+33 6 12 34 56 78" />
+            </div>
+            <div class="loc-form-field full">
+              <label>Notes (facultatif)</label>
+              <textarea id="lavNotes" rows="2" placeholder="Type de véhicule précis, état particulier, contraintes horaires..."></textarea>
+            </div>
+          </div>
+          <label class="loc-form-checkbox">
+            <input type="checkbox" id="lavTerms" required />
+            <span>J'accepte que BK Alpes Motors me contacte au sujet de ma demande.</span>
+          </label>
+        </fieldset>
+
+        <!-- DEVIS LIVE -->
+        <div class="loc-quote">
+          <div class="loc-quote-title">Récapitulatif</div>
+          <div class="loc-quote-lines" id="lavQuoteLines"></div>
+          <div class="loc-quote-total">
+            <span>Total estimé</span>
+            <strong id="lavQuoteTotal">— €</strong>
+          </div>
+          <p class="loc-quote-note">Devis indicatif. Confirmation finale après échange avec notre équipe sous 24h. Pas de paiement à cette étape.</p>
+        </div>
+
+        <div class="loc-form-actions">
+          <button type="button" class="loc-btn-ghost" data-lav-close>Annuler</button>
+          <button type="submit" class="loc-btn-primary">Envoyer ma demande</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL CONFIRMATION LAVAGE -->
+  <div class="loc-modal" id="lavConfirmModal" aria-hidden="true">
+    <div class="loc-modal-backdrop" data-lav-confirm-close></div>
+    <div class="loc-modal-dialog loc-modal-dialog-sm" role="dialog">
+      <div class="loc-confirm">
+        <div class="loc-confirm-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Demande envoyée !</h3>
+        <p>Votre demande n°<strong id="lavConfirmRef">—</strong> est bien transmise à BK Alpes Motors.</p>
+        <p class="loc-confirm-sub">Vous recevrez sous <strong>24 heures</strong> un devis chiffré + une proposition de créneau. Pas de paiement à cette étape.</p>
+        <button type="button" class="loc-btn-primary" data-lav-confirm-close>Fermer</button>
+      </div>
+    </div>
+  </div>
+
   <a href="https://wa.me/33756859026" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact WhatsApp">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.134.557 4.135 1.533 5.875L0 24l6.295-1.51A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.372l-.36-.213-3.735.895.939-3.63-.234-.374A9.818 9.818 0 1112 21.818z"/></svg>
     <span>WhatsApp</span>
@@ -624,6 +776,215 @@
         });
       });
     })();
+
+    // ============ MODAL DEMANDE LAVAGE ============
+    const LAV_PRICES = {
+      citadine: { confort: 90,  prestige: 149 },
+      berline:  { confort: 110, prestige: 179 },
+      suv:      { confort: 130, prestige: 209 },
+      sport:    { confort: 160, prestige: 249 },
+    };
+    const LAV_ZONE_FEES = { free: 0, mid: 30, far: 60 };
+    const LAV_VEHICLE_LABELS = { citadine: 'Citadine', berline: 'Berline', suv: 'SUV', sport: 'Sport / GT' };
+    const LAV_FORMULA_LABELS = { confort: 'Confort', prestige: 'Prestige', perso: 'Sur mesure' };
+    const LAV_LOCATION_LABELS = { agence: 'Agence BK Annecy', domicile: 'À domicile', bureau: 'Au bureau' };
+    const LAV_ZONE_LABELS = {
+      free: 'Bassin annécien (gratuit)',
+      mid:  'Haute-Savoie élargie (+30 €)',
+      far:  'Au-delà de 30 km (+60 €)',
+    };
+
+    function loadLavageRequests() {
+      try { return JSON.parse(localStorage.getItem('bk_lavage_requests') || '[]'); }
+      catch { return []; }
+    }
+    function saveLavageRequests(arr) {
+      localStorage.setItem('bk_lavage_requests', JSON.stringify(arr));
+    }
+    function genLavRef() {
+      const d = new Date();
+      const y = String(d.getFullYear()).slice(-2);
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `BKD-${y}${m}${day}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+    }
+    function lavFmtPrice(n) {
+      return Math.round(n).toLocaleString('fr-FR').replace(/,/g, ' ');
+    }
+
+    const lavModal = document.getElementById('lavReserveModal');
+    const lavConfirm = document.getElementById('lavConfirmModal');
+    const lavForm = document.getElementById('lavForm');
+    const lavFormula = document.getElementById('lavFormula');
+    const lavVehicleType = document.getElementById('lavVehicleType');
+    const lavAddressBlock = document.getElementById('lavAddressBlock');
+    const lavSummary = document.getElementById('lavModalSummary');
+
+    function openLavModal(formula, vehicleType) {
+      lavFormula.value = formula || 'confort';
+      lavVehicleType.value = vehicleType || 'citadine';
+      // Reset radio "agence" par défaut
+      document.querySelectorAll('input[name="lavLocType"]').forEach(r => {
+        r.checked = (r.value === 'agence');
+      });
+      lavAddressBlock.style.display = 'none';
+      updateLavQuote();
+      lavModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLavModal() {
+      lavModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    function closeLavConfirm() {
+      lavConfirm.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // Click sur "Choisir cette formule" ou "Obtenir un devis"
+    document.querySelectorAll('[data-lav-formula]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const formula = btn.dataset.lavFormula;
+        // Récupère le type de véhicule actif dans le filtre
+        const activeBtn = document.querySelector('.lav-vf-btn.active');
+        const vType = activeBtn ? activeBtn.dataset.vehicle : 'citadine';
+        openLavModal(formula, vType);
+      });
+    });
+
+    // Close handlers
+    document.querySelectorAll('[data-lav-close]').forEach(el => el.addEventListener('click', closeLavModal));
+    document.querySelectorAll('[data-lav-confirm-close]').forEach(el => el.addEventListener('click', closeLavConfirm));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') { closeLavModal(); closeLavConfirm(); }
+    });
+
+    // Toggle address fields selon type de lieu
+    document.querySelectorAll('input[name="lavLocType"]').forEach(r => {
+      r.addEventListener('change', () => {
+        const val = document.querySelector('input[name="lavLocType"]:checked').value;
+        lavAddressBlock.style.display = (val === 'agence') ? 'none' : '';
+        updateLavQuote();
+      });
+    });
+
+    // Recalc à chaque input
+    lavForm.addEventListener('change', updateLavQuote);
+    lavForm.addEventListener('input', updateLavQuote);
+
+    function updateLavQuote() {
+      const formula = lavFormula.value;
+      const vType = lavVehicleType.value;
+      const locType = (document.querySelector('input[name="lavLocType"]:checked') || {}).value || 'agence';
+      const zone = document.getElementById('lavZone').value;
+
+      // Summary header
+      const formulaLabel = LAV_FORMULA_LABELS[formula] || formula;
+      const vTypeLabel = LAV_VEHICLE_LABELS[vType] || vType;
+      lavSummary.textContent = `${formulaLabel} · ${vTypeLabel}`;
+
+      let basePrice = 0;
+      let isCustom = false;
+      if (formula === 'perso') {
+        isCustom = true;
+      } else {
+        basePrice = LAV_PRICES[vType] ? LAV_PRICES[vType][formula] : 0;
+      }
+
+      const zoneFee = (locType === 'agence') ? 0 : (LAV_ZONE_FEES[zone] || 0);
+      const total = basePrice + zoneFee;
+
+      const lines = [];
+      if (isCustom) {
+        lines.push(`<div class="loc-quote-line"><span>Formule</span><span><strong>Sur mesure</strong> (devis personnalisé)</span></div>`);
+        lines.push(`<div class="loc-quote-line"><span>Véhicule</span><span>${vTypeLabel}</span></div>`);
+      } else {
+        lines.push(`<div class="loc-quote-line"><span>Formule ${formulaLabel} (${vTypeLabel})</span><span><strong>${lavFmtPrice(basePrice)} €</strong></span></div>`);
+      }
+      lines.push(`<div class="loc-quote-line"><span>Lieu</span><span>${LAV_LOCATION_LABELS[locType] || locType}</span></div>`);
+      if (locType !== 'agence') {
+        lines.push(`<div class="loc-quote-line opt"><span>Zone : ${LAV_ZONE_LABELS[zone] || zone}</span><span>${zoneFee > 0 ? '+' + lavFmtPrice(zoneFee) + ' €' : 'gratuit'}</span></div>`);
+      }
+
+      document.getElementById('lavQuoteLines').innerHTML = lines.join('');
+      const totalEl = document.getElementById('lavQuoteTotal');
+      if (isCustom) {
+        totalEl.textContent = 'Sur devis';
+      } else {
+        totalEl.textContent = lavFmtPrice(total) + ' €';
+      }
+    }
+
+    // Submit
+    lavForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const requiredFields = lavForm.querySelectorAll('[required]');
+      for (const f of requiredFields) {
+        if (f.offsetParent === null) continue; // skip hidden
+        if (!f.checkValidity()) {
+          f.reportValidity();
+          f.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+      }
+
+      const locType = document.querySelector('input[name="lavLocType"]:checked').value;
+      const formula = lavFormula.value;
+      const vType = lavVehicleType.value;
+      const isCustom = formula === 'perso';
+      const basePrice = isCustom ? null : LAV_PRICES[vType][formula];
+      const zone = document.getElementById('lavZone').value;
+      const zoneFee = (locType === 'agence') ? 0 : LAV_ZONE_FEES[zone];
+
+      const ref = genLavRef();
+      const request = {
+        id: ref, ref,
+        createdAt: new Date().toISOString(),
+        status: 'pending',
+        prestation: {
+          formula,
+          formulaLabel: LAV_FORMULA_LABELS[formula],
+          vehicleType: vType,
+          vehicleLabel: LAV_VEHICLE_LABELS[vType],
+          basePrice,
+          isCustom,
+        },
+        location: {
+          type: locType,
+          typeLabel: LAV_LOCATION_LABELS[locType],
+          address:    locType !== 'agence' ? document.getElementById('lavAddress').value.trim() : '',
+          city:       locType !== 'agence' ? document.getElementById('lavCity').value.trim() : '',
+          postalCode: locType !== 'agence' ? document.getElementById('lavPostal').value.trim() : '',
+          zone:       locType !== 'agence' ? zone : null,
+          zoneLabel:  locType !== 'agence' ? LAV_ZONE_LABELS[zone] : null,
+          zoneFee,
+        },
+        customer: {
+          civility:  document.getElementById('lavCivility').value,
+          firstName: document.getElementById('lavFirstName').value.trim(),
+          lastName:  document.getElementById('lavLastName').value.trim(),
+          email:     document.getElementById('lavEmail').value.trim(),
+          phone:     document.getElementById('lavPhone').value.trim(),
+        },
+        notes: document.getElementById('lavNotes').value.trim(),
+        total: isCustom ? null : (basePrice + zoneFee),
+      };
+
+      try {
+        const all = loadLavageRequests();
+        all.unshift(request);
+        saveLavageRequests(all);
+      } catch (err) {
+        alert('Erreur de sauvegarde. Veuillez réessayer.');
+        return;
+      }
+
+      document.getElementById('lavConfirmRef').textContent = ref;
+      closeLavModal();
+      lavConfirm.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      lavForm.reset();
+    });
 
     // ============ SMOOTH SCROLL ============
     document.querySelectorAll('a[href^="#"]').forEach(a => {
